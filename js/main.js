@@ -149,7 +149,7 @@
       }
       mesh.position.set(baseX, baseY, baseZ);
       mesh.rotation.set(Math.random()*Math.PI, Math.random()*Math.PI, 0);
-      mesh.userData = {base:{x:baseX,y:baseY,z:baseZ}, speed: 0.3+Math.random()*0.4, phase: Math.random()*Math.PI*2};
+      mesh.userData = {base:{x:baseX,y:baseY,z:baseZ}, speed: 0.3+Math.random()*0.4, phase: Math.random()*Math.PI*2, highlight:0};
       fragGroup.add(mesh);
       fragments.push(mesh);
     }
@@ -223,7 +223,7 @@
         panelGroup.add(lMesh);
         detailLines.push(lMesh);
       }
-      panels.push({mesh:panel, edges:edges, ghost:ghost, ghostEdges:ghostEdges, base:{x:d.x,y:d.y,z:d.z}, phase:Math.random()*Math.PI*2, details:detailLines});
+      panels.push({mesh:panel, edges:edges, ghost:ghost, ghostEdges:ghostEdges, base:{x:d.x,y:d.y,z:d.z}, phase:Math.random()*Math.PI*2, details:detailLines, hoverT:0});
     });
 
     // líneas curvas de conexión core → panel (simétricas a las de la izquierda)
@@ -276,6 +276,7 @@
     var coreHitTargets = [outerCore, glassCore, innerCore, centerPoint];
     var expanded = false;
     var expandPulse = 0;
+    var organizeStart = -10;
     wrap.addEventListener('click', function(e){
       var r = wrap.getBoundingClientRect();
       ndc.x = ((e.clientX - r.left) / r.width) * 2 - 1;
@@ -287,6 +288,7 @@
         wrap.classList.toggle('is-expanded', expanded);
         expandPulse = 1;
         firePulse(); firePulse();
+        if(expanded) organizeStart = clock.getElapsedTime();
       } else if(expanded){
         expanded = false;
         wrap.classList.remove('is-expanded');
@@ -302,9 +304,11 @@
     }
     resize();
 
-    // interacción: parallax + hover sobre el core
+    // interacción: parallax + hover sobre el core, los fragmentos y los paneles
     var mouseX = 0, mouseY = 0, targetRotX = 0, targetRotY = 0;
     var hovering = false, hoverScale = 1;
+    var hoverNdc = new THREE.Vector2();
+    var hoveredFrag = -1, hoveredPanel = -1;
     wrap.addEventListener('mousemove', function(e){
       var r = wrap.getBoundingClientRect();
       mouseX = ((e.clientX - r.left) / r.width) - 0.5;
@@ -319,8 +323,18 @@
       var wasHovering = hovering;
       hovering = Math.abs(ndcX) < 0.28 && Math.abs(ndcY) < 0.28;
       if(hovering && !wasHovering) firePulse();
+
+      // raycast contra fragmentos (izquierda) y paneles (derecha)
+      hoverNdc.set(ndcX, ndcY);
+      raycaster.setFromCamera(hoverNdc, camera);
+      var fragHits = raycaster.intersectObjects(fragments);
+      hoveredFrag = fragHits.length ? fragments.indexOf(fragHits[0].object) : -1;
+      var panelMeshes = panels.map(function(pn){ return pn.mesh; });
+      var panelHits = raycaster.intersectObjects(panelMeshes);
+      hoveredPanel = panelHits.length ? panelMeshes.indexOf(panelHits[0].object) : -1;
+      wrap.style.cursor = (hoveredFrag>-1 || hoveredPanel>-1) ? 'pointer' : 'pointer';
     });
-    wrap.addEventListener('mouseleave', function(){ mouseX = 0; mouseY = 0; hovering = false; });
+    wrap.addEventListener('mouseleave', function(){ mouseX = 0; mouseY = 0; hovering = false; hoveredFrag = -1; hoveredPanel = -1; });
 
     // progreso de scroll (0 = recién entra la sección, 1 = ya pasó)
     var scrollProgress = 0;
@@ -339,19 +353,21 @@
       requestAnimationFrame(animate);
       var t = clock.getElapsedTime();
 
-      // idle: rotación lenta + respiración del core
-      coreGroup.rotation.y = t * 0.12;
+      // idle: rotación lenta + respiración del core (la órbita se acelera levemente en hover)
+      var orbitBoost = hovering ? 1.6 : 1;
+      var storyScale = 1 + Math.sin(scrollProgress * Math.PI) * 0.05;
+      coreGroup.rotation.y = t * 0.12 * orbitBoost;
       coreGroup.rotation.x = Math.sin(t*0.15) * 0.08;
-      outerCore.rotation.y = -t*0.08;
-      innerCore.rotation.x = t*0.2; innerCore.rotation.y = t*0.15;
-      ring1.rotation.z = t*0.1;
-      ring2.rotation.z = -t*0.08;
+      outerCore.rotation.y = -t*0.08*orbitBoost;
+      innerCore.rotation.x = t*0.2*orbitBoost; innerCore.rotation.y = t*0.15*orbitBoost;
+      ring1.rotation.z = t*0.1*orbitBoost;
+      ring2.rotation.z = -t*0.08*orbitBoost;
 
       var breathe = 1 + Math.sin(t*0.9)*0.02;
-      var targetScale = (hovering ? 1.04 : 1) * (expanded ? 1.05 : 1) * breathe;
+      var targetScale = (hovering ? 1.04 : 1) * (expanded ? 1.05 : 1) * breathe * storyScale;
       hoverScale += (targetScale - hoverScale) * 0.06;
       coreGroup.scale.setScalar(hoverScale);
-      coreGlow.intensity = (hovering || expanded ? 2.1 : 1.3) + Math.sin(t*0.9)*0.15;
+      coreGlow.intensity = (hovering || expanded ? 2.1 : 1.3) + Math.sin(t*0.9)*0.15 + Math.sin(scrollProgress*Math.PI)*0.4;
       outerMat.opacity = (hovering || expanded) ? 0.8 : (0.5 + Math.sin(t*0.8)*0.08);
 
       // pulsos: anillos que se expanden desde el core y se desvanecen
@@ -367,51 +383,76 @@
       });
       expandPulse *= 0.94;
 
-      // fragmentos: leve deriva + suave acercamiento con scroll
+      // secuencia de scroll: fragmentos sueltos → núcleo organizado → interfaz dominante
+      var fadeOut = Math.min(1, scrollProgress / 0.6);
+      var organizeT = Math.max(0, Math.min(1, (t - organizeStart) / 1.6));
+      var organizeEnv = organizeT>0 && organizeT<1 ? Math.sin(organizeT * Math.PI) : 0;
+
+      // fragmentos: leve deriva, acercamiento con scroll, resalte en hover, orden breve en click
       fragments.forEach(function(f, idx){
         var d = f.userData;
+        d.highlight += ((idx===hoveredFrag?1:0) - d.highlight) * 0.12;
         var drift = Math.sin(t*d.speed + d.phase) * 0.06;
         var approach = scrollProgress * 0.35;
-        f.position.x = d.base.x + drift + approach;
-        f.position.y = d.base.y + Math.cos(t*d.speed*0.8 + d.phase) * 0.05;
-        f.rotation.x += 0.003; f.rotation.y += 0.004;
-        f.material.opacity = 0.55 - scrollProgress*0.15;
+        var baseX = d.base.x + drift + approach;
+        var baseY = d.base.y + Math.cos(t*d.speed*0.8 + d.phase) * 0.05;
+        var baseZ = d.base.z;
+        // al hacer click en el núcleo, los fragmentos se ordenan brevemente en un arco prolijo
+        var ang = (idx / fragments.length - 0.5) * 1.4;
+        var orgX = -1.55 + Math.cos(ang) * 0.35;
+        var orgY = Math.sin(ang) * 1.1;
+        var orgZ = 0;
+        f.position.x = baseX + (orgX - baseX) * organizeEnv;
+        f.position.y = baseY + (orgY - baseY) * organizeEnv;
+        f.position.z = baseZ + (orgZ - baseZ) * organizeEnv;
+        f.rotation.x += 0.003 * (1 - organizeEnv*0.7); f.rotation.y += 0.004 * (1 - organizeEnv*0.7);
+        var baseOp = (0.55 - fadeOut*0.35) + d.highlight*0.35;
+        f.material.opacity = Math.max(0.12, baseOp);
+        f.scale.setScalar(1 + d.highlight*0.14);
       });
-      fragLines.forEach(function(fl){
+      fragLines.forEach(function(fl, idx){
         fl.curve.v0.copy(fl.frag.position);
         var pts = fl.curve.getPoints(20);
         var pos = fl.line.geometry.attributes.position;
         for(var pi=0; pi<pts.length; pi++){ pos.setXYZ(pi, pts[pi].x, pts[pi].y, pts[pi].z); }
         pos.needsUpdate = true;
-        fl.line.material.opacity = 0.1 + scrollProgress*0.08;
+        var hl = fl.frag.userData.highlight;
+        fl.line.material.opacity = (0.1 + scrollProgress*0.08) + hl*0.55;
+        fl.line.material.color.setHex(hl>0.4 ? LIGHT : CYAN);
       });
 
-      // paneles de producto: flotan suave, ganan presencia con scroll
-      panels.forEach(function(pn){
+      // paneles de producto: flotan suave, ganan presencia con scroll, se acercan en hover
+      panels.forEach(function(pn, idx){
+        pn.hoverT += ((idx===hoveredPanel?1:0) - pn.hoverT) * 0.12;
         var b = pn.base;
         var floatY = Math.sin(t*0.5 + pn.phase) * 0.05;
         pn.mesh.position.y = b.y + floatY;
+        pn.mesh.position.z = b.z + pn.hoverT * 0.22;
         pn.edges.position.copy(pn.mesh.position);
         pn.ghost.position.y = b.y - 0.07 + floatY;
         pn.ghostEdges.position.copy(pn.ghost.position);
-        var op = 0.5 + scrollProgress*0.4;
-        pn.mesh.material.opacity = Math.min(0.85, op);
-        pn.edges.material.opacity = Math.min(0.7, 0.3 + scrollProgress*0.35);
-        pn.details.forEach(function(d){ d.material.opacity = Math.min(0.6, 0.25 + scrollProgress*0.3); });
+        var op = 0.5 + scrollProgress*0.42;
+        pn.mesh.material.opacity = Math.min(0.9, op);
+        pn.edges.material.opacity = Math.min(0.95, 0.3 + scrollProgress*0.35 + pn.hoverT*0.5);
+        pn.details.forEach(function(d){ d.material.opacity = Math.min(0.65, 0.25 + scrollProgress*0.3 + pn.hoverT*0.15); });
+        var s = 1 + scrollProgress*0.06 + pn.hoverT*0.04;
+        pn.mesh.scale.setScalar(s); pn.edges.scale.setScalar(s);
       });
       panelLines.forEach(function(pl){
-        pl.line.material.opacity = 0.1 + scrollProgress*0.1;
+        pl.line.material.opacity = (0.1 + scrollProgress*0.12) + pl.panel.hoverT*0.5;
+        pl.line.material.color.setHex(pl.panel.hoverT>0.4 ? LIGHT : CYAN);
       });
 
-      // partículas viajando de fragmentos al core, y del core a paneles
+      // partículas viajando de fragmentos al core, y del core a paneles (más vivas en hover del núcleo)
+      var flowBoost = hovering ? 1.8 : 1;
       travelers.forEach(function(p, idx){
         var u = p.userData;
-        u.t += u.speed * 0.016;
+        u.t += u.speed * 0.016 * flowBoost;
         if(u.t > 1){ u.t = 0; }
         var target = idx % 2 === 0 ? u.to : panels[idx % panels.length].mesh.position;
         var start = idx % 2 === 0 ? u.from : new THREE.Vector3(0,0,0);
         p.position.lerpVectors(start, target, u.t);
-        p.material.opacity = Math.sin(u.t * Math.PI) * 0.9;
+        p.material.opacity = Math.sin(u.t * Math.PI) * (hovering ? 1 : 0.9);
       });
 
       // parallax de cámara/grupo con el mouse
