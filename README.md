@@ -30,3 +30,21 @@ git push -u origin main
 ## Agregar imágenes nuevas
 
 Poner los archivos en `img/` y referenciarlos en `index.html` como `img/nombre.png`.
+
+## Escena 3D "De la idea al producto"
+
+La escena está hecha con React + Three.js + React Three Fiber (código fuente en `scene/`).
+Se compila a un único archivo, `js/scene.bundle.js`, que el sitio carga solo cuando la sección
+está por aparecer. Railway no necesita compilar nada: el bundle ya va incluido en el repo.
+
+Para modificar la escena:
+
+```bash
+cd scene
+npm install
+npm run build   # regenera ../js/scene.bundle.js
+```
+
+Componentes: `DigitalIdeaScene`, `IdeaCore`, `IdeaFragments`, `ConnectionLines`, `ProductPanels`,
+`Particles`, `CameraRig`, `SceneLights`, `PostEffects` (en `scene/src/components/`).
+Layout, paleta y niveles de detalle por dispositivo: `scene/src/constants.js`.
