@@ -11,7 +11,6 @@
 <link rel="stylesheet" href="css/style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
 <div class="bg-grid">
@@ -83,35 +82,89 @@
        <div class="scroll-card" id="scrollCard">
         <div class="hv-glow"></div>
 
-        <div class="hv-mock hv-mock-left">
-          <div class="hv-mock__bar">
-            <span class="hvdot"></span><span class="hvdot"></span>
-            <div class="hv-mock__nav"><b>Nexora</b><span>Producto</span><span>Soluciones</span><span>Precios</span></div>
-            <span class="hv-mock__cta">Comenzar</span>
+        <div class="hv-mock hv-mock-left hv-dash">
+          <div class="hv-dash__bar">
+            <span class="hv-dash__logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 6 6 1-4.5 4.5L17.5 20 12 17l-5.5 3 1-6.5L3 9l6-1 3-6z"/></svg> Nexora</span>
+            <span class="hv-dash__avatar"><img src="img/santiago.png" alt=""></span>
+            <svg class="hv-dash__chev" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg>
           </div>
-          <div class="hv-mock__hero">
-            <h4>La forma más simple<br>de gestionar tu negocio</h4>
-            <p>Todo lo que necesitás en un solo lugar.<br>Más clientes, menos complicaciones.</p>
-            <span class="hv-mock__btn">Comenzar ahora <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-          </div>
-          <div class="hv-mock__stats">
-            <div class="hv-stat hv-stat-wide">
-              <div class="hv-stat__top"><span>Ingresos</span><em>Últimos 30 días</em></div>
-              <b>€12.540</b>
-              <span class="hv-up">+24%</span>
-              <svg class="hv-spark" viewBox="0 0 140 34" preserveAspectRatio="none"><polyline points="0,28 20,24 40,26 60,16 80,20 100,8 120,12 140,4" fill="none" stroke="#37b6ff" stroke-width="2.4"/></svg>
+          <div class="hv-dash__body">
+            <div class="hv-dash__side">
+              <span class="hv-dash__item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/></svg>Inicio</span>
+              <span class="hv-dash__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Clientes</span>
+              <span class="hv-dash__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Proyectos</span>
+              <span class="hv-dash__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-4 10.5c.6.5 1 1.2 1 2.1V16h6v-.4c0-.9.4-1.6 1-2.1A6 6 0 0012 3z"/></svg>Automatizaciones</span>
+              <span class="hv-dash__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20h18M6 20V10M12 20V4M18 20v-7"/></svg>Analítica</span>
+              <span class="hv-dash__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Configuración</span>
             </div>
-            <div class="hv-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg><b>Clientes</b><span>+128</span></div>
-            <div class="hv-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg><b>Proyectos</b><span>24</span></div>
-            <div class="hv-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-4 10.5c.6.5 1 1.2 1 2.1V16h6v-.4c0-.9.4-1.6 1-2.1A6 6 0 0012 3z"/></svg><b>Automatizaciones</b><span>12</span></div>
+            <div class="hv-dash__main">
+              <div class="hv-dash__head">
+                <div><b>Resumen</b><span>Tu negocio, en tiempo real.</span></div>
+                <span class="hv-dash__range"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>1 – 30 Abr 2024</span>
+              </div>
+              <div class="hv-dash__stats">
+                <div class="hv-dash__stat"><span>Ingresos</span><b>€12.540</b><em class="up">↑ +24%</em></div>
+                <div class="hv-dash__stat"><span>Clientes</span><b>128</b><em class="up">↑ +18%</em></div>
+                <div class="hv-dash__stat"><span>Proyectos</span><b>24</b><em class="up">↑ +33%</em></div>
+              </div>
+              <div class="hv-dash__chart">
+                <span class="hv-dash__chart-title">Crecimiento de ingresos</span>
+                <svg viewBox="0 0 320 90" preserveAspectRatio="none" class="hv-dash__chart-svg">
+                  <defs><linearGradient id="chartfill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#37b6ff" stop-opacity=".35"/><stop offset="1" stop-color="#37b6ff" stop-opacity="0"/></linearGradient></defs>
+                  <polyline points="0,70 60,64 120,58 180,30 240,38 300,10 320,6" fill="none" stroke="#37b6ff" stroke-width="2.2"/>
+                  <polygon points="0,70 60,64 120,58 180,30 240,38 300,10 320,6 320,90 0,90" fill="url(#chartfill)"/>
+                  <circle cx="240" cy="38" r="3.4" fill="#37b6ff"/>
+                </svg>
+                <div class="hv-dash__chart-tip">€12.540</div>
+                <div class="hv-dash__chart-labels"><span>Ene</span><span>Feb</span><span>Mar</span><span>Abr</span></div>
+              </div>
+              <div class="hv-dash__list">
+                <span class="hv-dash__list-title">Proyectos recientes</span>
+                <div class="hv-dash__row">
+                  <span class="hv-dash__row-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2l1.5 4h9L18 2M3.5 6h17l-1.6 10.5a2 2 0 01-2 1.5H7.1a2 2 0 01-2-1.5L3.5 6z"/></svg></span>
+                  <div><b>Tienda Online</b><span>Desarrollo web · E-commerce</span></div>
+                  <em class="hv-dash__badge">En progreso</em>
+                </div>
+                <div class="hv-dash__row">
+                  <span class="hv-dash__row-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-4 10.5c.6.5 1 1.2 1 2.1V16h6v-.4c0-.9.4-1.6 1-2.1A6 6 0 0012 3z"/></svg></span>
+                  <div><b>Automatización</b><span>IA · Procesos internos</span></div>
+                </div>
+                <div class="hv-dash__row">
+                  <span class="hv-dash__row-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+                  <div><b>Plataforma SaaS</b><span>Producto digital · MVP</span></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="hv-robot">
-          <canvas id="brand3d"></canvas>
+        <div class="hv-mock hv-mock-right hv-ai">
+          <div class="hv-ai__head">
+            <span class="hv-ai__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 6 6 1-4.5 4.5L17.5 20 12 17l-5.5 3 1-6.5L3 9l6-1 3-6z"/></svg></span>
+            <b>Asistente IA</b>
+            <span class="hv-ai__dots">···</span>
+          </div>
+          <p class="hv-ai__sub">Analiza tu negocio y encuentra oportunidades de crecimiento.</p>
+          <div class="hv-ai__items">
+            <div class="hv-ai__item">
+              <span class="hv-ai__item-ic up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20h18M6 16l4-5 4 3 5-7"/></svg></span>
+              <div><b>Aumenta tus conversiones</b><span>Tu tasa de conversión podría mejorar un 24% con estos cambios.</span></div>
+              <svg class="hv-ai__chev" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg>
+            </div>
+            <div class="hv-ai__item">
+              <span class="hv-ai__item-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-4 10.5c.6.5 1 1.2 1 2.1V16h6v-.4c0-.9.4-1.6 1-2.1A6 6 0 0012 3z"/></svg></span>
+              <div><b>Automatiza tareas repetitivas</b><span>Podés ahorrar +10h semanales con automatizaciones de IA.</span></div>
+              <svg class="hv-ai__chev" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg>
+            </div>
+            <div class="hv-ai__item">
+              <span class="hv-ai__item-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21c-4.4-2.7-8-6.3-8-10.5A5.5 5.5 0 0112 5a5.5 5.5 0 018 5.5c0 4.2-3.6 7.8-8 10.5z"/><circle cx="12" cy="10.5" r="2"/></svg></span>
+              <div><b>Nuevas oportunidades</b><span>Hay 3 segmentos de clientes sin explotar en tu nicho.</span></div>
+              <svg class="hv-ai__chev" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg>
+            </div>
+          </div>
         </div>
 
-        <div class="hv-photo">
+        <div class="hv-photo hv-photo-big">
           <img id="hero-photo" src="img/santiago.png" alt="Santiago Delorrio">
         </div>
        </div>
