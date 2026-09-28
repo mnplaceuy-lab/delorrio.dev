@@ -39,6 +39,261 @@
     });
   })();
 
+  // ===== IDEA CORE — escena 3D de marca (Delorrio.dev) =====
+  // Idea (fragmentos, izquierda) → Core (centro) → Producto (paneles, derecha)
+  (function(){
+    var canvas = document.getElementById('ideaCore');
+    if(!canvas || typeof THREE === 'undefined') return;
+    var wrap = canvas.parentElement;
+    var section = document.querySelector('.idea-3d');
+    var spotlightEl = document.getElementById('idea3dSpotlight');
+
+    var CYAN = 0x38bdf8;
+    var NAVY = 0x0f172a;
+    var LIGHT = 0xe2e8f0;
+
+    var renderer = new THREE.WebGLRenderer({canvas:canvas, alpha:true, antialias:true});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+    camera.position.set(0.4, 0.6, 9);
+    camera.lookAt(0, 0, 0);
+
+    var root = new THREE.Group();
+    scene.add(root);
+
+    // ---- IDEA CORE (centro): geometría en capas, translúcida, con punto brillante ----
+    var coreGroup = new THREE.Group();
+    root.add(coreGroup);
+
+    var outerGeo = new THREE.IcosahedronGeometry(1.15, 1);
+    var outerMat = new THREE.MeshBasicMaterial({color:CYAN, wireframe:true, transparent:true, opacity:.55});
+    var outerCore = new THREE.Mesh(outerGeo, outerMat);
+    coreGroup.add(outerCore);
+
+    var glassGeo = new THREE.IcosahedronGeometry(1.05, 1);
+    var glassMat = new THREE.MeshBasicMaterial({color:0x123049, transparent:true, opacity:.4});
+    var glassCore = new THREE.Mesh(glassGeo, glassMat);
+    coreGroup.add(glassCore);
+
+    var innerGeo = new THREE.IcosahedronGeometry(0.55, 0);
+    var innerMat = new THREE.MeshBasicMaterial({color:CYAN, wireframe:true, transparent:true, opacity:.8});
+    var innerCore = new THREE.Mesh(innerGeo, innerMat);
+    coreGroup.add(innerCore);
+
+    var centerGeo = new THREE.SphereGeometry(0.1, 12, 12);
+    var centerMat = new THREE.MeshBasicMaterial({color:LIGHT});
+    var centerPoint = new THREE.Mesh(centerGeo, centerMat);
+    coreGroup.add(centerPoint);
+
+    var coreGlow = new THREE.PointLight(CYAN, 1.4, 6);
+    coreGlow.position.set(0,0,0);
+    coreGroup.add(coreGlow);
+
+    // anillos orbitales
+    var ring1 = new THREE.Mesh(new THREE.TorusGeometry(1.7, 0.008, 8, 100), new THREE.MeshBasicMaterial({color:CYAN, transparent:true, opacity:.35}));
+    ring1.rotation.x = Math.PI/2.3;
+    coreGroup.add(ring1);
+    var ring2 = new THREE.Mesh(new THREE.TorusGeometry(2.05, 0.006, 8, 100), new THREE.MeshBasicMaterial({color:LIGHT, transparent:true, opacity:.18}));
+    ring2.rotation.x = -Math.PI/3.2; ring2.rotation.y = Math.PI/6;
+    coreGroup.add(ring2);
+
+    // ---- IZQUIERDA: fragmentos de idea (wireframe, desordenados) ----
+    var fragGroup = new THREE.Group();
+    root.add(fragGroup);
+    var fragments = [];
+    var fragGeos = [
+      new THREE.BoxGeometry(0.32,0.32,0.32),
+      new THREE.PlaneGeometry(0.4,0.26),
+      new THREE.RingGeometry(0.14,0.18,16),
+      new THREE.BoxGeometry(0.22,0.4,0.22)
+    ];
+    for(var i=0;i<7;i++){
+      var g = fragGeos[i % fragGeos.length];
+      var m = new THREE.MeshBasicMaterial({color: i%2===0?CYAN:LIGHT, wireframe:true, transparent:true, opacity:.55});
+      var mesh = new THREE.Mesh(g, m);
+      var baseX = -3.3 - Math.random()*1.6;
+      var baseY = (Math.random()-0.5)*2.6;
+      var baseZ = (Math.random()-0.5)*1.4;
+      mesh.position.set(baseX, baseY, baseZ);
+      mesh.rotation.set(Math.random()*Math.PI, Math.random()*Math.PI, 0);
+      mesh.userData = {base:{x:baseX,y:baseY,z:baseZ}, speed: 0.3+Math.random()*0.4, phase: Math.random()*Math.PI*2};
+      fragGroup.add(mesh);
+      fragments.push(mesh);
+    }
+    // líneas finas de conexión fragmento → core
+    var fragLines = [];
+    fragments.forEach(function(f){
+      var lineGeo = new THREE.BufferGeometry().setFromPoints([f.position.clone(), new THREE.Vector3(0,0,0)]);
+      var lineMat = new THREE.LineBasicMaterial({color:CYAN, transparent:true, opacity:.14});
+      var line = new THREE.Line(lineGeo, lineMat);
+      fragGroup.add(line);
+      fragLines.push({line:line, frag:f});
+    });
+
+    // ---- DERECHA: paneles de producto terminado (translúcidos, con borde) ----
+    var panelGroup = new THREE.Group();
+    root.add(panelGroup);
+    var panels = [];
+    var panelDefs = [
+      {w:1.15,h:0.8, x:2.6, y:0.35, z:0.2, rz:-0.05},
+      {w:0.8, h:0.55,x:3.55,y:-0.35,z:-0.3,rz:0.04},
+      {w:0.65,h:1.0, x:2.35,y:-0.75,z:0.5, rz:0.02}
+    ];
+    panelDefs.forEach(function(d){
+      var geo = new THREE.PlaneGeometry(d.w, d.h);
+      var mat = new THREE.MeshBasicMaterial({color:0x14243b, transparent:true, opacity:.72, side:THREE.DoubleSide});
+      var panel = new THREE.Mesh(geo, mat);
+      panel.position.set(d.x, d.y, d.z);
+      panel.rotation.z = d.rz;
+      panelGroup.add(panel);
+
+      var edges = new THREE.LineSegments(new THREE.EdgesGeometry(geo), new THREE.LineBasicMaterial({color:CYAN, transparent:true, opacity:.5}));
+      edges.position.copy(panel.position);
+      edges.rotation.copy(panel.rotation);
+      panelGroup.add(edges);
+
+      // detalle interno: líneas tipo UI (abstractas, sin texto)
+      var detailLines = [];
+      var rows = 2 + Math.floor(Math.random()*2);
+      for(var r=0;r<rows;r++){
+        var lw = d.w * (0.35 + Math.random()*0.4);
+        var lGeo = new THREE.PlaneGeometry(lw, 0.045);
+        var lMat = new THREE.MeshBasicMaterial({color:CYAN, transparent:true, opacity:.4});
+        var lMesh = new THREE.Mesh(lGeo, lMat);
+        lMesh.position.set(d.x - d.w/2 + lw/2 + 0.06, d.y + d.h/2 - 0.14 - r*0.18, d.z + 0.01);
+        lMesh.rotation.z = d.rz;
+        panelGroup.add(lMesh);
+        detailLines.push(lMesh);
+      }
+      panels.push({mesh:panel, edges:edges, base:{x:d.x,y:d.y,z:d.z}, phase:Math.random()*Math.PI*2, details:detailLines});
+    });
+
+    // partículas viajando por los caminos de conexión
+    var travelers = [];
+    for(var t=0;t<10;t++){
+      var pGeo = new THREE.SphereGeometry(0.028, 6, 6);
+      var pMat = new THREE.MeshBasicMaterial({color:LIGHT, transparent:true, opacity:.85});
+      var p = new THREE.Mesh(pGeo, pMat);
+      var fromFrag = fragments[t % fragments.length];
+      p.userData = {from:fromFrag.position, to:new THREE.Vector3(0,0,0), t: Math.random(), speed: 0.15+Math.random()*0.15};
+      root.add(p);
+      travelers.push(p);
+    }
+
+    function resize(){
+      var w = wrap.clientWidth, h = wrap.clientHeight;
+      if(!w||!h) return;
+      renderer.setSize(w, h, false);
+      camera.aspect = w/h;
+      camera.updateProjectionMatrix();
+    }
+    resize();
+
+    // interacción: parallax + hover sobre el core
+    var mouseX = 0, mouseY = 0, targetRotX = 0, targetRotY = 0;
+    var hovering = false, hoverScale = 1;
+    wrap.addEventListener('mousemove', function(e){
+      var r = wrap.getBoundingClientRect();
+      mouseX = ((e.clientX - r.left) / r.width) - 0.5;
+      mouseY = ((e.clientY - r.top) / r.height) - 0.5;
+      if(spotlightEl){
+        var sr = section.getBoundingClientRect();
+        spotlightEl.style.setProperty('--isx', (((e.clientX - sr.left)/sr.width)*100) + '%');
+        spotlightEl.style.setProperty('--isy', (((e.clientY - sr.top)/sr.height)*100) + '%');
+      }
+      // hover real sobre el core: raycast simple por distancia proyectada
+      var ndcX = mouseX * 2, ndcY = -mouseY * 2;
+      hovering = Math.abs(ndcX) < 0.28 && Math.abs(ndcY) < 0.28;
+    });
+    wrap.addEventListener('mouseleave', function(){ mouseX = 0; mouseY = 0; hovering = false; });
+
+    // progreso de scroll (0 = recién entra la sección, 1 = ya pasó)
+    var scrollProgress = 0;
+    function updateScrollProgress(){
+      if(!section) return;
+      var r = section.getBoundingClientRect();
+      var vh = window.innerHeight;
+      var p = 1 - (r.top + r.height*0.3) / (vh + r.height*0.3);
+      scrollProgress = Math.min(1, Math.max(0, p));
+    }
+    window.addEventListener('scroll', updateScrollProgress, {passive:true});
+    updateScrollProgress();
+
+    var clock = new THREE.Clock();
+    function animate(){
+      requestAnimationFrame(animate);
+      var t = clock.getElapsedTime();
+
+      // idle: rotación lenta + respiración del core
+      coreGroup.rotation.y = t * 0.12;
+      coreGroup.rotation.x = Math.sin(t*0.15) * 0.08;
+      outerCore.rotation.y = -t*0.08;
+      innerCore.rotation.x = t*0.2; innerCore.rotation.y = t*0.15;
+      ring1.rotation.z = t*0.1;
+      ring2.rotation.z = -t*0.08;
+
+      var breathe = 1 + Math.sin(t*0.9)*0.02;
+      var targetScale = (hovering ? 1.04 : 1) * breathe;
+      hoverScale += (targetScale - hoverScale) * 0.06;
+      coreGroup.scale.setScalar(hoverScale);
+      coreGlow.intensity = (hovering ? 2.1 : 1.3) + Math.sin(t*0.9)*0.15;
+      outerMat.opacity = hovering ? 0.8 : (0.5 + Math.sin(t*0.8)*0.08);
+
+      // fragmentos: leve deriva + suave acercamiento con scroll
+      fragments.forEach(function(f, idx){
+        var d = f.userData;
+        var drift = Math.sin(t*d.speed + d.phase) * 0.06;
+        var approach = scrollProgress * 0.35;
+        f.position.x = d.base.x + drift + approach;
+        f.position.y = d.base.y + Math.cos(t*d.speed*0.8 + d.phase) * 0.05;
+        f.rotation.x += 0.003; f.rotation.y += 0.004;
+        f.material.opacity = 0.55 - scrollProgress*0.15;
+      });
+      fragLines.forEach(function(fl){
+        var pos = fl.line.geometry.attributes.position;
+        pos.setXYZ(0, fl.frag.position.x, fl.frag.position.y, fl.frag.position.z);
+        pos.needsUpdate = true;
+        fl.line.material.opacity = 0.1 + scrollProgress*0.08;
+      });
+
+      // paneles de producto: flotan suave, ganan presencia con scroll
+      panels.forEach(function(pn){
+        var b = pn.base;
+        pn.mesh.position.y = b.y + Math.sin(t*0.5 + pn.phase) * 0.05;
+        pn.edges.position.copy(pn.mesh.position);
+        var op = 0.5 + scrollProgress*0.4;
+        pn.mesh.material.opacity = Math.min(0.85, op);
+        pn.edges.material.opacity = Math.min(0.7, 0.3 + scrollProgress*0.35);
+        pn.details.forEach(function(d){ d.position.y = d.position.y; d.material.opacity = Math.min(0.6, 0.25 + scrollProgress*0.3); });
+      });
+
+      // partículas viajando de fragmentos al core, y del core a paneles
+      travelers.forEach(function(p, idx){
+        var u = p.userData;
+        u.t += u.speed * 0.016;
+        if(u.t > 1){ u.t = 0; }
+        var target = idx % 2 === 0 ? u.to : panels[idx % panels.length].mesh.position;
+        var start = idx % 2 === 0 ? u.from : new THREE.Vector3(0,0,0);
+        p.position.lerpVectors(start, target, u.t);
+        p.material.opacity = Math.sin(u.t * Math.PI) * 0.9;
+      });
+
+      // parallax de cámara/grupo con el mouse
+      targetRotX += ((-mouseY*0.25) - targetRotX) * 0.05;
+      targetRotY += ((mouseX*0.35) - targetRotY) * 0.05;
+      root.rotation.x = targetRotX;
+      root.rotation.y = targetRotY;
+      root.position.x = mouseX * 0.25;
+
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', resize);
+  })();
+
   // smooth scroll + active nav highlight
   document.querySelectorAll('nav.links a[href^="#"]').forEach(function(link){
     link.addEventListener('click', function(e){

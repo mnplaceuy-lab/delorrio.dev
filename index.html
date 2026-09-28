@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="css/style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
 <div class="bg-grid">
@@ -168,6 +169,21 @@
           <img id="hero-photo" src="img/santiago.png" alt="Santiago Delorrio">
         </div>
        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IDEA CORE — escena 3D propia -->
+  <section class="idea-3d">
+    <div class="wrap idea-3d__inner">
+      <div class="idea-3d__spotlight" id="idea3dSpotlight"></div>
+      <div class="idea-3d__text reveal">
+        <span class="eyebrow">De la idea al producto</span>
+        <h2>Cada proyecto empieza<br>como <span class="accent grad-text">una idea suelta.</span></h2>
+        <p>Fragmentos de información, necesidades y oportunidades se ordenan, se procesan y se convierten en un producto digital real, pulido y funcionando.</p>
+      </div>
+      <div class="idea-3d__canvas-wrap">
+        <canvas id="ideaCore"></canvas>
       </div>
     </div>
   </section>
