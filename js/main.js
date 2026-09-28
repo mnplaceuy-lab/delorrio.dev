@@ -67,7 +67,7 @@
     var coreGroup = new THREE.Group();
     root.add(coreGroup);
 
-    var outerGeo = new THREE.IcosahedronGeometry(1.15, 1);
+    var outerGeo = new THREE.IcosahedronGeometry(1.15, 2);
     var outerMat = new THREE.MeshBasicMaterial({color:CYAN, wireframe:true, transparent:true, opacity:.55});
     var outerCore = new THREE.Mesh(outerGeo, outerMat);
     coreGroup.add(outerCore);
@@ -87,6 +87,25 @@
     var centerPoint = new THREE.Mesh(centerGeo, centerMat);
     coreGroup.add(centerPoint);
 
+    // nodos brillantes en los vértices de la esfera geodésica (look "wireframe con puntos")
+    var nodeGroup = new THREE.Group();
+    coreGroup.add(nodeGroup);
+    (function(){
+      var pos = outerGeo.attributes.position;
+      var seen = {};
+      var nodeGeo = new THREE.SphereGeometry(0.018, 6, 6);
+      for(var vi=0; vi<pos.count; vi+=3){
+        var key = pos.getX(vi).toFixed(2)+','+pos.getY(vi).toFixed(2)+','+pos.getZ(vi).toFixed(2);
+        if(seen[key]) continue;
+        seen[key] = true;
+        var isBright = Math.random() < 0.35;
+        var nodeMat = new THREE.MeshBasicMaterial({color: isBright?LIGHT:CYAN, transparent:true, opacity: isBright?0.95:0.5});
+        var node = new THREE.Mesh(nodeGeo, nodeMat);
+        node.position.set(pos.getX(vi), pos.getY(vi), pos.getZ(vi));
+        nodeGroup.add(node);
+      }
+    })();
+
     var coreGlow = new THREE.PointLight(CYAN, 1.4, 6);
     coreGlow.position.set(0,0,0);
     coreGroup.add(coreGlow);
@@ -99,37 +118,53 @@
     ring2.rotation.x = -Math.PI/3.2; ring2.rotation.y = Math.PI/6;
     coreGroup.add(ring2);
 
-    // ---- IZQUIERDA: fragmentos de idea (wireframe, desordenados) ----
+    // ---- IZQUIERDA: fragmentos de idea — mezcla de formas de "cristal" (cubos, diamantes, pirámides, anillos) ----
     var fragGroup = new THREE.Group();
     root.add(fragGroup);
     var fragments = [];
-    var fragGeos = [
-      new THREE.BoxGeometry(0.32,0.32,0.32),
-      new THREE.PlaneGeometry(0.4,0.26),
-      new THREE.RingGeometry(0.14,0.18,16),
-      new THREE.BoxGeometry(0.22,0.4,0.22)
+    var fragGeoDefs = [
+      function(){ return new THREE.BoxGeometry(0.32,0.32,0.32); },
+      function(){ return new THREE.OctahedronGeometry(0.24, 0); },
+      function(){ return new THREE.TetrahedronGeometry(0.26, 0); },
+      function(){ return new THREE.TorusGeometry(0.16, 0.045, 8, 24); },
+      function(){ return new THREE.BoxGeometry(0.2,0.38,0.2); },
+      function(){ return new THREE.OctahedronGeometry(0.16, 0); }
     ];
-    for(var i=0;i<7;i++){
-      var g = fragGeos[i % fragGeos.length];
-      var m = new THREE.MeshBasicMaterial({color: i%2===0?CYAN:LIGHT, wireframe:true, transparent:true, opacity:.55});
-      var mesh = new THREE.Mesh(g, m);
-      var baseX = -3.3 - Math.random()*1.6;
-      var baseY = (Math.random()-0.5)*2.6;
-      var baseZ = (Math.random()-0.5)*1.4;
+    for(var i=0;i<9;i++){
+      var g = fragGeoDefs[i % fragGeoDefs.length]();
+      var baseX = -3.3 - Math.random()*1.7;
+      var baseY = (Math.random()-0.5)*2.7;
+      var baseZ = (Math.random()-0.5)*1.5;
+      var solid = i % 3 === 0;
+      var mesh;
+      if(solid){
+        // forma "de vidrio": relleno translúcido + aristas nítidas encima
+        var glassFragMat = new THREE.MeshBasicMaterial({color:0x14314f, transparent:true, opacity:.3, side:THREE.DoubleSide});
+        mesh = new THREE.Mesh(g, glassFragMat);
+        var edgeLines = new THREE.LineSegments(new THREE.EdgesGeometry(g), new THREE.LineBasicMaterial({color:CYAN, transparent:true, opacity:.65}));
+        mesh.add(edgeLines);
+      } else {
+        var wireMat = new THREE.MeshBasicMaterial({color: i%2===0?CYAN:LIGHT, wireframe:true, transparent:true, opacity:.55});
+        mesh = new THREE.Mesh(g, wireMat);
+      }
       mesh.position.set(baseX, baseY, baseZ);
       mesh.rotation.set(Math.random()*Math.PI, Math.random()*Math.PI, 0);
       mesh.userData = {base:{x:baseX,y:baseY,z:baseZ}, speed: 0.3+Math.random()*0.4, phase: Math.random()*Math.PI*2};
       fragGroup.add(mesh);
       fragments.push(mesh);
     }
-    // líneas finas de conexión fragmento → core
+    // líneas curvas de conexión fragmento → core (bezier suave, no rectas)
     var fragLines = [];
     fragments.forEach(function(f){
-      var lineGeo = new THREE.BufferGeometry().setFromPoints([f.position.clone(), new THREE.Vector3(0,0,0)]);
-      var lineMat = new THREE.LineBasicMaterial({color:CYAN, transparent:true, opacity:.14});
+      var mid = f.position.clone().lerp(new THREE.Vector3(0,0,0), 0.5);
+      mid.y += (Math.random()-0.5)*0.5;
+      mid.z += (Math.random()-0.5)*0.5;
+      var curve = new THREE.QuadraticBezierCurve3(f.position.clone(), mid, new THREE.Vector3(0,0,0));
+      var lineGeo = new THREE.BufferGeometry().setFromPoints(curve.getPoints(20));
+      var lineMat = new THREE.LineBasicMaterial({color:CYAN, transparent:true, opacity:.16});
       var line = new THREE.Line(lineGeo, lineMat);
       fragGroup.add(line);
-      fragLines.push({line:line, frag:f});
+      fragLines.push({line:line, frag:f, curve:curve, mid:mid});
     });
 
     // ---- DERECHA: paneles de producto terminado (translúcidos, con borde) ----
@@ -142,6 +177,18 @@
       {w:0.65,h:1.0, x:2.35,y:-0.75,z:0.5, rz:0.02}
     ];
     panelDefs.forEach(function(d){
+      // tarjeta "fantasma" apilada detrás, para el look de paneles duplicados
+      var ghostGeo = new THREE.PlaneGeometry(d.w, d.h);
+      var ghostMat = new THREE.MeshBasicMaterial({color:0x0f1e33, transparent:true, opacity:.3, side:THREE.DoubleSide});
+      var ghost = new THREE.Mesh(ghostGeo, ghostMat);
+      ghost.position.set(d.x + 0.09, d.y - 0.07, d.z - 0.14);
+      ghost.rotation.z = d.rz;
+      panelGroup.add(ghost);
+      var ghostEdges = new THREE.LineSegments(new THREE.EdgesGeometry(ghostGeo), new THREE.LineBasicMaterial({color:CYAN, transparent:true, opacity:.22}));
+      ghostEdges.position.copy(ghost.position);
+      ghostEdges.rotation.copy(ghost.rotation);
+      panelGroup.add(ghostEdges);
+
       var geo = new THREE.PlaneGeometry(d.w, d.h);
       var mat = new THREE.MeshBasicMaterial({color:0x14243b, transparent:true, opacity:.72, side:THREE.DoubleSide});
       var panel = new THREE.Mesh(geo, mat);
@@ -154,20 +201,42 @@
       edges.rotation.copy(panel.rotation);
       panelGroup.add(edges);
 
-      // detalle interno: líneas tipo UI (abstractas, sin texto)
+      // detalle interno: líneas tipo UI (abstractas, sin texto) — una más larga a modo de título
       var detailLines = [];
+      var titleLw = d.w * 0.5;
+      var titleGeo = new THREE.PlaneGeometry(titleLw, 0.06);
+      var titleMat = new THREE.MeshBasicMaterial({color:LIGHT, transparent:true, opacity:.6});
+      var titleMesh = new THREE.Mesh(titleGeo, titleMat);
+      titleMesh.position.set(d.x - d.w/2 + titleLw/2 + 0.07, d.y + d.h/2 - 0.13, d.z + 0.01);
+      titleMesh.rotation.z = d.rz;
+      panelGroup.add(titleMesh);
+      detailLines.push(titleMesh);
+
       var rows = 2 + Math.floor(Math.random()*2);
       for(var r=0;r<rows;r++){
-        var lw = d.w * (0.35 + Math.random()*0.4);
-        var lGeo = new THREE.PlaneGeometry(lw, 0.045);
+        var lw = d.w * (0.3 + Math.random()*0.35);
+        var lGeo = new THREE.PlaneGeometry(lw, 0.04);
         var lMat = new THREE.MeshBasicMaterial({color:CYAN, transparent:true, opacity:.4});
         var lMesh = new THREE.Mesh(lGeo, lMat);
-        lMesh.position.set(d.x - d.w/2 + lw/2 + 0.06, d.y + d.h/2 - 0.14 - r*0.18, d.z + 0.01);
+        lMesh.position.set(d.x - d.w/2 + lw/2 + 0.07, d.y + d.h/2 - 0.32 - r*0.16, d.z + 0.01);
         lMesh.rotation.z = d.rz;
         panelGroup.add(lMesh);
         detailLines.push(lMesh);
       }
-      panels.push({mesh:panel, edges:edges, base:{x:d.x,y:d.y,z:d.z}, phase:Math.random()*Math.PI*2, details:detailLines});
+      panels.push({mesh:panel, edges:edges, ghost:ghost, ghostEdges:ghostEdges, base:{x:d.x,y:d.y,z:d.z}, phase:Math.random()*Math.PI*2, details:detailLines});
+    });
+
+    // líneas curvas de conexión core → panel (simétricas a las de la izquierda)
+    var panelLines = panels.map(function(pn){
+      var target = new THREE.Vector3(pn.base.x, pn.base.y, pn.base.z);
+      var mid = target.clone().lerp(new THREE.Vector3(0,0,0), 0.5);
+      mid.y += (Math.random()-0.5)*0.4;
+      var curve = new THREE.QuadraticBezierCurve3(new THREE.Vector3(0,0,0), mid, target);
+      var lineGeo = new THREE.BufferGeometry().setFromPoints(curve.getPoints(20));
+      var lineMat = new THREE.LineBasicMaterial({color:CYAN, transparent:true, opacity:.16});
+      var line = new THREE.Line(lineGeo, lineMat);
+      panelGroup.add(line);
+      return {line:line, panel:pn};
     });
 
     // partículas viajando por los caminos de conexión
@@ -309,8 +378,10 @@
         f.material.opacity = 0.55 - scrollProgress*0.15;
       });
       fragLines.forEach(function(fl){
+        fl.curve.v0.copy(fl.frag.position);
+        var pts = fl.curve.getPoints(20);
         var pos = fl.line.geometry.attributes.position;
-        pos.setXYZ(0, fl.frag.position.x, fl.frag.position.y, fl.frag.position.z);
+        for(var pi=0; pi<pts.length; pi++){ pos.setXYZ(pi, pts[pi].x, pts[pi].y, pts[pi].z); }
         pos.needsUpdate = true;
         fl.line.material.opacity = 0.1 + scrollProgress*0.08;
       });
@@ -318,12 +389,18 @@
       // paneles de producto: flotan suave, ganan presencia con scroll
       panels.forEach(function(pn){
         var b = pn.base;
-        pn.mesh.position.y = b.y + Math.sin(t*0.5 + pn.phase) * 0.05;
+        var floatY = Math.sin(t*0.5 + pn.phase) * 0.05;
+        pn.mesh.position.y = b.y + floatY;
         pn.edges.position.copy(pn.mesh.position);
+        pn.ghost.position.y = b.y - 0.07 + floatY;
+        pn.ghostEdges.position.copy(pn.ghost.position);
         var op = 0.5 + scrollProgress*0.4;
         pn.mesh.material.opacity = Math.min(0.85, op);
         pn.edges.material.opacity = Math.min(0.7, 0.3 + scrollProgress*0.35);
-        pn.details.forEach(function(d){ d.position.y = d.position.y; d.material.opacity = Math.min(0.6, 0.25 + scrollProgress*0.3); });
+        pn.details.forEach(function(d){ d.material.opacity = Math.min(0.6, 0.25 + scrollProgress*0.3); });
+      });
+      panelLines.forEach(function(pl){
+        pl.line.material.opacity = 0.1 + scrollProgress*0.1;
       });
 
       // partículas viajando de fragmentos al core, y del core a paneles
