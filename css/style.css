@@ -1,4 +1,4 @@
-  :root{
+:root{
     --bg:#050b16;
     --bg-2:#081020;
     --surface:#0b1526;
@@ -701,6 +701,7 @@
     position:fixed;inset:0;background:rgba(2,6,14,.7);backdrop-filter:blur(4px);
     display:flex;align-items:center;justify-content:center;padding:20px;z-index:100;
   }
+  .modal-overlay[hidden]{display:none;}
   .modal-card{
     background:var(--surface);border:1px solid var(--border);border-radius:20px;
     width:min(440px,100%);padding:28px;box-shadow:var(--shadow);
