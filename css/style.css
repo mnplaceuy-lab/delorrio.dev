@@ -1,4 +1,4 @@
-:root{
+  :root{
     --bg:#050b16;
     --bg-2:#081020;
     --surface:#0b1526;
@@ -704,8 +704,16 @@
   .modal-overlay[hidden]{display:none;}
   .modal-card{
     background:var(--surface);border:1px solid var(--border);border-radius:20px;
-    width:min(440px,100%);padding:28px;box-shadow:var(--shadow);
+    width:min(440px,100%);padding:28px;box-shadow:var(--shadow);position:relative;
   }
+  .modal-close{
+    position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;
+    background:transparent;border:1px solid var(--border);color:var(--text-muted);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    transition:border-color .15s,color .15s,background .15s;
+  }
+  .modal-close:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft);}
+  .modal-close svg{width:15px;height:15px;}
   .modal-card h3{font-size:20px;font-weight:700;margin-bottom:6px;}
   .modal-card p.sub{color:var(--text-muted);font-size:13.5px;margin-bottom:20px;}
   .field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}

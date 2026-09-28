@@ -19,6 +19,11 @@
     if(e.key === 'Escape') closeModal();
   });
 
+  // abrir automáticamente al entrar a la página
+  window.addEventListener('load', function(){
+    setTimeout(openModal, 1200);
+  });
+
   // smooth scroll + active nav highlight
   document.querySelectorAll('nav.links a[href^="#"]').forEach(function(link){
     link.addEventListener('click', function(e){
