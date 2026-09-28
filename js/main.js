@@ -24,6 +24,20 @@
     setTimeout(openModal, 1200);
   });
 
+  // spotlight que sigue al mouse en el hero
+  (function(){
+    var visual = document.querySelector('.hero-visual');
+    var spot = document.getElementById('heroSpotlight');
+    if(!visual || !spot) return;
+    visual.addEventListener('mousemove', function(e){
+      var r = visual.getBoundingClientRect();
+      var x = ((e.clientX - r.left) / r.width) * 100;
+      var y = ((e.clientY - r.top) / r.height) * 100;
+      spot.style.setProperty('--sx', x + '%');
+      spot.style.setProperty('--sy', y + '%');
+    });
+  })();
+
   // smooth scroll + active nav highlight
   document.querySelectorAll('nav.links a[href^="#"]').forEach(function(link){
     link.addEventListener('click', function(e){
