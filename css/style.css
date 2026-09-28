@@ -244,6 +244,14 @@
   .hv-up{position:absolute;top:12px;right:14px;font-size:10px;font-weight:700;color:#57e08f;background:rgba(87,224,143,.15);padding:2px 8px;border-radius:999px;}
   .hv-spark{position:absolute;left:14px;right:14px;bottom:10px;width:calc(100% - 28px);height:24px;}
 
+  /* ROBOT 3D interactivo (Spline) */
+  .hv-robot{
+    position:absolute;top:6%;right:-8%;width:min(300px,74%);height:280px;z-index:1;
+    pointer-events:auto;
+  }
+  spline-viewer{width:100%;height:100%;display:block;--spline-watermark-hidden:none;}
+  @media (max-width:980px){ .hv-robot{position:relative;top:auto;right:auto;width:min(280px,86%);height:240px;margin:0 auto;} }
+
   .hv-mock-right{display:flex;flex-direction:column;gap:10px;}
   .hv-ai__head{display:flex;align-items:center;gap:8px;}
   .hv-ai__ic{width:24px;height:24px;border-radius:7px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
