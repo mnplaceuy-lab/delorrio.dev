@@ -598,13 +598,18 @@
     var urlEl = document.getElementById('type-url');
     var captionEl = document.getElementById('type-caption');
     var data = {
-      gastro:    { url:'lafonda.dev',    caption:'Carta editorial con categorías, precios y el plato del chef destacado.' },
-      ecommerce: { url:'novastore.dev',  caption:'Tienda con promos, grilla de productos, precios tachados y rating.' },
-      servicios: { url:'ironstudio.dev', caption:'Agenda semanal de clases y reserva de turno en un clic.' },
-      moda:      { url:'studio21.dev',   caption:'Lookbook editorial con grilla asimétrica y tipografía protagonista.' },
-      joyeria:   { url:'aurea.dev',      caption:'Vitrina elegante centrada en la pieza destacada y el detalle artesanal.' },
-      barberia:  { url:'elbarbero.dev',  caption:'Estética clásica de barbería con lista de servicios, precios y turnos.' },
-      burger:    { url:'humoburgers.dev',caption:'Menú de delivery con tiempos de envío, promos y pedido en un toque.' }
+      gastro:       { url:'lafonda.dev',              caption:'Web de restaurante con carta editorial, reservas y pedidos por WhatsApp.' },
+      hogar:        { url:'nexoshop.dev',              caption:'E-commerce de decoración con categorías por ambiente y productos destacados.' },
+      freeshop:     { url:'fronterafreeshop.com.uy',   caption:'Catálogo multi-categoría con ofertas destacadas y precios en dólares.' },
+      agencia:      { url:'estudionorte.dev',          caption:'Sitio institucional con servicios, proceso de trabajo y casos de éxito.' },
+      moda:         { url:'lineasur.com',              caption:'Landing editorial con colección destacada y navegación por categoría.' },
+      barberia:     { url:'barberiacentral.com',       caption:'Web con servicios, equipo de barberos y reserva de citas.' },
+      joyeria:      { url:'aureajoyas.com',            caption:'Vitrina elegante con colecciones y piezas hechas a mano.' },
+      inmobiliaria: { url:'riverapropiedades.uy',      caption:'Buscador de propiedades con filtros, mapa y equipo de asesores.' },
+      salud:        { url:'clinicanorte.com.uy',       caption:'Sitio de salud con especialidades, profesionales y turnos online.' },
+      turismo:      { url:'posadalunarejo.uy',         caption:'Web de hospedaje con habitaciones, experiencias y buscador de disponibilidad.' },
+      motors:       { url:'fronteramotors.com.uy',     caption:'Catálogo de autos nuevos y usados con financiación y búsqueda avanzada.' },
+      arquitectura: { url:'estudiohorizonte.uy',       caption:'Portfolio de proyectos con servicios y proceso de diseño y construcción.' }
     };
     tabs.forEach(function(tab){
       tab.addEventListener('click', function(){
