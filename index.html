@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delorrio.dev — Diseño y Desarrollo Web</title>
+<meta name="description" content="Sitio personal de Santiago Delorrio: diseño y desarrollo web profesional.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body>
+<div class="bg-grid">
+  <canvas id="particles"></canvas>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
+<div class="progress-bar" id="progress"></div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="#top"><span>Delorrio.dev</span><span class="dot"></span></a>
+    <nav class="links">
+      <a href="#top" class="active">Inicio</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#proceso">Proceso</a>
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <button class="btn btn-primary nav-cta" onclick="openModal()">
+      Hablemos
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+    <button class="mobile-toggle" onclick="openModal()" aria-label="Contacto">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M4 6h16M4 18h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-in-1">
+        <span class="eyebrow">Web · IA · Producto</span>
+        <h1>Ideas digitales<br>que <span class="accent grad-text">funcionan.</span></h1>
+        <p class="lead">Diseño y desarrollo webs, productos digitales y soluciones con IA para negocios que quieren avanzar.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="#proyectos">
+            Ver mis proyectos
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <button class="btn btn-ghost" onclick="openModal()">Hablemos de tu proyecto</button>
+        </div>
+        <div class="feature-row">
+          <div class="feature">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+            <span>Diseño<br>moderno</span>
+          </div>
+          <div class="feature">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3M13 6l-2 12"/></svg></span>
+            <span>Desarrollo<br>a medida</span>
+          </div>
+          <div class="feature">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-4 10.5c.6.5 1 1.2 1 2.1V16h6v-.4c0-.9.4-1.6 1-2.1A6 6 0 0012 3z"/></svg></span>
+            <span>IA aplicada<br>a negocios</span>
+          </div>
+          <div class="feature">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20h18M6 20V10M12 20V4M18 20v-7"/></svg></span>
+            <span>Resultados<br>reales</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+       <div class="scroll-card" id="scrollCard">
+        <div class="hv-glow"></div>
+
+        <div class="hv-mock hv-mock-left">
+          <div class="hv-mock__bar">
+            <span class="hvdot"></span><span class="hvdot"></span>
+            <div class="hv-mock__nav"><b>Nexora</b><span>Producto</span><span>Soluciones</span><span>Precios</span></div>
+            <span class="hv-mock__cta">Comenzar</span>
+          </div>
+          <div class="hv-mock__hero">
+            <h4>La forma más simple<br>de gestionar tu negocio</h4>
+            <p>Todo lo que necesitás en un solo lugar.<br>Más clientes, menos complicaciones.</p>
+            <span class="hv-mock__btn">Comenzar ahora <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
+          <div class="hv-mock__stats">
+            <div class="hv-stat hv-stat-wide">
+              <div class="hv-stat__top"><span>Ingresos</span><em>Últimos 30 días</em></div>
+              <b>€12.540</b>
+              <span class="hv-up">+24%</span>
+              <svg class="hv-spark" viewBox="0 0 140 34" preserveAspectRatio="none"><polyline points="0,28 20,24 40,26 60,16 80,20 100,8 120,12 140,4" fill="none" stroke="#37b6ff" stroke-width="2.4"/></svg>
+            </div>
+            <div class="hv-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg><b>Clientes</b><span>+128</span></div>
+            <div class="hv-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg><b>Proyectos</b><span>24</span></div>
+            <div class="hv-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-4 10.5c.6.5 1 1.2 1 2.1V16h6v-.4c0-.9.4-1.6 1-2.1A6 6 0 0012 3z"/></svg><b>Automatizaciones</b><span>12</span></div>
+          </div>
+        </div>
+
+        <div class="hv-mock hv-mock-right">
+          <div class="hv-ai__head">
+            <span class="hv-ai__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 6 6 1-4.5 4.5L17.5 20 12 17l-5.5 3 1-6.5L3 9l6-1 3-6z"/></svg></span>
+            <b>Asistente IA</b>
+            <span class="hv-ai__dots">···</span>
+          </div>
+          <div class="hv-ai__bubble hv-ai__bubble-user">Analiza mis clientes y dame recomendaciones para crecer.</div>
+          <div class="hv-ai__bubble hv-ai__bubble-bot">
+            He analizado tus datos. Aquí tenés 3 oportunidades clave:
+            <div class="hv-ai__list">
+              <div class="hv-ai__row"><span class="hv-ai__n">1</span><div><b>Segmentar tu audiencia</b><i></i></div></div>
+              <div class="hv-ai__row"><span class="hv-ai__n">2</span><div><b>Automatizar follow-ups</b><i></i></div></div>
+              <div class="hv-ai__row"><span class="hv-ai__n">3</span><div><b>Optimizar tu página de ventas</b></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hv-photo">
+          <img id="hero-photo" src="img/santiago.png" alt="Santiago Delorrio">
+        </div>
+       </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROYECTOS -->
+  <section class="projects" id="proyectos">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <span class="eyebrow">Trabajos reales, resultados reales</span>
+          <h2>Proyectos <span class="accent grad-text">destacados.</span></h2>
+          <p>Una selección de proyectos en los que trabajé y que generan impacto real.</p>
+        </div>
+        <a class="link" href="#contacto">Ver todos los proyectos
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+      <div class="proj-grid">
+        <article class="proj-card reveal">
+          <div class="proj-thumb">
+            <svg viewBox="0 0 400 275" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+              <rect width="400" height="275" fill="#0e1a2f"/>
+              <rect x="20" y="30" width="290" height="180" rx="8" fill="#0b1526" stroke="#22354f"/>
+              <rect x="20" y="30" width="290" height="28" fill="#101d33"/>
+              <circle cx="36" cy="44" r="4" fill="#ff6b6b"/><circle cx="50" cy="44" r="4" fill="#ffd166"/><circle cx="64" cy="44" r="4" fill="#57e08f"/>
+              <rect x="38" y="80" width="150" height="16" rx="3" fill="#37b6ff"/>
+              <rect x="38" y="108" width="200" height="9" rx="2" fill="#3a4f70"/>
+              <rect x="38" y="122" width="160" height="9" rx="2" fill="#3a4f70"/>
+              <rect x="38" y="146" width="90" height="28" rx="14" fill="#37b6ff"/>
+              <rect x="220" y="70" width="60" height="100" rx="6" fill="#0b1526" stroke="#22354f"/>
+              <rect x="330" y="60" width="52" height="110" rx="10" fill="#0b1526" stroke="#22354f"/>
+              <rect x="342" y="72" width="28" height="50" rx="3" fill="#101d33"/>
+            </svg>
+          </div>
+          <div class="proj-body">
+            <div class="proj-title-row">
+              <span class="proj-tag">Producto propio</span>
+            </div>
+            <div class="proj-title-row">
+              <h3>MNPLACE</h3>
+              <span class="proj-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </div>
+            <p>Marketplace Uruguay. Un punto de encuentro para compradores y vendedores de todo el país.</p>
+            <div class="chip-row">
+              <span class="chip">Web</span><span class="chip">Marketplace</span><span class="chip">UX/UI</span><span class="chip">Python</span><span class="chip">Railway</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="proj-card reveal r-delay-1">
+          <div class="proj-thumb">
+            <svg viewBox="0 0 400 275" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+              <rect width="400" height="275" fill="#241d16"/>
+              <rect x="20" y="30" width="290" height="180" rx="8" fill="#1a140e" stroke="#3a2c1e"/>
+              <rect x="38" y="52" width="140" height="14" rx="3" fill="#e8c07a"/>
+              <rect x="38" y="78" width="190" height="9" rx="2" fill="#6b5a44"/>
+              <rect x="38" y="96" width="150" height="9" rx="2" fill="#6b5a44"/>
+              <rect x="38" y="122" width="90" height="26" rx="13" fill="#e8c07a"/>
+              <rect x="220" y="60" width="60" height="120" rx="6" fill="#1a140e" stroke="#3a2c1e"/>
+              <rect x="330" y="55" width="52" height="115" rx="10" fill="#1a140e" stroke="#3a2c1e"/>
+            </svg>
+          </div>
+          <div class="proj-body">
+            <div class="proj-title-row">
+              <span class="proj-tag">Sitio web</span>
+            </div>
+            <div class="proj-title-row">
+              <h3>Negocio local</h3>
+              <span class="proj-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </div>
+            <p>Página profesional con catálogo y contacto directo para un comercio local.</p>
+            <div class="chip-row">
+              <span class="chip">Web</span><span class="chip">Catálogo</span><span class="chip">UX/UI</span><span class="chip">Contacto</span><span class="chip">SEO</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIPOS DE WEB -->
+  <section class="projects" id="tipos-web">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <span class="eyebrow">Explorá posibilidades</span>
+          <h2>Un diseño para <span class="accent grad-text">cada rubro.</span></h2>
+          <p>Elegí el tipo de negocio y mirá cómo podría verse tu web.</p>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="types-tabs" role="tablist">
+          <button class="type-tab active" data-type="gastro" role="tab" aria-selected="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 2v6a2 2 0 002 2v12M7 2a2 2 0 00-2 2v4a2 2 0 002 2M7 2a2 2 0 012 2v4a2 2 0 01-2 2M17 2a4 4 0 00-4 4v4h4M17 10v12"/></svg>
+            Gastronomía
+          </button>
+          <button class="type-tab" data-type="ecommerce" role="tab" aria-selected="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2l1.5 4h9L18 2M3.5 6h17l-1.6 10.5a2 2 0 01-2 1.5H7.1a2 2 0 01-2-1.5L3.5 6z"/><circle cx="9" cy="21" r="1"/><circle cx="16" cy="21" r="1"/></svg>
+            E-commerce
+          </button>
+          <button class="type-tab" data-type="servicios" role="tab" aria-selected="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/><path d="M9 14l2 2 4-4"/></svg>
+            Servicios
+          </button>
+          <button class="type-tab" data-type="moda" role="tab" aria-selected="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3l4 2 4-2 4 4-3 3v11H7V10L4 7l4-4z"/></svg>
+            Moda
+          </button>
+          <button class="type-tab" data-type="joyeria" role="tab" aria-selected="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12l4 6-10 12L2 9l4-6z"/><path d="M2 9h20M8 3l4 6 4-6M12 9l-4 12M12 9l4 12"/></svg>
+            Joyería
+          </button>
+          <button class="type-tab" data-type="barberia" role="tab" aria-selected="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12"/></svg>
+            Barbería
+          </button>
+          <button class="type-tab" data-type="burger" role="tab" aria-selected="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10a8 5 0 0116 0z"/><path d="M3 13h18M4 16h16a1 1 0 011 1 3 3 0 01-3 3H6a3 3 0 01-3-3 1 1 0 011-1z"/><path d="M6 10c.5-2 2.5-3 6-3s5.5 1 6 3"/></svg>
+            Delivery
+          </button>
+        </div>
+
+        <div class="type-preview">
+          <div class="browser-mock">
+            <div class="browser-mock__bar">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              <span class="browser-mock__url" id="type-url">lafonda.dev</span>
+            </div>
+            <div class="browser-mock__screen">
+
+              <!-- GASTRONOMÍA — La Fonda -->
+              <div class="type-panel active" data-panel="gastro">
+                <div class="tpl tpl-gastro">
+                  <div class="tpl-nav">
+                    <div class="tpl-word"><i></i>La Fonda</div>
+                    <div class="gastro-links"><span>Menú</span><span>Reservas</span><span>Nosotros</span></div>
+                    <span class="gastro-cta">Reservar</span>
+                  </div>
+                  <div class="gastro-hero">
+                    <span class="gastro-hero__eyebrow">Cocina de estación</span>
+                    <h4>Sabores de estación, hechos con calma</h4>
+                    <p>Ingredientes de productores locales. Mesa al aire libre y pedidos por WhatsApp.</p>
+                    <span class="gastro-hero__btn">Ver la carta <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                    <div class="gastro-plate"><svg viewBox="0 0 60 60"><defs><radialGradient id="risotto1" cx="42%" cy="38%"><stop offset="0" stop-color="#f2d9a8"/><stop offset="1" stop-color="#c99a4f"/></radialGradient></defs>
+                      <ellipse cx="30" cy="32" rx="19" ry="14" fill="url(#risotto1)"/>
+                      <path d="M16 28c5 3 9 5 10 9M24 22c3 4 4 8 3 13M34 21c1 5-1 9-3 13M42 27c-5 3-8 6-9 10" stroke="#8a5a24" stroke-width="1.1" fill="none" opacity=".55"/>
+                      <circle cx="21" cy="26" r="1.6" fill="#4f7a2c"/><circle cx="37" cy="24" r="1.6" fill="#4f7a2c"/><circle cx="30" cy="36" r="1.6" fill="#4f7a2c"/>
+                      <circle cx="26" cy="31" r="1.4" fill="#b5401f"/><circle cx="35" cy="33" r="1.4" fill="#b5401f"/>
+                    </svg></div>
+                    <div class="gastro-plate__rating">★ 4.9 · 320</div>
+                  </div>
+                  <div class="gastro-menu">
+                    <p class="gastro-cat">Entradas</p>
+                    <div class="gastro-item"><b>Burrata de estación<span class="chef">Chef</span></b><span class="leader"></span><span class="price">$310</span></div>
+                    <div class="gastro-item"><b>Tartar de trucha</b><span class="leader"></span><span class="price">$350</span></div>
+                    <p class="gastro-cat">Principales</p>
+                    <div class="gastro-item"><b>Risotto de hongos</b><span class="leader"></span><span class="price">$420</span></div>
+                    <div class="gastro-item"><b>Milanesa napolitana</b><span class="leader"></span><span class="price">$390</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- E-COMMERCE — Nova -->
+              <div class="type-panel" data-panel="ecommerce">
+                <div class="tpl tpl-shop">
+                  <div class="shop-announce">Envío gratis en compras +$5.000 · Cambios sin cargo</div>
+                  <div class="tpl-nav">
+                    <div class="tpl-word">Nova</div>
+                    <span class="shop-search">Buscar productos…</span>
+                    <span class="shop-cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2l1.5 4h9L18 2M3.5 6h17l-1.6 10.5a2 2 0 01-2 1.5H7.1a2 2 0 01-2-1.5L3.5 6z"/></svg><em>3</em></span>
+                  </div>
+                  <div class="shop-hero">
+                    <div class="shop-badge"><b>-30%</b><span>HOY</span></div>
+                    <div>
+                      <h4>Black Week</h4>
+                      <p>Hasta 30% off en toda la tienda. Envíos a todo el país.</p>
+                      <span class="shop-hero__btn">Comprar ahora</span>
+                    </div>
+                  </div>
+                  <div class="shop-grid">
+                    <div class="shop-card">
+                      <div class="shop-card__img" style="background:radial-gradient(circle at 35% 30%, #24466b, #0e1a2f 75%);">
+                        <span class="shop-tag new">Nuevo</span>
+                        <svg viewBox="0 0 64 40"><defs><linearGradient id="sneak1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#eef4ff"/><stop offset="1" stop-color="#9fb8d6"/></linearGradient></defs>
+                          <path d="M4 30c0-5 4-7 9-9l10-6c3-2 6-2 9-1l14 5c3 1 5 3 5 6v5c0 2-2 4-4 4H8c-2 0-4-2-4-4z" fill="url(#sneak1)"/>
+                          <path d="M13 15l10-6c3-2 6-2 9-1l3 1-9 8-13 3z" fill="#cddbee"/>
+                          <path d="M4 30v3c0 2 2 3 4 3h38c2 0 4-1 4-3v-2" fill="#0e1a2f"/>
+                          <path d="M22 20l6 4M28 17l6 5M34 15l6 5" stroke="#7aa0c9" stroke-width="1.4" fill="none"/>
+                        </svg>
+                      </div>
+                      <div class="shop-rate"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 6 1-4.5 4.5L17.5 20 12 17l-5.5 3 1-6.5L3 9l6-1 3-6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 6 1-4.5 4.5L17.5 20 12 17l-5.5 3 1-6.5L3 9l6-1 3-6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 6 1-4.5 4.5L17.5 20 12 17l-5.5 3 1-6.5L3 9l6-1 3-6z"/></svg></div>
+                      <div class="shop-card__meta"><b>Zapatillas Runner</b><span class="shop-price"><b>$3.590</b></span></div>
+                    </div>
+                    <div class="shop-card">
+                      <div class="shop-card__img" style="background:radial-gradient(circle at 35% 30%, #3a2a56, #160f22 75%);">
+                        <span class="shop-tag sale">-20%</span>
+                        <svg viewBox="0 0 48 48"><defs><radialGradient id="hp1"><stop offset="0" stop-color="#f2e8ff"/><stop offset="1" stop-color="#b39ddb"/></radialGradient></defs>
+                          <path d="M8 26v-2a16 16 0 0132 0v2" fill="none" stroke="#c9b6ea" stroke-width="3"/>
+                          <rect x="4" y="24" width="9" height="14" rx="4" fill="url(#hp1)"/>
+                          <rect x="35" y="24" width="9" height="14" rx="4" fill="url(#hp1)"/>
+                          <path d="M18 22a6 6 0 0112 0" fill="none" stroke="#8a72b8" stroke-width="2"/>
+                        </svg>
+                      </div>
+                      <div class="shop-rate"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 6 1-4.5 4.5L17.5 20 12 17l-5.5 3 1-6.5L3 9l6-1 3-6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 6 1-4.5 4.5L17.5 20 12 17l-5.5 3 1-6.5L3 9l6-1 3-6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 6 1-4.5 4.5L17.5 20 12 17l-5.5 3 1-6.5L3 9l6-1 3-6z"/></svg></div>
+                      <div class="shop-card__meta"><b>Auriculares BT</b><span class="shop-price"><b>$2.190</b><s>$2.790</s></span></div>
+                    </div>
+                    <div class="shop-card">
+                      <div class="shop-card__img" style="background:radial-gradient(circle at 35% 30%, #1f4a30, #0c1912 75%);">
+                        <svg viewBox="0 0 48 48"><defs><linearGradient id="bp1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fd6a8"/><stop offset="1" stop-color="#3f8f5c"/></linearGradient></defs>
+                          <path d="M10 20a8 8 0 0116 0v3h4a2 2 0 012 2v16a3 3 0 01-3 3H9a3 3 0 01-3-3V25a2 2 0 012-2h4z" fill="url(#bp1)"/>
+                          <path d="M13 20a5 5 0 0110 0" fill="none" stroke="#2c6b41" stroke-width="2"/>
+                          <rect x="15" y="26" width="6" height="10" rx="2" fill="#2c6b41"/>
+                        </svg>
+                      </div>
+                      <div class="shop-rate"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 6 1-4.5 4.5L17.5 20 12 17l-5.5 3 1-6.5L3 9l6-1 3-6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 6 1-4.5 4.5L17.5 20 12 17l-5.5 3 1-6.5L3 9l6-1 3-6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 6 1-4.5 4.5L17.5 20 12 17l-5.5 3 1-6.5L3 9l6-1 3-6z"/></svg></div>
+                      <div class="shop-card__meta"><b>Mochila urbana</b><span class="shop-price"><b>$4.150</b></span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SERVICIOS — Iron Studio -->
+              <div class="type-panel" data-panel="servicios">
+                <div class="tpl tpl-fit">
+                  <div class="tpl-nav">
+                    <div class="tpl-word">Iron Studio</div>
+                    <span class="fit-cta">Reservar turno</span>
+                  </div>
+                  <div class="fit-hero">
+                    <h4>Entrená distinto, todas las semanas</h4>
+                    <div class="fit-stats">
+                      <div><b>1.200+</b><span>Socios activos</span></div>
+                      <div><b>40+</b><span>Clases por semana</span></div>
+                      <div><b>12</b><span>Entrenadores</span></div>
+                    </div>
+                  </div>
+                  <div class="fit-sched">
+                    <div class="fit-sched__grid">
+                      <div class="fit-day"><em>Lun</em><div class="fit-block b1">Funcional</div></div>
+                      <div class="fit-day"><em>Mar</em><div class="fit-block b2">Boxeo</div></div>
+                      <div class="fit-day today"><em>Mié</em><div class="fit-block b1">Funcional</div><div class="fit-block b2">Yoga</div></div>
+                      <div class="fit-day"><em>Jue</em><div class="fit-block b2">Boxeo</div></div>
+                      <div class="fit-day"><em>Vie</em><div class="fit-block b1">Funcional</div></div>
+                    </div>
+                  </div>
+                  <div class="fit-next">
+                    <span class="fit-next__time">18:00</span>
+                    <div><b>Funcional grupal</b><span>Con Marina · Sala 2</span></div>
+                    <span class="fit-next__btn">Reservar</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- MODA — Studio 21 -->
+              <div class="type-panel" data-panel="moda">
+                <div class="tpl tpl-fashion">
+                  <div class="tpl-nav"><div class="tpl-word">Studio 21</div></div>
+                  <div class="fashion-hero">
+                    <span class="fashion-season">Colección SS26</span>
+                    <h4>Menos,<br>pero mejor.</h4>
+                    <span class="fashion-hero__btn">Ver lookbook</span>
+                  </div>
+                  <div class="fashion-grid">
+                    <div class="fashion-card tall">
+                      <div class="fashion-img" style="background:linear-gradient(160deg,#d8d2c4,#a9a190);">
+                        <svg viewBox="0 0 48 60"><defs><linearGradient id="coat1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f2efe8"/><stop offset="1" stop-color="#c7beac"/></linearGradient></defs>
+                          <path d="M14 6l10 6 10-6 8 10-6 5v33H12V21l-6-5z" fill="url(#coat1)"/>
+                          <path d="M24 12v40M14 6l4 8-4 5M34 6l-4 8 4 5" fill="none" stroke="#a89c86" stroke-width="1.3"/>
+                          <circle cx="24" cy="30" r="1.6" fill="#8a7e6b"/><circle cx="24" cy="38" r="1.6" fill="#8a7e6b"/><circle cx="24" cy="46" r="1.6" fill="#8a7e6b"/>
+                        </svg>
+                      </div>
+                      <b>Abrigo oversize</b><span>$8.900</span>
+                    </div>
+                    <div class="fashion-card">
+                      <div class="fashion-img" style="background:linear-gradient(160deg,#c9beae,#8b8073);">
+                        <svg viewBox="0 0 40 48"><defs><linearGradient id="pant1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ece6d9"/><stop offset="1" stop-color="#a99d87"/></linearGradient></defs>
+                          <path d="M10 4h20l1 20 4 20h-9l-6-24-6 24H5l4-20z" fill="url(#pant1)"/>
+                          <path d="M10 4h20" stroke="#8a7e68" stroke-width="1.4"/>
+                        </svg>
+                      </div>
+                      <b>Pantalón recto</b><span>$5.200</span>
+                    </div>
+                    <div class="fashion-card">
+                      <div class="fashion-img" style="background:linear-gradient(160deg,#e3ddd0,#b7ad9c);">
+                        <svg viewBox="0 0 48 44"><defs><linearGradient id="shirt1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f5f1e7"/><stop offset="1" stop-color="#cbc0a8"/></linearGradient></defs>
+                          <path d="M16 4l8 4 8-4 8 7-5 5v24H13V16l-5-5z" fill="url(#shirt1)"/>
+                          <path d="M24 8v32" stroke="#b3a689" stroke-width="1.2"/>
+                          <circle cx="24" cy="16" r="1.3" fill="#a89b7e"/><circle cx="24" cy="23" r="1.3" fill="#a89b7e"/><circle cx="24" cy="30" r="1.3" fill="#a89b7e"/>
+                        </svg>
+                      </div>
+                      <b>Camisa lino</b><span>$3.400</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- JOYERÍA — Aurea -->
+              <div class="type-panel" data-panel="joyeria">
+                <div class="tpl tpl-jewel">
+                  <div class="tpl-nav">
+                    <div class="tpl-word">AUREA</div>
+                    <span class="jewel-rule"></span>
+                  </div>
+                  <div class="jewel-hero">
+                    <span class="jewel-eyebrow">Colección Eterna</span>
+                    <h4>Piezas hechas a mano, para toda la vida</h4>
+                    <div class="jewel-feature">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3h12l4 6-10 12L2 9l4-6z"/><path d="M2 9h20M8 3l4 6 4-6M12 9l-4 12M12 9l4 12"/></svg>
+                    </div>
+                    <p class="jewel-feature__tag">Anillo Luna · Oro 18k</p>
+                  </div>
+                  <div class="jewel-row">
+                    <div class="jewel-piece"><div class="jewel-piece__img"><svg viewBox="0 0 40 40"><defs><linearGradient id="necklace1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f5e4ab"/><stop offset="1" stop-color="#a9822f"/></linearGradient></defs><path d="M8 8c0 10 5 16 12 16s12-6 12-16" fill="none" stroke="url(#necklace1)" stroke-width="1.6"/><circle cx="20" cy="26" r="4.2" fill="url(#necklace1)"/><circle cx="20" cy="26" r="1.6" fill="#3a2c0c"/></svg></div><b>Cadena Sol</b><span>$9.100</span></div>
+                    <div class="jewel-piece"><div class="jewel-piece__img"><svg viewBox="0 0 40 40"><defs><linearGradient id="earring1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f5e4ab"/><stop offset="1" stop-color="#a9822f"/></linearGradient></defs><circle cx="13" cy="10" r="2.6" fill="url(#earring1)"/><path d="M13 12.5v9c0 3 2.5 5.5 5.5 5.5S24 24.5 24 21.5" fill="none" stroke="url(#earring1)" stroke-width="1.6"/><circle cx="27" cy="10" r="2.6" fill="url(#earring1)"/><path d="M27 12.5v6c0 2-1.6 3.6-3.6 3.6" fill="none" stroke="url(#earring1)" stroke-width="1.6"/></svg></div><b>Aros Nima</b><span>$4.300</span></div>
+                    <div class="jewel-piece"><div class="jewel-piece__img"><svg viewBox="0 0 40 40"><defs><linearGradient id="bracelet1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f5e4ab"/><stop offset="1" stop-color="#a9822f"/></linearGradient></defs><ellipse cx="20" cy="20" rx="13" ry="8" fill="none" stroke="url(#bracelet1)" stroke-width="2.4"/><circle cx="7" cy="20" r="2" fill="#f0e3c6"/><circle cx="33" cy="20" r="2" fill="#f0e3c6"/></svg></div><b>Pulsera Río</b><span>$5.700</span></div>
+                  </div>
+                  <p class="jewel-foot">Hecho a mano · Edición limitada</p>
+                </div>
+              </div>
+
+              <!-- BARBERÍA — El Barbero -->
+              <div class="type-panel" data-panel="barberia">
+                <div class="tpl tpl-barber">
+                  <div class="barber-stripe"></div>
+                  <div class="tpl-nav">
+                    <div class="tpl-word">El Barbero</div>
+                    <div class="barber-links"><span>Servicios</span><span>Barberos</span><span>Galería</span></div>
+                    <span class="barber-cta">Reservar</span>
+                  </div>
+                  <div class="barber-hero">
+                    <span class="barber-hero__eyebrow">Barbería clásica · Desde 2016</span>
+                    <h4>Corte con oficio, afeitado con navaja</h4>
+                    <p>Turnos online, sin esperas. Ambiente clásico, técnica de siempre.</p>
+                    <span class="barber-hero__btn">Reservar turno <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                    <div class="barber-pole">
+                      <div class="barber-pole__cap"></div>
+                      <div class="barber-pole__body"></div>
+                      <div class="barber-pole__cap"></div>
+                    </div>
+                  </div>
+                  <div class="barber-list">
+                    <div class="barber-item"><div><b>Corte clásico</b><span>30 min</span></div><span class="barber-price">$350</span></div>
+                    <div class="barber-item pop"><div><b>Corte + Barba<em>Popular</em></b><span>50 min</span></div><span class="barber-price">$520</span></div>
+                    <div class="barber-item"><div><b>Afeitado a navaja</b><span>25 min</span></div><span class="barber-price">$300</span></div>
+                    <div class="barber-item"><div><b>Diseño de barba</b><span>20 min</span></div><span class="barber-price">$260</span></div>
+                  </div>
+                  <p class="barber-foot">Turnos de lunes a sábado · 9 a 20 hs</p>
+                </div>
+              </div>
+
+              <!-- DELIVERY — Humo Burgers -->
+              <div class="type-panel" data-panel="burger">
+                <div class="tpl tpl-burger">
+                  <div class="tpl-nav">
+                    <div class="tpl-word">Humo<span>Burgers</span></div>
+                    <span class="burger-time"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="6" cy="18" r="2.5"/><circle cx="17" cy="18" r="2.5"/><path d="M4 18h-1V13l3-4h5l3 4h3.5a2 2 0 012 2v3h-1M9 9V6h3"/></svg> 25–35 min</span>
+                    <span class="burger-cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10a8 5 0 0116 0z"/><path d="M3 13h18M4 16h16a1 1 0 011 1 3 3 0 01-3 3H6a3 3 0 01-3-3 1 1 0 011-1z"/></svg><em>2</em></span>
+                  </div>
+                  <div class="burger-hero">
+                    <div class="burger-glow"></div>
+                    <span class="burger-hero__eyebrow">Ahumadas a leña · 100% artesanales</span>
+                    <h4>Burgers con humo de verdad</h4>
+                    <p>Directo a tu puerta. Carne premium, pan brioche casero.</p>
+                    <span class="burger-hero__btn">Pedí ahora</span>
+                    <span class="burger-rating">★ 4.8 <i>(900+ pedidos)</i></span>
+                  </div>
+                  <div class="burger-info">
+                    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10a8 5 0 0116 0z"/><path d="M3 13h18"/></svg>Envío gratis +$2.500</div>
+                    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>30 min promedio</div>
+                    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20"/></svg>Efectivo y tarjeta</div>
+                  </div>
+                  <div class="burger-grid">
+                    <div class="burger-card">
+                      <div class="burger-card__img"><span class="burger-tag hot">Picante</span><svg viewBox="0 0 64 40"><defs><linearGradient id="bun1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9944a"/><stop offset="1" stop-color="#a5652a"/></linearGradient></defs>
+                        <path d="M10 18c0-7 8-11 22-11s22 4 22 11z" fill="url(#bun1)"/>
+                        <circle cx="17" cy="9" r="1" fill="#f0d9ab"/><circle cx="27" cy="7" r="1" fill="#f0d9ab"/><circle cx="37" cy="8" r="1" fill="#f0d9ab"/><circle cx="46" cy="10" r="1" fill="#f0d9ab"/>
+                        <rect x="8" y="18" width="48" height="4" rx="1" fill="#7a9c3f"/>
+                        <rect x="9" y="22" width="46" height="5" rx="1.5" fill="#5c3016"/>
+                        <rect x="10" y="27" width="44" height="3" rx="1" fill="#e0413a"/>
+                        <path d="M9 30c0 6 9 9 23 9s23-3 23-9z" fill="#e8b874"/>
+                      </svg></div>
+                      <b>La Ahumada</b><span>Cheddar, panceta, BBQ</span>
+                      <div class="burger-row"><em>$890</em><i>+</i></div>
+                    </div>
+                    <div class="burger-card">
+                      <div class="burger-card__img"><span class="burger-tag combo">Combo</span><svg viewBox="0 0 64 40"><defs><linearGradient id="bun2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9944a"/><stop offset="1" stop-color="#a5652a"/></linearGradient></defs>
+                        <path d="M10 15c0-6 8-9 22-9s22 3 22 9z" fill="url(#bun2)"/>
+                        <circle cx="17" cy="7.5" r="0.9" fill="#f0d9ab"/><circle cx="27" cy="6" r="0.9" fill="#f0d9ab"/><circle cx="37" cy="6.5" r="0.9" fill="#f0d9ab"/><circle cx="46" cy="8" r="0.9" fill="#f0d9ab"/>
+                        <rect x="9" y="15" width="46" height="3.4" rx="1" fill="#5c3016"/>
+                        <rect x="9" y="18.4" width="46" height="3.4" rx="1" fill="#e0413a"/>
+                        <rect x="8" y="21.8" width="48" height="3.4" rx="1" fill="#7a9c3f"/>
+                        <rect x="9" y="25.2" width="46" height="3.4" rx="1" fill="#5c3016"/>
+                        <path d="M9 28.6c0 5.5 9 8.4 23 8.4s23-2.9 23-8.4z" fill="#e8b874"/>
+                      </svg></div>
+                      <b>Doble Smash</b><span>Doble carne, cheddar</span>
+                      <div class="burger-row"><em>$1.050</em><i>+</i></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <p class="type-caption" id="type-caption">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            Carta editorial con categorías, precios y el plato del chef destacado.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESO -->
+  <section id="proceso">
+    <div class="wrap">
+      <div class="proc-eyebrow-wrap reveal">
+        <div>
+          <span class="eyebrow">Mi proceso</span>
+          <h2>De la idea <span class="accent">al resultado</span></h2>
+          <p style="color:var(--text-muted);font-size:15.5px;max-width:52ch;margin-top:10px;">Un proceso simple y claro, para que tu proyecto avance sin complicaciones.</p>
+        </div>
+      </div>
+
+      <div class="proc-row">
+        <div class="proc-step reveal">
+          <span class="num-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span>
+          <h3><span class="n">01</span>Entender</h3>
+          <p>Analizo tu idea, objetivos y necesidades.</p>
+          <span class="arrow-between"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+        <div class="proc-step reveal r-delay-1">
+          <span class="num-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4z"/></svg></span>
+          <h3><span class="n">02</span>Diseñar</h3>
+          <p>Creo una solución visual y funcional.</p>
+          <span class="arrow-between"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+        <div class="proc-step reveal r-delay-2">
+          <span class="num-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg></span>
+          <h3><span class="n">03</span>Desarrollar</h3>
+          <p>Llevo la idea a un producto real y optimizado.</p>
+          <span class="arrow-between"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+        <div class="proc-step reveal r-delay-3">
+          <span class="num-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 16.5c-1.5 1.5-2 5-2 5s3.5-.5 5-2c.8-.8 1-2.2.2-3.3-.8-.8-2.3-.6-3.2.3zM15 9l-3-3 5-5 3 3-5 5zM12 14l-6-6 3.5-3.5c1.5-1.5 5.5-1 8 1.5s3 6.5 1.5 8L15 17.5 12 14z"/></svg></span>
+          <h3><span class="n">04</span>Lanzar</h3>
+          <p>Te acompaño en el inicio y futuras mejoras.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARALLAX SHOWCASE -->
+  <section class="parallax" id="parallax-scroll">
+    <div class="parallax__sticky">
+      <div class="parallax__layers" data-parallax-layers>
+        <div class="par-layer par-back" data-parallax-layer="1"></div>
+
+        <div class="par-layer par-mid" data-parallax-layer="2">
+          <span class="par-ring"></span>
+          <span class="par-ring r2"></span>
+          <span class="chip-float c1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg> &lt;/&gt; código limpio</span>
+          <span class="chip-float c2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></svg> IA aplicada</span>
+          <span class="chip-float c3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg> diseño moderno</span>
+          <span class="chip-float c4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20h18M6 20V10M12 20V4M18 20v-7"/></svg> resultados reales</span>
+        </div>
+
+        <div class="par-layer par-title" data-parallax-layer="3">
+          <div>
+            <span class="eyebrow">Construyamos algo grande</span>
+            <h2 style="margin-top:16px;">Ideas que se convierten<br>en <span class="accent grad-text">oportunidades.</span></h2>
+            <p>Cada proyecto es una oportunidad de construir algo que realmente funcione, para vos y para quienes lo usan.</p>
+          </div>
+        </div>
+
+        <div class="par-layer par-front" data-parallax-layer="4"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA / CONTACTO -->
+  <section class="cta-section" id="contacto">
+    <div class="wrap cta-grid">
+      <div class="reveal">
+        <span class="eyebrow">Ideas · Proyectos · Resultados</span>
+        <h2>¿Tenés una idea?<span class="accent grad-text">Hablemos.</span></h2>
+        <p class="lead">Estoy abierto a nuevos proyectos, colaboraciones y desafíos. Contame qué tenés en mente.</p>
+        <div class="cta-ctas">
+          <button class="btn btn-dark" onclick="openModal()">
+            Enviar mensaje
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+          <div class="social-row">
+            <a class="social-btn" href="https://wa.me/598" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.48 1.34 5L2 22l5.2-1.36a9.94 9.94 0 004.84 1.24h.01c5.5 0 9.96-4.46 9.96-9.96S17.54 2 12.04 2zm5.8 14.24c-.24.68-1.4 1.3-1.93 1.36-.5.06-1.02.1-1.65-.1-.38-.12-.87-.28-1.5-.55-2.63-1.14-4.35-3.8-4.48-3.98-.13-.18-1.07-1.42-1.07-2.71 0-1.29.68-1.92.92-2.18.24-.26.52-.32.7-.32l.5.01c.16 0 .38-.06.6.46.24.56.8 1.94.87 2.08.07.14.11.3.02.48-.09.18-.14.3-.27.46-.13.16-.28.35-.4.47-.13.13-.27.27-.12.53.16.26.7 1.15 1.5 1.86 1.03.92 1.9 1.2 2.16 1.34.26.13.42.11.57-.07.16-.18.68-.8.86-1.07.18-.27.36-.22.6-.13.25.09 1.58.75 1.85.88.27.13.45.2.52.31.07.12.07.68-.17 1.36z"/></svg>
+            </a>
+            <a class="social-btn" href="mailto:santiago@delorrio.dev" aria-label="Email">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            </a>
+            <a class="social-btn" href="https://instagram.com/delorrio.dev" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+            </a>
+            <a class="social-btn" href="#" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="8" y1="10" x2="8" y2="17"/><circle cx="8" cy="7" r="1"/><path d="M12 17v-4a2.5 2.5 0 015 0v4"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-cards reveal r-delay-1">
+        <div class="service-card">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          <h4>Página web para tu negocio</h4>
+          <p>Sitios modernos, rápidos y enfocados en resultados.</p>
+          <span class="bar"></span>
+        </div>
+        <div class="service-card">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-4 10.5c.6.5 1 1.2 1 2.1V16h6v-.4c0-.9.4-1.6 1-2.1A6 6 0 0012 3z"/></svg>
+          <h4>Automatización con IA</h4>
+          <p>Soluciones inteligentes para ahorrar tiempo y escalar tu negocio.</p>
+          <span class="bar"></span>
+        </div>
+        <div class="service-card">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12l8.73-5.04M12 22.08V12"/></svg>
+          <h4>Producto digital</h4>
+          <p>Diseño y desarrollo de herramientas digitales que generan valor real.</p>
+          <span class="bar"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap foot-inner">
+      <div class="foot-left">
+        <a class="logo" href="#top"><span>Delorrio.dev</span><span class="dot"></span></a>
+        <small>Santiago Delorrio — Diseño Web · IA · Producto</small>
+      </div>
+      <nav class="foot-links">
+        <a href="#top">Inicio</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#proceso">Proceso</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <div class="foot-right">
+        <div class="foot-social">
+          <a href="https://instagram.com/delorrio.dev" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="8" y1="10" x2="8" y2="17"/><circle cx="8" cy="7" r="1"/><path d="M12 17v-4a2.5 2.5 0 015 0v4"/></svg></a>
+          <a href="#" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.5v-1.94c-2.78.62-3.37-1.36-3.37-1.36-.46-1.2-1.11-1.52-1.11-1.52-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.9 1.58 2.34 1.12 2.91.86.09-.67.35-1.12.64-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05a9.3 9.3 0 015 0c1.9-1.33 2.74-1.05 2.74-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.95.68 1.92v2.85c0 .28.18.61.69.5A10.26 10.26 0 0022 12.25C22 6.58 17.52 2 12 2z"/></svg></a>
+        </div>
+        <span class="foot-tag">Tecnología para más oportunidades.</span>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<!-- CONTACT MODAL -->
+<div class="modal-overlay" id="modal" hidden>
+  <div class="modal-card">
+    <h3>Hablemos de tu proyecto</h3>
+    <p class="sub">Contame qué tenés en mente y te respondo a la brevedad.</p>
+    <form id="contact-form">
+      <div class="field">
+        <label for="cf-name">Nombre</label>
+        <input id="cf-name" type="text" placeholder="Tu nombre" required>
+      </div>
+      <div class="field">
+        <label for="cf-email">Email</label>
+        <input id="cf-email" type="email" placeholder="tu@email.com" required>
+      </div>
+      <div class="field">
+        <label for="cf-msg">Mensaje</label>
+        <textarea id="cf-msg" rows="4" placeholder="Contáme sobre tu proyecto..." required></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+  <span>Mensaje enviado. ¡Gracias por escribir!</span>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
