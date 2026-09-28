@@ -14,10 +14,10 @@ export default function CameraRig() {
   // distancia de cámara para que la composición entre completa en cualquier proporción
   const tanHalf = Math.tan(THREE.MathUtils.degToRad(35 / 2));
   const fitZ = Math.max(BASE.z, HALF_W / (tanHalf * (size.width / size.height)), HALF_H / tanHalf);
-  const { reducedMotion, interactive } = useSceneOptions();
+  const { reducedMotion, calm, interactive } = useSceneOptions();
 
   useEffect(() => {
-    if (reducedMotion || !interactive) return;
+    if (reducedMotion || calm || !interactive) return;
     const onMove = (e) => {
       const r = gl.domElement.getBoundingClientRect();
       // relativo al centro de la escena, pero funciona con el mouse en toda la sección
@@ -33,7 +33,7 @@ export default function CameraRig() {
       window.removeEventListener('mousemove', onMove);
       document.removeEventListener('mouseleave', onLeave);
     };
-  }, [gl, reducedMotion, interactive]);
+  }, [gl, reducedMotion, calm, interactive]);
 
   useFrame((_, dt) => {
     const d = Math.min(dt, 0.05);

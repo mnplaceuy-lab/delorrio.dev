@@ -19,7 +19,8 @@ function mountAll() {
         className={d.className || ''}
         intensity={d.intensity ? parseFloat(d.intensity) : 1}
         interactive={d.interactive !== 'false'}
-        reducedMotion={reduce || d.reducedMotion === 'true'}
+        calm={reduce}
+        reducedMotion={d.reducedMotion === 'true'}
         onCoreToggle={onCoreToggle}
       />
     );
