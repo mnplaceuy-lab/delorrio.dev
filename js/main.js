@@ -182,6 +182,48 @@
       travelers.push(p);
     }
 
+    // pulsos de energía que emite el core (anillos que crecen y se desvanecen)
+    var pulses = [];
+    var PULSE_POOL = 6;
+    for(var pu=0; pu<PULSE_POOL; pu++){
+      var pulseGeo = new THREE.RingGeometry(1, 1.02, 48);
+      var pulseMat = new THREE.MeshBasicMaterial({color:CYAN, transparent:true, opacity:0, side:THREE.DoubleSide});
+      var pulseMesh = new THREE.Mesh(pulseGeo, pulseMat);
+      pulseMesh.rotation.x = Math.PI/2.3;
+      pulseMesh.visible = false;
+      coreGroup.add(pulseMesh);
+      pulses.push({mesh:pulseMesh, active:false, t:0});
+    }
+    function firePulse(){
+      var free = pulses.find(function(p){ return !p.active; });
+      if(!free) return;
+      free.active = true; free.t = 0; free.mesh.visible = true;
+    }
+    var lastPulseAt = 0;
+
+    // click en el núcleo: expande / colapsa los mini-módulos (Webs · IA · Productos digitales)
+    var raycaster = new THREE.Raycaster();
+    var ndc = new THREE.Vector2();
+    var coreHitTargets = [outerCore, glassCore, innerCore, centerPoint];
+    var expanded = false;
+    var expandPulse = 0;
+    wrap.addEventListener('click', function(e){
+      var r = wrap.getBoundingClientRect();
+      ndc.x = ((e.clientX - r.left) / r.width) * 2 - 1;
+      ndc.y = -((e.clientY - r.top) / r.height) * 2 + 1;
+      raycaster.setFromCamera(ndc, camera);
+      var hits = raycaster.intersectObjects(coreHitTargets);
+      if(hits.length){
+        expanded = !expanded;
+        wrap.classList.toggle('is-expanded', expanded);
+        expandPulse = 1;
+        firePulse(); firePulse();
+      } else if(expanded){
+        expanded = false;
+        wrap.classList.remove('is-expanded');
+      }
+    });
+
     function resize(){
       var w = wrap.clientWidth, h = wrap.clientHeight;
       if(!w||!h) return;
@@ -205,7 +247,9 @@
       }
       // hover real sobre el core: raycast simple por distancia proyectada
       var ndcX = mouseX * 2, ndcY = -mouseY * 2;
+      var wasHovering = hovering;
       hovering = Math.abs(ndcX) < 0.28 && Math.abs(ndcY) < 0.28;
+      if(hovering && !wasHovering) firePulse();
     });
     wrap.addEventListener('mouseleave', function(){ mouseX = 0; mouseY = 0; hovering = false; });
 
@@ -235,11 +279,24 @@
       ring2.rotation.z = -t*0.08;
 
       var breathe = 1 + Math.sin(t*0.9)*0.02;
-      var targetScale = (hovering ? 1.04 : 1) * breathe;
+      var targetScale = (hovering ? 1.04 : 1) * (expanded ? 1.05 : 1) * breathe;
       hoverScale += (targetScale - hoverScale) * 0.06;
       coreGroup.scale.setScalar(hoverScale);
-      coreGlow.intensity = (hovering ? 2.1 : 1.3) + Math.sin(t*0.9)*0.15;
-      outerMat.opacity = hovering ? 0.8 : (0.5 + Math.sin(t*0.8)*0.08);
+      coreGlow.intensity = (hovering || expanded ? 2.1 : 1.3) + Math.sin(t*0.9)*0.15;
+      outerMat.opacity = (hovering || expanded) ? 0.8 : (0.5 + Math.sin(t*0.8)*0.08);
+
+      // pulsos: anillos que se expanden desde el core y se desvanecen
+      if((hovering || expanded) && t - lastPulseAt > 0.9){ firePulse(); lastPulseAt = t; }
+      pulses.forEach(function(p){
+        if(!p.active) return;
+        p.t += 0.016;
+        var life = p.t / 1.1;
+        if(life >= 1){ p.active = false; p.mesh.visible = false; return; }
+        var s = 1 + life * 1.6;
+        p.mesh.scale.set(s, s, s);
+        p.mesh.material.opacity = (1 - life) * 0.45;
+      });
+      expandPulse *= 0.94;
 
       // fragmentos: leve deriva + suave acercamiento con scroll
       fragments.forEach(function(f, idx){
