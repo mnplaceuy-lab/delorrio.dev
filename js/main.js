@@ -24,6 +24,98 @@
     setTimeout(openModal, 1200);
   });
 
+  // pieza 3D de marca (Three.js) — propia, sin dependencias de terceros
+  (function(){
+    var canvas = document.getElementById('brand3d');
+    if(!canvas || typeof THREE === 'undefined') return;
+    var wrap = canvas.parentElement;
+
+    var renderer = new THREE.WebGLRenderer({canvas:canvas, alpha:true, antialias:true});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+    camera.position.set(0, 0, 6.2);
+
+    var group = new THREE.Group();
+    scene.add(group);
+
+    // núcleo: icosaedro wireframe en el azul de marca
+    var coreGeo = new THREE.IcosahedronGeometry(1.7, 1);
+    var coreMat = new THREE.MeshBasicMaterial({color:0x37b6ff, wireframe:true, transparent:true, opacity:.85});
+    var core = new THREE.Mesh(coreGeo, coreMat);
+    group.add(core);
+
+    // capa interior sólida translúcida, aporta profundidad
+    var innerGeo = new THREE.IcosahedronGeometry(1.68, 1);
+    var innerMat = new THREE.MeshBasicMaterial({color:0x0e2a3f, transparent:true, opacity:.28});
+    var inner = new THREE.Mesh(innerGeo, innerMat);
+    group.add(inner);
+
+    // anillo orbital
+    var ringGeo = new THREE.TorusGeometry(2.5, 0.012, 8, 100);
+    var ringMat = new THREE.MeshBasicMaterial({color:0x8de8ff, transparent:true, opacity:.5});
+    var ring = new THREE.Mesh(ringGeo, ringMat);
+    ring.rotation.x = Math.PI / 2.4;
+    group.add(ring);
+
+    var ring2 = ring.clone();
+    ring2.rotation.x = -Math.PI / 3.1;
+    ring2.rotation.y = Math.PI / 5;
+    group.add(ring2);
+
+    // puntos flotantes (nodos)
+    var pts = [];
+    var ptGeo = new THREE.SphereGeometry(0.035, 8, 8);
+    var ptMat = new THREE.MeshBasicMaterial({color:0xffffff});
+    for(var i = 0; i < 10; i++){
+      var p = new THREE.Mesh(ptGeo, ptMat);
+      var r = 2.5 + Math.random()*0.4;
+      var theta = Math.random()*Math.PI*2;
+      var phi = Math.acos((Math.random()*2)-1);
+      p.position.set(r*Math.sin(phi)*Math.cos(theta), r*Math.sin(phi)*Math.sin(theta), r*Math.cos(phi));
+      pts.push(p);
+      group.add(p);
+    }
+
+    var targetRX = 0, targetRY = 0, mouseX = 0, mouseY = 0;
+    wrap.addEventListener('mousemove', function(e){
+      var r = wrap.getBoundingClientRect();
+      mouseX = ((e.clientX - r.left) / r.width) - 0.5;
+      mouseY = ((e.clientY - r.top) / r.height) - 0.5;
+    });
+
+    function resize(){
+      var w = wrap.clientWidth, h = wrap.clientHeight;
+      if(!w || !h) return;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    }
+    resize();
+
+    var clock = new THREE.Clock();
+    function animate(){
+      requestAnimationFrame(animate);
+      var t = clock.getElapsedTime();
+      core.rotation.y = t * 0.18;
+      core.rotation.x = t * 0.09;
+      inner.rotation.copy(core.rotation);
+      ring.rotation.z = t * 0.15;
+      ring2.rotation.z = -t * 0.12;
+      targetRX += (mouseY * 0.5 - targetRX) * 0.04;
+      targetRY += (mouseX * 0.6 - targetRY) * 0.04;
+      group.rotation.x = targetRX;
+      group.rotation.y += 0.0009;
+      group.rotation.y += targetRY * 0.01;
+      pts.forEach(function(p, idx){ p.position.y += Math.sin(t*0.8 + idx) * 0.0015; });
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', resize);
+  })();
+
   // spotlight que sigue al mouse en el hero
   (function(){
     var visual = document.querySelector('.hero-visual');
