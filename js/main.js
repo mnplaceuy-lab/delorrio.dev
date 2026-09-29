@@ -310,3 +310,78 @@
     window.addEventListener('resize', function(){ resize(); init(); });
     requestAnimationFrame(step);
   })();
+
+  // ===== MI PROCESO: entrada escalonada, etapa activa por scroll, expandir y cierre =====
+  (function(){
+    var sec = document.getElementById('proceso');
+    if(!sec) return;
+    var cards = Array.prototype.slice.call(sec.querySelectorAll('.proc-card'));
+    var links = Array.prototype.slice.call(sec.querySelectorAll('.proc-link'));
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // 1. entrada: tarjetas de izquierda a derecha (stagger por CSS con --i)
+    function reveal(){
+      sec.classList.add('is-in');
+      setTimeout(function(){ sec.classList.add('is-ready'); }, reduce ? 0 : 4 * 120 + 520);
+    }
+    if(reduce || !('IntersectionObserver' in window)){ reveal(); }
+    else {
+      var io = new IntersectionObserver(function(es){
+        if(es[0].isIntersecting){ io.disconnect(); reveal(); }
+      }, { threshold: 0.2 });
+      io.observe(sec.querySelector('.proc-track'));
+    }
+
+    // 2. progreso de scroll → etapa activa y líneas que avanzan
+    var active = -1, complete = false, ticking = false;
+    function update(){
+      ticking = false;
+      var track = sec.querySelector('.proc-track');
+      var r = track.getBoundingClientRect(), vh = window.innerHeight;
+      var p;
+      if(window.innerWidth <= 640){
+        // mobile: la etapa activa es la que cruza el centro de la pantalla
+        p = (vh * 0.6 - r.top) / r.height;
+      } else {
+        p = (vh * 0.9 - r.top) / (r.height + vh * 0.55);
+      }
+      p = Math.max(0, Math.min(1, p));
+      var stage = p <= 0 ? -1 : Math.min(3, Math.floor(p * 4));
+
+      links.forEach(function(l, k){
+        var f = Math.max(0, Math.min(1, (p * 4 - k - 0.5) * 1.6));
+        l.style.setProperty('--p', f.toFixed(3));
+        var v = l.querySelector('.proc-link__v span');
+        if(v) v.style.setProperty('--p', f.toFixed(3));
+      });
+
+      if(stage !== active){
+        active = stage;
+        cards.forEach(function(c, i){ c.classList.toggle('is-active', i === stage); });
+        sec.classList.toggle('has-active', stage >= 0);
+      }
+      // 6. final del proceso: se ilumina toda la ruta y aparece el mensaje
+      if(p >= 0.92 && !complete){ complete = true; sec.classList.add('is-complete'); }
+      else if(p < 0.6 && complete){ complete = false; sec.classList.remove('is-complete'); }
+    }
+    function onScroll(){ if(!ticking){ ticking = true; requestAnimationFrame(update); } }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+
+    // 4. click / tap / teclado: expandir (una sola tarjeta abierta a la vez)
+    function toggle(card){
+      var open = !card.classList.contains('is-open');
+      cards.forEach(function(c){
+        var o = open && c === card;
+        c.classList.toggle('is-open', o);
+        c.setAttribute('aria-expanded', o ? 'true' : 'false');
+      });
+    }
+    cards.forEach(function(c){
+      c.addEventListener('click', function(){ toggle(c); });
+      c.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(c); }
+      });
+    });
+  })();
