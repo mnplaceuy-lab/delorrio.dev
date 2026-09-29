@@ -91,7 +91,7 @@ export default function IdeaCore() {
   const pulseMat = useMemo(() => createFresnelMaterial({ power: 1.8, intensity: 0 }), []);
   const glow = useMemo(() => glowTexture(), []);
   const { reducedMotion, intensity, interactive, onCoreToggle, canHover, frags, panels, tier } = useSceneOptions();
-  const glowBoost = tier === 'mobile' ? 1.9 : 1; // sin bloom en mobile: el halo compensa
+  const glowBoost = 1.9; // sin postprocesado: el halo compensa el bloom
   const clock = useThree((st) => st.clock);
 
   const rootRef = useRef();
@@ -224,10 +224,10 @@ export default function IdeaCore() {
         {/* núcleo interno: color HDR para que el bloom lo haga emitir luz */}
         <mesh ref={heartRef} renderOrder={7} raycast={() => null}>
           <sphereGeometry args={[0.17, 32, 32]} />
-          <meshBasicMaterial color={[2.2, 2.9, 3.4]} toneMapped={false} />
+          <meshBasicMaterial color={[2.2, 2.9, 3.4]} toneMapped={false} transparent depthWrite={false} />
         </mesh>
-        <sprite ref={heartGlowRef} scale={[1.3, 1.3, 1]} renderOrder={8} raycast={() => null}>
-          <spriteMaterial map={glow} color={COLORS.light} transparent opacity={0.9} depthWrite={false} blending={THREE.AdditiveBlending} toneMapped={false} />
+        <sprite ref={heartGlowRef} scale={[1.6, 1.6, 1]} renderOrder={8} raycast={() => null}>
+          <spriteMaterial map={glow} color={COLORS.light} transparent opacity={0.9} depthWrite={false} depthTest={false} blending={THREE.AdditiveBlending} toneMapped={false} />
         </sprite>
       </group>
 

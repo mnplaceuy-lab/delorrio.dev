@@ -51,8 +51,8 @@ export const PANELS = [
 
 // Niveles de detalle por dispositivo (índices de FRAGMENTS / PANELS que se muestran).
 export const TIERS = {
-  desktop: { frags: FRAGMENTS.map((_, i) => i), panels: [0, 1, 2, 3], particles: 14, post: 'full', dpr: [1, 1.5] },
-  tablet:  { frags: [0, 1, 2, 4, 5, 7, 9, 10], panels: [0, 1, 2], particles: 8, post: 'light', dpr: [1, 1.25] },
+  desktop: { frags: FRAGMENTS.map((_, i) => i), panels: [0, 1, 2, 3], particles: 14, post: 'none', dpr: [1, 1.5] },
+  tablet:  { frags: [0, 1, 2, 4, 5, 7, 9, 10], panels: [0, 1, 2], particles: 8, post: 'none', dpr: [1, 1.25] },
   mobile:  { frags: [0, 2, 4, 5, 9], panels: [0, 1], particles: 5, post: 'none', dpr: [1, 1.5] },
 };
 
