@@ -180,13 +180,13 @@ export default function IdeaCore() {
      <group ref={followRef}>
       <group ref={rootRef}>
         {/* halo de luz detrás del núcleo (sprite: siempre mira a cámara) */}
-        <sprite ref={haloRef} scale={[3.4, 3.4, 1]} renderOrder={-1}>
+        <sprite ref={haloRef} scale={[3.4, 3.4, 1]} renderOrder={1}>
           <spriteMaterial map={glow} color={COLORS.cyan} transparent opacity={0.16} depthWrite={false} blending={THREE.AdditiveBlending} toneMapped={false} />
         </sprite>
 
         <group ref={spinRef}>
           {/* volumen de vidrio oscuro (también es la zona de hover/click) */}
-          <mesh geometry={shellGeo} {...handlers}>
+          <mesh geometry={shellGeo} renderOrder={2} {...handlers}>
             <meshPhysicalMaterial
               color={COLORS.navy}
               transparent
@@ -199,34 +199,34 @@ export default function IdeaCore() {
             />
           </mesh>
           {/* rim de luz en los bordes */}
-          <mesh geometry={shellGeo} material={fresnel} scale={1.005} raycast={() => null} />
+          <mesh geometry={shellGeo} material={fresnel} scale={1.005} renderOrder={3} raycast={() => null} />
 
           {/* líneas geodésicas */}
-          <lineSegments ref={wireRef} geometry={shellWire} raycast={() => null}>
+          <lineSegments ref={wireRef} geometry={shellWire} renderOrder={4} raycast={() => null}>
             <lineBasicMaterial color={COLORS.cyan} transparent opacity={0.55} depthWrite={false} toneMapped={false} />
           </lineSegments>
 
           {/* nodos luminosos en las intersecciones */}
-          <instancedMesh ref={nodesRef} args={[null, null, nodes.length]} raycast={() => null}>
+          <instancedMesh ref={nodesRef} args={[null, null, nodes.length]} renderOrder={5} raycast={() => null}>
             <sphereGeometry args={[0.02, 8, 8]} />
             <meshBasicMaterial toneMapped={false} />
           </instancedMesh>
 
           {/* capa interna (gira en sentido contrario: profundidad) */}
-          <lineSegments ref={innerRef} geometry={innerWire} raycast={() => null}>
+          <lineSegments ref={innerRef} geometry={innerWire} renderOrder={4} raycast={() => null}>
             <lineBasicMaterial color={COLORS.cyan} transparent opacity={0.32} depthWrite={false} toneMapped={false} />
           </lineSegments>
         </group>
 
         {/* pulso de energía */}
-        <mesh ref={pulseRef} geometry={shellGeo} material={pulseMat} visible={false} raycast={() => null} />
+        <mesh ref={pulseRef} geometry={shellGeo} material={pulseMat} visible={false} renderOrder={6} raycast={() => null} />
 
         {/* núcleo interno: color HDR para que el bloom lo haga emitir luz */}
-        <mesh ref={heartRef} raycast={() => null}>
+        <mesh ref={heartRef} renderOrder={7} raycast={() => null}>
           <sphereGeometry args={[0.17, 32, 32]} />
           <meshBasicMaterial color={[2.2, 2.9, 3.4]} toneMapped={false} />
         </mesh>
-        <sprite ref={heartGlowRef} scale={[1.3, 1.3, 1]} raycast={() => null}>
+        <sprite ref={heartGlowRef} scale={[1.3, 1.3, 1]} renderOrder={8} raycast={() => null}>
           <spriteMaterial map={glow} color={COLORS.light} transparent opacity={0.9} depthWrite={false} blending={THREE.AdditiveBlending} toneMapped={false} />
         </sprite>
       </group>

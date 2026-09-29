@@ -4,8 +4,8 @@ import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing';
 // "light": versión más barata para tablets (sin multisampling, bloom de menor resolución).
 export default function PostEffects({ intensity = 1, light = false }) {
   return (
-    <EffectComposer multisampling={light ? 0 : 4} enableNormalPass={false}>
-      <Bloom mipmapBlur luminanceThreshold={0.85} luminanceSmoothing={0.2} intensity={0.75 * intensity} radius={0.72} levels={light ? 5 : 8} />
+    <EffectComposer multisampling={light ? 0 : 2} enableNormalPass={false}>
+      <Bloom mipmapBlur luminanceThreshold={0.85} luminanceSmoothing={0.2} intensity={0.75 * intensity} radius={0.72} levels={light ? 5 : 6} />
       <Vignette offset={0.32} darkness={0.45} />
     </EffectComposer>
   );

@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { PerformanceMonitor } from '@react-three/drei';
 import CameraRig from './CameraRig';
 import useScrollStory from './useScrollStory';
 import IdeaCore from './IdeaCore';
@@ -49,8 +48,17 @@ export default function DigitalIdeaScene({ className = '', intensity = 1, intera
   const tierName = useTier();
   const tier = TIERS[tierName];
   const visible = useOnScreen(containerRef);
-  // si el equipo no llega a una fluidez aceptable, se baja la resolución y se quita el bloom
-  const [degraded, setDegraded] = useState(false);
+  // Calidad decidida UNA vez al inicio (sin cambios en caliente, que producían parpadeos):
+  // si el navegador renderiza por software, va sin bloom y a resolución 1.
+  const softwareGL = useMemo(() => {
+    try {
+      const gl = document.createElement('canvas').getContext('webgl');
+      const ext = gl && gl.getExtension('WEBGL_debug_renderer_info');
+      const name = ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : '';
+      return /swiftshader|llvmpipe|basic render|software/i.test(name);
+    } catch (e) { return false; }
+  }, []);
+  const degraded = softwareGL;
   // hover real solo con mouse; en pantallas táctiles queda el toque sobre el núcleo
   const canHover = useMemo(() => window.matchMedia('(hover: hover) and (pointer: fine)').matches, []);
 
@@ -86,7 +94,6 @@ export default function DigitalIdeaScene({ className = '', intensity = 1, intera
       >
         {/* el contexto se re-provee dentro del Canvas (otro reconciler) */}
         <SceneContext.Provider value={options}>
-          <PerformanceMonitor bounds={() => [28, 60]} onDecline={() => setDegraded(true)} flipflops={2} />
           <CameraRig />
           <SceneLights />
           <group>
