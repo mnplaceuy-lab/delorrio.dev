@@ -19,6 +19,24 @@
   (function(){
     var form = document.getElementById('contact-form');
     if(!form) return;
+    function nativeSubmit(){
+      var f = document.createElement('form');
+      f.method = 'POST'; f.action = 'https://api.web3forms.com/submit'; f.style.display = 'none';
+      var data = {
+        access_key: '9da05a57-121e-4f73-b754-08cd649c435d',
+        subject: 'Nuevo mensaje desde Delorrio.dev', from_name: 'Delorrio.dev',
+        name: form.nombre.value, email: form.email.value, replyto: form.email.value,
+        message: form.mensaje.value,
+        redirect: location.origin + location.pathname + '?enviado=1'
+      };
+      Object.keys(data).forEach(function(k){ var i = document.createElement('input'); i.type = 'hidden'; i.name = k; i.value = data[k]; f.appendChild(i); });
+      document.body.appendChild(f); f.submit();
+    }
+    if(/[?&]enviado=1/.test(location.search)){
+      window.__skipAutoModal = true;
+      history.replaceState(null, '', location.pathname + location.hash);
+      setTimeout(function(){ showToast('Mensaje enviado. ¡Gracias por escribir!'); }, 400);
+    }
     form.addEventListener('submit', function(e){
       e.preventDefault();
       if(form.botcheck && form.botcheck.checked) return; // bot
@@ -44,8 +62,13 @@
           showToast('Mensaje enviado. ¡Gracias por escribir!');
         })
         .catch(function(err){
-          console.warn('Formulario:', err && err.message);
-          showToast('No se pudo enviar. Escribime por WhatsApp.');
+          var msg = (err && err.message) || 'error';
+          console.warn('Formulario:', msg);
+          if(err instanceof TypeError){
+            // bloqueo de red/navegador: envío estándar como respaldo (vuelve a la web al terminar)
+            nativeSubmit(); return;
+          }
+          showToast('No se pudo enviar (' + msg + ').');
         })
         .then(function(){ btn.disabled = false; btn.textContent = label; });
     });
@@ -56,7 +79,7 @@
 
   // abrir automáticamente al entrar a la página
   window.addEventListener('load', function(){
-    setTimeout(openModal, 1200);
+    if(!window.__skipAutoModal) setTimeout(openModal, 1200);
   });
 
 
