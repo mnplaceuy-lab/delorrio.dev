@@ -385,3 +385,132 @@
       });
     });
   })();
+
+  // ===== OPORTUNIDADES: entrada, órbitas vivas, parallax, hover con pulso al centro =====
+  (function(){
+    var sec = document.querySelector('.opp');
+    if(!sec) return;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    var items = Array.prototype.slice.call(sec.querySelectorAll('.opp-item'));
+    var paths = Array.prototype.slice.call(sec.querySelectorAll('.opp-path'));
+    var word = sec.querySelector('.opp-word');
+    var dotsBox = sec.querySelector('.opp-dots');
+    var VBW = 1600, VBH = 760;
+    paths.forEach(function(p, i){ p.style.setProperty('--d', (i * 0.15) + 's'); });
+
+    function isDesktop(){ return window.innerWidth > 980; }
+
+    // punto de un path en % de la sección (el SVG se estira con preserveAspectRatio="none")
+    function pointAt(path, t){
+      var len = path.getTotalLength();
+      var pt = path.getPointAtLength(len * t);
+      return { x: pt.x / VBW * 100, y: pt.y / VBH * 100 };
+    }
+    function place(dot, path, t){
+      var p = pointAt(path, t);
+      dot.style.transform = 'translate(' + (p.x / 100 * sec.clientWidth) + 'px,' + (p.y / 100 * sec.clientHeight) + 'px)';
+    }
+
+    // un nodo lento por órbita (pocas partículas)
+    var idleDots = paths.map(function(p, i){
+      var d = document.createElement('span'); d.className = 'opp-dot'; dotsBox.appendChild(d);
+      return { el: d, path: p, t: i * 0.27, speed: 0.045 + i * 0.006 };
+    });
+    var pulses = [];
+    function glowWord(){
+      word.classList.add('is-glow');
+      clearTimeout(glowWord._t);
+      glowWord._t = setTimeout(function(){ word.classList.remove('is-glow'); }, 450);
+    }
+    function firePulse(i){
+      if(reduce || !isDesktop()){ glowWord(); return; }
+      var d = document.createElement('span'); d.className = 'opp-dot opp-dot--pulse'; dotsBox.appendChild(d);
+      pulses.push({ el: d, path: paths[i], t: 0 });
+    }
+
+    // loop solo mientras la sección está en pantalla
+    var visible = false, raf = null, last = 0;
+    function loop(now){
+      raf = null;
+      if(!visible) return;
+      var dt = Math.min(0.05, (now - (last || now)) / 1000); last = now;
+      if(isDesktop()){
+        if(!reduce) idleDots.forEach(function(n){ n.t = (n.t + dt * n.speed) % 1; place(n.el, n.path, n.t); });
+        for(var k = pulses.length - 1; k >= 0; k--){
+          var pu = pulses[k]; pu.t += dt / 0.7;
+          if(pu.t >= 1){ pu.el.remove(); pulses.splice(k, 1); glowWord(); continue; }
+          place(pu.el, pu.path, pu.t);
+        }
+      }
+      raf = requestAnimationFrame(loop);
+    }
+    function start(){ if(!raf){ last = 0; raf = requestAnimationFrame(loop); } }
+
+    // 1. entrada por scroll + 7. pulso final (una sola vez)
+    var entered = false;
+    function enter(){
+      if(entered) return; entered = true;
+      sec.classList.add('is-in');
+      setTimeout(function(){ paths.forEach(function(_, i){ firePulse(i); }); }, reduce ? 0 : 2400);
+    }
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){
+        visible = es[0].isIntersecting;
+        if(visible){ if(es[0].intersectionRatio >= 0.25 || entered) enter(); start(); }
+      }, { threshold: [0, 0.25] }).observe(sec);
+    } else { visible = true; enter(); start(); }
+
+    // 4 + 5. activar concepto: hover (desktop), tap (mobile), foco (teclado)
+    function activate(i){
+      items.forEach(function(it, k){ it.classList.toggle('is-active', k === i); });
+      paths.forEach(function(p, k){ p.classList.toggle('is-lit', k === i); });
+      sec.classList.toggle('has-hot', i >= 0);
+    }
+    items.forEach(function(it, i){
+      var targets = it.querySelectorAll('.opp-obj, .opp-chip');
+      if(fine){
+        targets.forEach(function(t){
+          t.addEventListener('mouseenter', function(){ activate(i); firePulse(i); });
+          t.addEventListener('mouseleave', function(){ activate(-1); });
+        });
+      } else {
+        targets.forEach(function(t){
+          t.addEventListener('click', function(){
+            activate(i); firePulse(i);
+            clearTimeout(it._t); it._t = setTimeout(function(){ activate(-1); }, 1400);
+          });
+        });
+      }
+      it.addEventListener('focus', function(){ activate(i); firePulse(i); });
+      it.addEventListener('blur', function(){ activate(-1); });
+      it.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); firePulse(i); } });
+    });
+
+    // 3 + 6. parallax con profundidad y atracción al centro (solo desktop con mouse)
+    if(fine && !reduce){
+      var tx = 0, ty = 0, pending = false;
+      sec.addEventListener('mousemove', function(e){
+        var r = sec.getBoundingClientRect();
+        tx = (e.clientX - r.left) / r.width - 0.5;
+        ty = (e.clientY - r.top) / r.height - 0.5;
+        if(!pending){ pending = true; requestAnimationFrame(applyParallax); }
+      });
+      sec.addEventListener('mouseleave', function(){ tx = ty = 0; applyParallax(); });
+      function applyParallax(){
+        pending = false;
+        var near = Math.max(0, 1 - Math.sqrt(tx * tx + ty * ty) / 0.28); // cursor cerca del centro
+        items.forEach(function(it){
+          var depth = parseFloat(it.dataset.depth) || 1;
+          var ox = parseFloat(it.style.getPropertyValue('--ox')) / 100 - 0.5;
+          var oy = parseFloat(it.style.getPropertyValue('--oy')) / 100 - 0.5;
+          var px = -tx * 18 * depth - ox * near * 26;
+          var py = -ty * 12 * depth - oy * near * 22;
+          it.style.setProperty('--px', px.toFixed(1) + 'px');
+          it.style.setProperty('--py', py.toFixed(1) + 'px');
+        });
+        sec.querySelector('.opp-rings').style.transform = 'translate(' + (-tx * 6).toFixed(1) + 'px,' + (-ty * 4).toFixed(1) + 'px)';
+        sec.querySelector('.opp-lines').style.transform = 'translate(' + (-tx * 5).toFixed(1) + 'px,' + (-ty * 3).toFixed(1) + 'px)';
+      }
+    }
+  })();
