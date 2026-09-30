@@ -15,24 +15,40 @@
     t.classList.add('show');
     setTimeout(function(){ t.classList.remove('show'); }, 3600);
   }
-  // formulario de contacto → envío normal a FormSubmit (llega a tu Gmail) y vuelve a la web
+  // formulario de contacto → Web3Forms (llega a santiagodelorrio2013@gmail.com)
   (function(){
     var form = document.getElementById('contact-form');
-    // _next siempre apunta al dominio actual (sirve con Railway o con dominio propio)
-    var next = form.querySelector('input[name="_next"]');
-    if(next) next.value = location.origin + location.pathname + '?enviado=1#contacto';
-    var reply = document.createElement('input');
-    reply.type = 'hidden'; reply.name = '_replyto'; form.appendChild(reply);
-    form.addEventListener('submit', function(){
-      reply.value = form.email.value;
+    if(!form) return;
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      if(form.botcheck && form.botcheck.checked) return; // bot
       var btn = form.querySelector('button[type="submit"]');
-      if(btn){ btn.disabled = true; btn.textContent = 'Enviando…'; }
+      var label = btn.textContent;
+      btn.disabled = true; btn.textContent = 'Enviando…';
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          access_key: '9da05a57-121e-4f73-b754-08cd649c435d',
+          subject: 'Nuevo mensaje desde Delorrio.dev',
+          from_name: 'Delorrio.dev',
+          name: form.nombre.value,
+          email: form.email.value,
+          replyto: form.email.value,
+          message: form.mensaje.value
+        })
+      }).then(function(r){ return r.json(); })
+        .then(function(d){
+          if(!d.success) throw new Error(d.message || 'error');
+          closeModal(); form.reset();
+          showToast('Mensaje enviado. ¡Gracias por escribir!');
+        })
+        .catch(function(err){
+          console.warn('Formulario:', err && err.message);
+          showToast('No se pudo enviar. Escribime por WhatsApp.');
+        })
+        .then(function(){ btn.disabled = false; btn.textContent = label; });
     });
-    if(/[?&]enviado=1/.test(location.search)){
-      window.__skipAutoModal = true;
-      history.replaceState(null, '', location.pathname + location.hash);
-      setTimeout(function(){ showToast('Mensaje enviado. ¡Gracias por escribir!'); }, 400);
-    }
   })();
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape') closeModal();
@@ -40,7 +56,7 @@
 
   // abrir automáticamente al entrar a la página
   window.addEventListener('load', function(){
-    if(!window.__skipAutoModal) setTimeout(openModal, 1200);
+    setTimeout(openModal, 1200);
   });
 
 
@@ -72,7 +88,7 @@
     function load(){
       if(loaded) return; loaded = true;
       var s = document.createElement('script');
-      s.src = 'js/scene.bundle.js';
+      s.src = 'js/scene.bundle.js?v=202609292203';
       s.async = true;
       document.body.appendChild(s);
     }
