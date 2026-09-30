@@ -7,13 +7,42 @@
   document.getElementById('modal').addEventListener('click', function(e){
     if(e.target === this) closeModal();
   });
+  // formulario de contacto → llega por email (FormSubmit, sin backend propio)
+  function showToast(msg){
+    var t = document.getElementById('toast');
+    var tx = document.getElementById('toast-text');
+    if(tx) tx.textContent = msg;
+    t.classList.add('show');
+    setTimeout(function(){ t.classList.remove('show'); }, 3600);
+  }
   document.getElementById('contact-form').addEventListener('submit', function(e){
     e.preventDefault();
-    closeModal();
-    this.reset();
-    var t = document.getElementById('toast');
-    t.classList.add('show');
-    setTimeout(function(){ t.classList.remove('show'); }, 3200);
+    var form = this;
+    var btn = form.querySelector('button[type="submit"]');
+    var label = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Enviando…';
+    fetch('https://formsubmit.co/ajax/santiagodelorrio2013@gmail.com', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        nombre: form.nombre.value,
+        email: form.email.value,
+        mensaje: form.mensaje.value,
+        _subject: 'Nuevo mensaje desde Delorrio.dev',
+        _replyto: form.email.value,
+        _template: 'table',
+        _captcha: 'false'
+      })
+    }).then(function(r){ return r.json().then(function(d){ return { ok: r.ok, d: d }; }); })
+      .then(function(res){
+        if(!res.ok || String(res.d.success) === 'false') throw new Error(res.d.message || 'error');
+        closeModal(); form.reset();
+        showToast('Mensaje enviado. ¡Gracias por escribir!');
+      })
+      .catch(function(){
+        showToast('No se pudo enviar. Escribime por WhatsApp.');
+      })
+      .then(function(){ btn.disabled = false; btn.textContent = label; });
   });
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape') closeModal();

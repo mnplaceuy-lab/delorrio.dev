@@ -466,11 +466,8 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </button>
           <div class="social-row">
-            <a class="social-btn" href="https://wa.me/598" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <a class="social-btn" href="https://wa.me/59899408032?text=Hola%20Santiago%2C%20quiero%20hablar%20sobre%20un%20proyecto." target="_blank" rel="noopener" aria-label="WhatsApp">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.48 1.34 5L2 22l5.2-1.36a9.94 9.94 0 004.84 1.24h.01c5.5 0 9.96-4.46 9.96-9.96S17.54 2 12.04 2zm5.8 14.24c-.24.68-1.4 1.3-1.93 1.36-.5.06-1.02.1-1.65-.1-.38-.12-.87-.28-1.5-.55-2.63-1.14-4.35-3.8-4.48-3.98-.13-.18-1.07-1.42-1.07-2.71 0-1.29.68-1.92.92-2.18.24-.26.52-.32.7-.32l.5.01c.16 0 .38-.06.6.46.24.56.8 1.94.87 2.08.07.14.11.3.02.48-.09.18-.14.3-.27.46-.13.16-.28.35-.4.47-.13.13-.27.27-.12.53.16.26.7 1.15 1.5 1.86 1.03.92 1.9 1.2 2.16 1.34.26.13.42.11.57-.07.16-.18.68-.8.86-1.07.18-.27.36-.22.6-.13.25.09 1.58.75 1.85.88.27.13.45.2.52.31.07.12.07.68-.17 1.36z"/></svg>
-            </a>
-            <a class="social-btn" href="mailto:santiago@delorrio.dev" aria-label="Email">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
             </a>
             <a class="social-btn" href="https://instagram.com/delorrio.dev" target="_blank" rel="noopener" aria-label="Instagram">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
@@ -535,15 +532,15 @@
     <form id="contact-form">
       <div class="field">
         <label for="cf-name">Nombre</label>
-        <input id="cf-name" type="text" placeholder="Tu nombre" required>
+        <input id="cf-name" name="nombre" type="text" placeholder="Tu nombre" required>
       </div>
       <div class="field">
         <label for="cf-email">Email</label>
-        <input id="cf-email" type="email" placeholder="tu@email.com" required>
+        <input id="cf-email" name="email" type="email" placeholder="tu@email.com" required>
       </div>
       <div class="field">
         <label for="cf-msg">Mensaje</label>
-        <textarea id="cf-msg" rows="4" placeholder="Contáme sobre tu proyecto..." required></textarea>
+        <textarea id="cf-msg" name="mensaje" rows="4" placeholder="Contáme sobre tu proyecto..." required></textarea>
       </div>
       <div class="modal-actions">
         <button type="button" class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
@@ -555,7 +552,7 @@
 
 <div class="toast" id="toast">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-  <span>Mensaje enviado. ¡Gracias por escribir!</span>
+  <span id="toast-text">Mensaje enviado. ¡Gracias por escribir!</span>
 </div>
 
 <script src="js/main.js"></script>
