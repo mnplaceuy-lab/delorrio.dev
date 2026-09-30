@@ -3,8 +3,8 @@ import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { interaction, useSceneOptions } from '../state';
 
-const BASE = new THREE.Vector3(0.35, 0.45, 10.4);
-const HALF_W = 4.75, HALF_H = 2.5; // extensión de la composición (unidades de mundo)
+const BASE = new THREE.Vector3(0.35, 0.45, 8.6);
+const HALF_W = 4.6, HALF_H = 2.45; // extensión de la composición (unidades de mundo)
 const TARGET = new THREE.Vector3(0.1, 0, 0);
 
 // Parallax suave: la cámara se desplaza apenas según el mouse y siempre mira al mismo punto.
