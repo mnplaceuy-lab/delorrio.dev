@@ -514,3 +514,25 @@
       }
     }
   })();
+
+  // ===== PROYECTOS: entrada escalonada + parallax sutil del mockup principal =====
+  (function(){
+    var sec = document.querySelector('.pj');
+    if(!sec) return;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduce || !('IntersectionObserver' in window)){ sec.classList.add('is-in'); }
+    else {
+      var io = new IntersectionObserver(function(es){ if(es[0].isIntersecting){ io.disconnect(); sec.classList.add('is-in'); } }, { threshold: 0.12 });
+      io.observe(sec);
+    }
+    var main = sec.querySelector('.pj-main');
+    if(!main || reduce || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    var img = main.querySelector('.pj-main__media img');
+    main.addEventListener('mousemove', function(e){
+      var r = main.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+      img.style.setProperty('--mx', (-x * 10).toFixed(1) + 'px');
+      img.style.setProperty('--my', (-y * 8).toFixed(1) + 'px');
+    });
+    main.addEventListener('mouseleave', function(){ img.style.setProperty('--mx', '0px'); img.style.setProperty('--my', '0px'); });
+  })();
