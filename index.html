@@ -529,7 +529,12 @@
     </button>
     <h3>Hablemos de tu proyecto</h3>
     <p class="sub">Contame qué tenés en mente y te respondo a la brevedad.</p>
-    <form id="contact-form">
+    <form id="contact-form" action="https://formsubmit.co/santiagodelorrio2013@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="Nuevo mensaje desde Delorrio.dev">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://delorriodev-production.up.railway.app/?enviado=1#contacto">
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
       <div class="field">
         <label for="cf-name">Nombre</label>
         <input id="cf-name" name="nombre" type="text" placeholder="Tu nombre" required>
