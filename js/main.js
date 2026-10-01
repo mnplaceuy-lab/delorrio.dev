@@ -7,7 +7,7 @@
   document.getElementById('modal').addEventListener('click', function(e){
     if(e.target === this) closeModal();
   });
-  // formularios de contacto → /api/contact (server.js en Railway, envía el mail con Resend)
+  // formularios de contacto → Web3Forms (envía el mail a santiagodelorrio2013@gmail.com)
   (function(){
     var forms = document.querySelectorAll('[data-contact-form]');
     Array.prototype.forEach.call(forms, function(form){
@@ -17,17 +17,22 @@
         var btn = form.querySelector('button[type="submit"]');
         var label = btn.innerHTML;
         btn.disabled = true; btn.textContent = 'Enviando…';
-        fetch('/api/contact', {
+        var negocio = form.negocio ? form.negocio.value.trim() : '';
+        fetch('https://api.web3forms.com/submit', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify({
-            nombre: form.nombre.value, email: form.email.value, mensaje: form.mensaje.value,
-            negocio: form.negocio ? form.negocio.value : '',
+            access_key: '9da05a57-121e-4f73-b754-08cd649c435d',
+            subject: 'Nuevo mensaje desde Delorrio.dev — ' + form.nombre.value,
+            from_name: 'Delorrio.dev',
+            nombre: form.nombre.value, email: form.email.value,
+            negocio: negocio || '—',
+            mensaje: form.mensaje.value,
             botcheck: form.botcheck && form.botcheck.checked
           })
         }).then(function(r){ return r.json(); })
           .then(function(d){
-            if(!d.ok) throw new Error(d.error || 'error');
+            if(!(d.ok || d.success)) throw new Error(d.message || d.error || 'error');
             if(form.id === 'contact-form') closeModal();
             form.reset();
             showToast('Mensaje enviado. ¡Gracias por escribir!');
