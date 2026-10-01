@@ -7,43 +7,160 @@
   document.getElementById('modal').addEventListener('click', function(e){
     if(e.target === this) closeModal();
   });
-  // formulario de contacto → llega por email (FormSubmit, sin backend propio)
-  function showToast(msg){
-    var t = document.getElementById('toast');
-    var tx = document.getElementById('toast-text');
-    if(tx) tx.textContent = msg;
-    t.classList.add('show');
-    setTimeout(function(){ t.classList.remove('show'); }, 3600);
-  }
-  // formulario de contacto → /api/contact (server.js en Railway, envía el mail con Resend)
+  // formularios de contacto → /api/contact (server.js en Railway, envía el mail con Resend)
   (function(){
-    var form = document.getElementById('contact-form');
-    if(!form) return;
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      var btn = form.querySelector('button[type="submit"]');
-      var label = btn.textContent;
-      btn.disabled = true; btn.textContent = 'Enviando…';
-      fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          nombre: form.nombre.value, email: form.email.value, mensaje: form.mensaje.value,
-          botcheck: form.botcheck && form.botcheck.checked
-        })
-      }).then(function(r){ return r.json(); })
-        .then(function(d){
-          if(!d.ok) throw new Error(d.error || 'error');
-          closeModal(); form.reset();
-          showToast('Mensaje enviado. ¡Gracias por escribir!');
-        })
-        .catch(function(err){
-          console.warn('Formulario:', err && err.message);
-          showToast('No se pudo enviar (' + ((err && err.message) || 'error') + ').');
-        })
-        .then(function(){ btn.disabled = false; btn.textContent = label; });
+    var forms = document.querySelectorAll('[data-contact-form]');
+    Array.prototype.forEach.call(forms, function(form){
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        if(form.reportValidity && !form.reportValidity()) return;
+        var btn = form.querySelector('button[type="submit"]');
+        var label = btn.innerHTML;
+        btn.disabled = true; btn.textContent = 'Enviando…';
+        fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            nombre: form.nombre.value, email: form.email.value, mensaje: form.mensaje.value,
+            negocio: form.negocio ? form.negocio.value : '',
+            botcheck: form.botcheck && form.botcheck.checked
+          })
+        }).then(function(r){ return r.json(); })
+          .then(function(d){
+            if(!d.ok) throw new Error(d.error || 'error');
+            if(form.id === 'contact-form') closeModal();
+            form.reset();
+            showToast('Mensaje enviado. ¡Gracias por escribir!');
+          })
+          .catch(function(err){
+            console.warn('Formulario:', err && err.message);
+            showToast('No se pudo enviar (' + ((err && err.message) || 'error') + ').');
+          })
+          .then(function(){ btn.disabled = false; btn.innerHTML = label; });
+      });
     });
   })();
+
+  // contacto: aparición + globo de líneas (canvas, sin librerías)
+  (function(){
+    var sec = document.querySelector('.ct');
+    if(!sec) return;
+    if('IntersectionObserver' in window){
+      var io0 = new IntersectionObserver(function(es){
+        es.forEach(function(e){ if(e.isIntersecting){ sec.classList.add('is-in'); io0.disconnect(); } });
+      }, { threshold: 0.12 });
+      io0.observe(sec);
+    } else sec.classList.add('is-in');
+
+    var canvas = sec.querySelector('[data-globe]');
+    if(!canvas || !canvas.getContext) return;
+    var ctx = canvas.getContext('2d');
+    var lines = null, visible = false, raf = 0, last = 0;
+    var rot = [56, 42];               // arranca mostrando Uruguay, visto desde el sur
+    var HOME = [-56.2, -32.8];        // Uruguay
+    var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var drag = null, W = 0, H = 0, R = 0, cx = 0, cy = 0, dpr = 1;
+    var D = Math.PI / 180;
+
+    function resize(){
+      var box = canvas.parentNode.getBoundingClientRect();
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = box.width; H = box.height;
+      canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+      canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+      R = Math.min(W * 0.46, 330); cx = W / 2; cy = R + 14;
+      draw();
+    }
+    // proyección ortográfica: devuelve [x, y, visible]
+    function proj(lon, lat){
+      var l = (lon + rot[0]) * D, p = lat * D, p0 = -rot[1] * D;
+      var cp = Math.cos(p), x = cp * Math.sin(l);
+      var y = Math.cos(p0) * Math.sin(p) - Math.sin(p0) * cp * Math.cos(l);
+      var z = Math.sin(p0) * Math.sin(p) + Math.cos(p0) * cp * Math.cos(l);
+      return [cx + x * R, cy - y * R, z];
+    }
+    function draw(t){
+      if(!W) return;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, W, H);
+      // relleno y borde de la esfera
+      var g = ctx.createRadialGradient(cx - R * .3, cy - R * .4, R * .1, cx, cy, R);
+      g.addColorStop(0, 'rgba(55,182,255,.10)'); g.addColorStop(1, 'rgba(55,182,255,.015)');
+      ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.fillStyle = g; ctx.fill();
+      ctx.lineWidth = 1.4; ctx.strokeStyle = 'rgba(147,197,253,.55)'; ctx.stroke();
+      // meridianos y paralelos
+      ctx.lineWidth = .6; ctx.strokeStyle = 'rgba(55,182,255,.10)';
+      ctx.beginPath();
+      for(var lo = -180; lo < 180; lo += 20) path(function(i){ return [lo, -90 + i * 4]; }, 46);
+      for(var la = -60; la <= 60; la += 20) path(function(i){ return [-180 + i * 4, la]; }, 91);
+      ctx.stroke();
+      // países
+      if(lines){
+        ctx.lineWidth = .75; ctx.strokeStyle = 'rgba(226,240,255,.78)';
+        ctx.beginPath();
+        for(var k = 0; k < lines.length; k++){
+          var L = lines[k];
+          path(function(i){ return [L[i * 2], L[i * 2 + 1]]; }, L.length / 2);
+        }
+        ctx.stroke();
+      }
+      // punto en Uruguay
+      var u = proj(HOME[0], HOME[1]);
+      if(u[2] > 0.05){
+        var pulse = still ? .5 : (((t || 0) / 1600) % 1);
+        ctx.beginPath(); ctx.arc(u[0], u[1], 4 + pulse * 14, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(55,182,255,' + (0.35 * (1 - pulse)) + ')'; ctx.fill();
+        ctx.beginPath(); ctx.arc(u[0], u[1], 3.6, 0, Math.PI * 2);
+        ctx.fillStyle = '#37b6ff'; ctx.fill();
+        ctx.lineWidth = 1.5; ctx.strokeStyle = '#e0f2fe'; ctx.stroke();
+      }
+    }
+    function path(get, n){
+      var prev = false;
+      for(var i = 0; i < n; i++){
+        var c = get(i), p = proj(c[0], c[1]);
+        if(p[2] > 0){ if(prev) ctx.lineTo(p[0], p[1]); else ctx.moveTo(p[0], p[1]); prev = true; }
+        else prev = false;
+      }
+    }
+    function loop(t){
+      raf = 0;
+      if(!visible) return;
+      var dt = last ? Math.min(t - last, 50) : 16; last = t;
+      if(!drag && !still) rot[0] = (rot[0] + dt * 0.012) % 360;
+      draw(t);
+      if(!still || drag) raf = requestAnimationFrame(loop);
+    }
+    function start(){ if(!raf){ last = 0; raf = requestAnimationFrame(loop); } }
+
+    canvas.addEventListener('pointerdown', function(e){
+      drag = [e.clientX, e.clientY]; canvas.setPointerCapture(e.pointerId); canvas.classList.add('is-drag'); start();
+    });
+    canvas.addEventListener('pointermove', function(e){
+      if(!drag) return;
+      rot[0] += (e.clientX - drag[0]) * 0.35;
+      rot[1] = Math.max(-60, Math.min(60, rot[1] - (e.clientY - drag[1]) * 0.25));
+      drag = [e.clientX, e.clientY];
+      if(still) draw();
+    });
+    function up(){ drag = null; canvas.classList.remove('is-drag'); }
+    canvas.addEventListener('pointerup', up);
+    canvas.addEventListener('pointercancel', up);
+
+    resize();
+    window.addEventListener('resize', resize);
+    var io = new IntersectionObserver(function(es){
+      visible = es[0].isIntersecting;
+      if(visible){
+        if(!lines){
+          fetch('js/world.json').then(function(r){ return r.json(); }).then(function(d){ lines = d; draw(); start(); }).catch(function(){});
+        }
+        start();
+      }
+    }, { threshold: 0.05 });
+    io.observe(canvas);
+  })();
+
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape') closeModal();
   });
