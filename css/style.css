@@ -1167,3 +1167,21 @@
     .pj-main__media img,.pj-sec__media img{transition:none!important;}
   }
   .idea-3d .wrap{max-width:1640px;}
+
+  /* ===== Sección "Un diseño para cada rubro" en fondo claro ===== */
+  #tipos-web{background:#f1f5f9;color:#0f172a;}
+  #tipos-web .eyebrow{background:#e0f2fe;color:#0369a1;border-color:#bae6fd;}
+  #tipos-web h2{color:#0f172a;}
+  #tipos-web .accent,#tipos-web .grad-text{background:none;-webkit-text-fill-color:#0284c7;color:#0284c7;}
+  #tipos-web .sec-head p,#tipos-web .type-caption{color:#475569;}
+  #tipos-web .type-caption svg{color:#0284c7;}
+  #tipos-web .type-tab{background:#fff;color:#334155;border-color:#e2e8f0;}
+  #tipos-web .type-tab:hover{border-color:#38bdf8;color:#0f172a;}
+  #tipos-web .type-tab.active{background:#38bdf8;border-color:#38bdf8;color:#082f49;}
+  #tipos-web .browser-mock{background:#fff;border-color:#e2e8f0;box-shadow:0 30px 70px -35px rgba(15,23,42,.45);}
+  #tipos-web .browser-mock__bar{background:#f8fafc;border-color:#e2e8f0;}
+  #tipos-web .browser-mock__url{background:#fff;border-color:#e2e8f0;color:#64748b;}
+#tipos-web .type-caption{background:#fff;border-color:#e2e8f0;color:#475569;box-shadow:0 10px 30px -20px rgba(15,23,42,.35);}
+#tipos-web .type-caption *{color:inherit;}
+#tipos-web .type-caption strong,#tipos-web .type-caption b{color:#0f172a;}
+#tipos-web .type-caption svg{color:#0284c7;}
