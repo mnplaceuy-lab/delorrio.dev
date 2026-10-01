@@ -468,7 +468,7 @@
           </div>
         </div>
 
-        <form class="ct-card ct-in" style="--d:.35s" data-contact-form novalidate>
+        <form class="ct-card ct-in" style="--d:.35s" data-contact-form novalidate autocomplete="off">
           <div>
             <h3>Enviame un mensaje</h3>
             <p>Completá el formulario y te respondo por mail.</p>
@@ -476,11 +476,11 @@
           <div class="ct-dots" role="separator"></div>
           <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
           <div class="ct-row">
-            <label class="ct-field"><span>Nombre</span><input type="text" name="nombre" placeholder="Tu nombre" autocomplete="name" required></label>
-            <label class="ct-field"><span>Negocio <em>(opcional)</em></span><input type="text" name="negocio" placeholder="Nombre de tu negocio" autocomplete="organization"></label>
+            <label class="ct-field"><span>Nombre</span><input type="text" name="nombre" placeholder="Tu nombre" autocomplete="off" required></label>
+            <label class="ct-field"><span>Negocio <em>(opcional)</em></span><input type="text" name="negocio" placeholder="Nombre de tu negocio" autocomplete="off"></label>
           </div>
-          <label class="ct-field"><span>Email</span><input type="email" name="email" placeholder="tu@email.com" autocomplete="email" required></label>
-          <label class="ct-field"><span>Mensaje</span><textarea name="mensaje" rows="5" placeholder="Contame sobre tu proyecto..." required></textarea></label>
+          <label class="ct-field"><span>Email</span><input type="email" name="email" placeholder="tu@email.com" autocomplete="off" required></label>
+          <label class="ct-field"><span>Mensaje</span><textarea name="mensaje" rows="5" placeholder="Contame sobre tu proyecto..." required autocomplete="off"></textarea></label>
           <button type="submit" class="ct-submit">Enviar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         </form>
       </div>
@@ -517,19 +517,19 @@
     </button>
     <h3>Hablemos de tu proyecto</h3>
     <p class="sub">Contame qué tenés en mente y te respondo a la brevedad.</p>
-    <form id="contact-form" data-contact-form>
+    <form id="contact-form" data-contact-form autocomplete="off">
       <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
       <div class="field">
         <label for="cf-name">Nombre</label>
-        <input id="cf-name" name="nombre" type="text" placeholder="Tu nombre" required>
+        <input id="cf-name" name="nombre" type="text" placeholder="Tu nombre" required autocomplete="off">
       </div>
       <div class="field">
         <label for="cf-email">Email</label>
-        <input id="cf-email" name="email" type="email" placeholder="tu@email.com" required>
+        <input id="cf-email" name="email" type="email" placeholder="tu@email.com" required autocomplete="off">
       </div>
       <div class="field">
         <label for="cf-msg">Mensaje</label>
-        <textarea id="cf-msg" name="mensaje" rows="4" placeholder="Contáme sobre tu proyecto..." required></textarea>
+        <textarea id="cf-msg" name="mensaje" rows="4" placeholder="Contáme sobre tu proyecto..." required autocomplete="off"></textarea>
       </div>
       <div class="modal-actions">
         <button type="button" class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
