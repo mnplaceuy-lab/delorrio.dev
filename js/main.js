@@ -330,7 +330,7 @@
       urlEl.textContent = d.url; nameEl.textContent = d.name;
       load.hidden = false;
       frame.onload = function(){ load.hidden = true; };
-      frame.src = 'demos/' + d.key + '.html';
+      frame.src = 'demos/' + d.key + '.html?v=202610011510';
       modal.hidden = false;
       document.documentElement.classList.add('dm-lock');
       setTimeout(function(){ document.getElementById('dm-close').focus(); }, 30);
