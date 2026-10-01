@@ -15,60 +15,31 @@
     t.classList.add('show');
     setTimeout(function(){ t.classList.remove('show'); }, 3600);
   }
-  // formulario de contacto → Web3Forms (llega a santiagodelorrio2013@gmail.com)
+  // formulario de contacto → /api/contact (server.js en Railway, envía el mail con Resend)
   (function(){
     var form = document.getElementById('contact-form');
     if(!form) return;
-    function nativeSubmit(){
-      var f = document.createElement('form');
-      f.method = 'POST'; f.action = 'https://api.web3forms.com/submit'; f.style.display = 'none';
-      var data = {
-        access_key: '9da05a57-121e-4f73-b754-08cd649c435d',
-        subject: 'Nuevo mensaje desde Delorrio.dev', from_name: 'Delorrio.dev',
-        name: form.nombre.value, email: form.email.value, replyto: form.email.value,
-        message: form.mensaje.value,
-        redirect: location.origin + location.pathname + '?enviado=1'
-      };
-      Object.keys(data).forEach(function(k){ var i = document.createElement('input'); i.type = 'hidden'; i.name = k; i.value = data[k]; f.appendChild(i); });
-      document.body.appendChild(f); f.submit();
-    }
-    if(/[?&]enviado=1/.test(location.search)){
-      window.__skipAutoModal = true;
-      history.replaceState(null, '', location.pathname + location.hash);
-      setTimeout(function(){ showToast('Mensaje enviado. ¡Gracias por escribir!'); }, 400);
-    }
     form.addEventListener('submit', function(e){
       e.preventDefault();
-      if(form.botcheck && form.botcheck.checked) return; // bot
       var btn = form.querySelector('button[type="submit"]');
       var label = btn.textContent;
       btn.disabled = true; btn.textContent = 'Enviando…';
-      fetch('https://api.web3forms.com/submit', {
+      fetch('/api/contact', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          access_key: '9da05a57-121e-4f73-b754-08cd649c435d',
-          subject: 'Nuevo mensaje desde Delorrio.dev',
-          from_name: 'Delorrio.dev',
-          name: form.nombre.value,
-          email: form.email.value,
-          replyto: form.email.value,
-          message: form.mensaje.value
+          nombre: form.nombre.value, email: form.email.value, mensaje: form.mensaje.value,
+          botcheck: form.botcheck && form.botcheck.checked
         })
       }).then(function(r){ return r.json(); })
         .then(function(d){
-          if(!d.success) throw new Error(d.message || 'error');
+          if(!d.ok) throw new Error(d.error || 'error');
           closeModal(); form.reset();
           showToast('Mensaje enviado. ¡Gracias por escribir!');
         })
         .catch(function(err){
-          var msg = (err && err.message) || 'error';
-          console.warn('Formulario:', msg);
-          if(err instanceof TypeError){
-            // bloqueo de red/navegador: envío estándar como respaldo (vuelve a la web al terminar)
-            nativeSubmit(); return;
-          }
-          showToast('No se pudo enviar (' + msg + ').');
+          console.warn('Formulario:', err && err.message);
+          showToast('No se pudo enviar (' + ((err && err.message) || 'error') + ').');
         })
         .then(function(){ btn.disabled = false; btn.textContent = label; });
     });
@@ -79,7 +50,7 @@
 
   // abrir automáticamente al entrar a la página
   window.addEventListener('load', function(){
-    if(!window.__skipAutoModal) setTimeout(openModal, 1200);
+    setTimeout(openModal, 1200);
   });
 
 
@@ -245,35 +216,40 @@
     update();
   })();
 
-  // tipos de web — tabbed preview
+  // tipos de web — selector interactivo (acordeón)
   (function(){
-    var tabs = document.querySelectorAll('.type-tab');
-    var panels = document.querySelectorAll('.type-panel');
-    var urlEl = document.getElementById('type-url');
-    var captionEl = document.getElementById('type-caption');
-    var data = {
-      gastro:       { url:'lafonda.dev',              caption:'Web de restaurante con carta editorial, reservas y pedidos por WhatsApp.' },
-      hogar:        { url:'nexoshop.dev',              caption:'E-commerce de decoración con categorías por ambiente y productos destacados.' },
-      freeshop:     { url:'fronterafreeshop.com.uy',   caption:'Catálogo multi-categoría con ofertas destacadas y precios en dólares.' },
-      agencia:      { url:'estudionorte.dev',          caption:'Sitio institucional con servicios, proceso de trabajo y casos de éxito.' },
-      moda:         { url:'lineasur.com',              caption:'Landing editorial con colección destacada y navegación por categoría.' },
-      barberia:     { url:'barberiacentral.com',       caption:'Web con servicios, equipo de barberos y reserva de citas.' },
-      joyeria:      { url:'aureajoyas.com',            caption:'Vitrina elegante con colecciones y piezas hechas a mano.' },
-      inmobiliaria: { url:'riverapropiedades.uy',      caption:'Buscador de propiedades con filtros, mapa y equipo de asesores.' },
-      salud:        { url:'clinicanorte.com.uy',       caption:'Sitio de salud con especialidades, profesionales y turnos online.' },
-      turismo:      { url:'posadalunarejo.uy',         caption:'Web de hospedaje con habitaciones, experiencias y buscador de disponibilidad.' },
-      motors:       { url:'fronteramotors.com.uy',     caption:'Catálogo de autos nuevos y usados con financiación y búsqueda avanzada.' },
-      arquitectura: { url:'estudiohorizonte.uy',       caption:'Portfolio de proyectos con servicios y proceso de diseño y construcción.' }
-    };
-    tabs.forEach(function(tab){
-      tab.addEventListener('click', function(){
-        var type = tab.getAttribute('data-type');
-        tabs.forEach(function(t){ t.classList.toggle('active', t === tab); t.setAttribute('aria-selected', t === tab); });
-        panels.forEach(function(p){ p.classList.toggle('active', p.getAttribute('data-panel') === type); });
-        if(data[type] && urlEl) urlEl.textContent = data[type].url;
-        if(data[type] && captionEl) captionEl.lastChild.textContent = data[type].caption;
+    var root = document.querySelector('[data-rx]');
+    if(!root) return;
+    var opts = Array.prototype.slice.call(root.querySelectorAll('.rx-opt'));
+    var mq = window.matchMedia('(max-width:720px)');
+    function size(){
+      if(mq.matches){ root.style.removeProperty('--rxw'); return; }
+      var gap = parseFloat(getComputedStyle(root).columnGap) || 0;
+      var strip = parseFloat(getComputedStyle(root).getPropertyValue('--strip')) || 58;
+      var w = root.clientWidth - (opts.length - 1) * (strip + gap);
+      root.style.setProperty('--rxw', Math.max(w, 300) + 'px');
+    }
+    function activate(o){
+      opts.forEach(function(x){ var on = x === o; x.classList.toggle('is-active', on); x.setAttribute('aria-pressed', on); });
+      var img = o.querySelector('img'); if(img && img.loading === 'lazy') img.loading = 'eager';
+    }
+    opts.forEach(function(o, i){
+      o.addEventListener('click', function(){ activate(o); });
+      o.addEventListener('keydown', function(e){
+        var n = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+        if(!n) return; e.preventDefault();
+        var t = opts[(i + n + opts.length) % opts.length]; t.focus(); activate(t);
       });
     });
+    size();
+    window.addEventListener('resize', size);
+    if(mq.addEventListener) mq.addEventListener('change', size);
+    if('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(es){
+        es.forEach(function(e){ if(e.isIntersecting){ root.classList.add('is-in'); io.disconnect(); } });
+      }, { threshold: 0.15 });
+      io.observe(root);
+    } else root.classList.add('is-in');
   })();
 
   // GSAP ScrollTrigger parallax layers (Osmo-style)
