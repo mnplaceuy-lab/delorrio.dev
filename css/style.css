@@ -1291,3 +1291,8 @@ a.ct-link:hover .ct-ic{border-color:rgba(55,182,255,.45);background:var(--accent
 @media (max-width:900px){.ct-grid{grid-template-columns:1fr;}.ct-globe{height:clamp(220px,60vw,320px);}}
 @media (max-width:560px){.ct-row{grid-template-columns:1fr;}.ct-submit{align-self:stretch;justify-content:center;}}
 @media (prefers-reduced-motion:reduce){.ct-in{transition:none;opacity:1;transform:none;}}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;}
+.ct-modal{position:relative;width:min(620px,100%);max-height:calc(100dvh - 40px);overflow-y:auto;}
+.ct-modal-head{padding-right:44px;}
+.ct-modal-head p{color:var(--text-muted);font-size:15px;margin:0;}
+.ct-modal .modal-close{top:20px;right:20px;}
