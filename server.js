@@ -36,7 +36,11 @@ function serveStatic(req, res) {
   if (!file.startsWith(ROOT)) return send(res, 403, 'Forbidden', 'text/plain');
   fs.stat(file, (err, st) => {
     if (!err && st.isDirectory()) file = path.join(file, 'index.html');
-    else if (err) file = path.join(ROOT, 'index.html'); // rutas desconocidas → la home
+    else if (err) {
+      // archivos que no existen → 404 (así una demo faltante no muestra la home rota)
+      if (path.extname(urlPath)) return send(res, 404, 'Not found', 'text/plain');
+      file = path.join(ROOT, 'index.html'); // rutas sin extensión → la home
+    }
     fs.readFile(file, (e, data) => {
       if (e) return send(res, 404, 'Not found', 'text/plain');
       const ext = path.extname(file).toLowerCase();
