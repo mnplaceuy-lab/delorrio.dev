@@ -38,7 +38,7 @@ header{position:sticky;top:0;z-index:40;background:rgba(22,19,15,.96);backdrop-f
 .burger span{display:block;width:22px;height:2px;background:currentColor;margin:5px auto;transition:.25s}
 /* hero */
 .hero{background:var(--ink);color:#fff;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0 0 0 34%;background:url(img/agencia-hero.jpg?v=2) center/cover}
+.hero-bg{position:absolute;inset:0 0 0 34%;background:url(img/agencia-hero.jpg?v=4) center/cover}
 .hero-bg:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--ink) 0%,rgba(22,19,15,.6) 30%,rgba(22,19,15,0) 65%)}
 .hero .wrap{position:relative;padding-top:64px;padding-bottom:70px}
 .hero h1{font-size:clamp(36px,5vw,58px);margin:16px 0 18px;max-width:560px}
@@ -337,7 +337,7 @@ const tabs=$('#tabs');
 SV.forEach((s,i)=>{const b=document.createElement('button');b.className='tab';b.role='tab';b.id='tab-'+s.id;b.setAttribute('aria-selected',i==0);b.innerHTML=`<small>${s.n}</small>${s.sh}`;b.onclick=()=>selTab(i);tabs.append(b)});
 tabs.addEventListener('keydown',e=>{const bs=$$('.tab'),i=bs.indexOf(document.activeElement);if(e.key=='ArrowRight'||e.key=='ArrowLeft'){const n=(i+(e.key=='ArrowRight'?1:-1)+bs.length)%bs.length;selTab(n);bs[n].focus()}});
 function selTab(i){const s=SV[i];$$('.tab').forEach((b,j)=>{b.setAttribute('aria-selected',i==j);b.tabIndex=i==j?0:-1});
- $('#panel').innerHTML=`<div class="panel"><div class="txt"><div class="eyebrow">Servicio ${s.n}</div><h3>${s.t}</h3><p style="color:var(--mut)">${s.d}</p><ul>${s.li.map(l=>`<li>${l}</li>`).join('')}</ul><div class="meta"><div><span>Desde</span><b>${s.p}</b></div><div><span>Plazo típico</span><b>${s.w}</b></div></div><button class="btn btn-line" data-add="${s.id}">Sumarlo al cotizador →</button></div><img src="img/agencia-${s.img}.jpg?v=2" alt="${s.t}"></div>`}
+ $('#panel').innerHTML=`<div class="panel"><div class="txt"><div class="eyebrow">Servicio ${s.n}</div><h3>${s.t}</h3><p style="color:var(--mut)">${s.d}</p><ul>${s.li.map(l=>`<li>${l}</li>`).join('')}</ul><div class="meta"><div><span>Desde</span><b>${s.p}</b></div><div><span>Plazo típico</span><b>${s.w}</b></div></div><button class="btn btn-line" data-add="${s.id}">Sumarlo al cotizador →</button></div><img src="img/agencia-${s.img}.jpg?v=4" alt="${s.t}"></div>`}
 selTab(0);
 document.addEventListener('click',e=>{const b=e.target.closest('[data-add]');if(!b)return;const map={branding:'logo',web:'web',acomp:'mkt'};const o=OP.find(x=>x.id==map[b.dataset.add]);o.on=true;renderOpts();calc();go('cotizador')});
 
@@ -350,9 +350,9 @@ const CS=[
  {n:'Brisa',c:'web',tg:'Web · SEO',img:'plant',r:'Top 3 en Google',cl:'Inmobiliaria · Punta del Este',d:'Sitio con buscador de propiedades y SEO local. Hoy aparecen en el top 3 para “alquileres en Punta del Este”.',k:[['Top 3','en Google'],['+90%','tráfico'],['6 sem','de trabajo']]},
  {n:'Ámbar',c:'ecommerce',tg:'Branding · E-commerce',img:'sign',r:'+130% ventas',cl:'Cosmética natural · Colonia',d:'Nueva marca y tienda online con Mercado Pago y envíos, más campañas en Instagram para el lanzamiento.',k:[['+130%','ventas'],['4,8★','reseñas'],['7 sem','de trabajo']]}];
 const grid=$('#grid');
-CS.forEach((c,i)=>{const b=document.createElement('button');b.className='case';b.dataset.c=c.c;b.setAttribute('aria-label',`Ver caso ${c.n}`);b.innerHTML=`<img src="img/agencia-${c.img}.jpg?v=2" alt=""><span class="res">${c.r}</span><span class="cap"><b>${c.n}</b><small>${c.tg}</small></span>`;b.onclick=()=>openCase(i);grid.append(b)});
+CS.forEach((c,i)=>{const b=document.createElement('button');b.className='case';b.dataset.c=c.c;b.setAttribute('aria-label',`Ver caso ${c.n}`);b.innerHTML=`<img src="img/agencia-${c.img}.jpg?v=4" alt=""><span class="res">${c.r}</span><span class="cap"><b>${c.n}</b><small>${c.tg}</small></span>`;b.onclick=()=>openCase(i);grid.append(b)});
 $('#filters').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;$$('.chip').forEach(c=>{c.classList.toggle('on',c==b);c.setAttribute('aria-pressed',c==b)});const f=b.dataset.f;$$('.case').forEach(c=>c.classList.toggle('hide',f!='all'&&c.dataset.c!=f))});
-function openCase(i){const c=CS[i];$('#caseBody').innerHTML=`<img src="img/agencia-${c.img}.jpg?v=2" alt="Proyecto ${c.n}"><div class="in"><div class="eyebrow">${c.tg}</div><h3 id="caseTitle">${c.n}</h3><p style="font-size:13px;color:var(--mut)">${c.cl}</p><p style="margin-top:10px">${c.d}</p><div class="kpis">${c.k.map(k=>`<div><b>${k[0]}</b><span>${k[1]}</span></div>`).join('')}</div><button class="btn btn-gold" data-close data-goto="cotizador">Quiero algo así →</button></div>`;openM('#caseModal')}
+function openCase(i){const c=CS[i];$('#caseBody').innerHTML=`<img src="img/agencia-${c.img}.jpg?v=4" alt="Proyecto ${c.n}"><div class="in"><div class="eyebrow">${c.tg}</div><h3 id="caseTitle">${c.n}</h3><p style="font-size:13px;color:var(--mut)">${c.cl}</p><p style="margin-top:10px">${c.d}</p><div class="kpis">${c.k.map(k=>`<div><b>${k[0]}</b><span>${k[1]}</span></div>`).join('')}</div><button class="btn btn-gold" data-close data-goto="cotizador">Quiero algo así →</button></div>`;openM('#caseModal')}
 
 // quote
 const OP=[

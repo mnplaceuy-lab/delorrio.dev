@@ -39,7 +39,7 @@ header{position:sticky;top:0;z-index:40;background:rgba(18,17,16,.97);border-bot
 .burger{display:none;background:none;border:0;color:#fff;width:42px;height:42px}
 /* hero */
 .hero{background:var(--ink);color:#fff;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0 0 0 38%;background:url(img/barberia-hero.jpg?v=2) center/cover}
+.hero-bg{position:absolute;inset:0 0 0 38%;background:url(img/barberia-hero.jpg?v=4) center/cover}
 .hero-bg:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--ink) 0%,rgba(18,17,16,.55) 22%,rgba(18,17,16,0) 55%)}
 .hero .wrap{position:relative;padding-top:56px;padding-bottom:58px}
 .hero h1{font-size:clamp(40px,5.6vw,62px);margin:12px 0 16px;max-width:520px}
@@ -92,7 +92,7 @@ section{padding:66px 0}
 .gal img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
 .gal button:hover img{transform:scale(1.08)}
 /* booking */
-.book{background:linear-gradient(rgba(18,17,16,.9),rgba(18,17,16,.96)),url(img/barberia-g2.jpg?v=2) center/cover;color:#fff}
+.book{background:linear-gradient(rgba(18,17,16,.9),rgba(18,17,16,.96)),url(img/barberia-g2.jpg?v=4) center/cover;color:#fff}
 .bgrid{display:grid;grid-template-columns:1.55fr 1fr;gap:26px;align-items:start}
 .stp{background:rgba(27,25,22,.85);border:1px solid var(--line);border-radius:10px;padding:20px 22px;margin-bottom:14px}
 .stp h3{font-size:17px;display:flex;align-items:center;gap:10px;margin-bottom:14px}
@@ -122,7 +122,7 @@ section{padding:66px 0}
 .info{display:grid;grid-template-columns:1fr 1fr;gap:0;background:#fff;border:1px solid #e5dccd;border-radius:10px;overflow:hidden}
 .info .t{padding:30px}
 .info ul{list-style:none;margin-top:14px;display:grid;gap:10px;font-size:14px}
-.info .im{background:url(img/barberia-local.jpg?v=2) center/cover;min-height:220px}
+.info .im{background:url(img/barberia-local.jpg?v=4) center/cover;min-height:220px}
 footer{background:var(--ink);color:#9b9386;font-size:12.5px;padding:24px 0}
 footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 /* modal */
@@ -311,10 +311,10 @@ document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');i
 const secs=['inicio','servicios','equipo','turnos','contacto'];
 addEventListener('scroll',()=>{let c='inicio';secs.forEach(s=>{if(document.getElementById(s).getBoundingClientRect().top<140)c=s});$$('.menu a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')=='#'+c&&!a.hasAttribute('data-g')))},{passive:true});
 // services
-$('#svcs').innerHTML=SV.map(s=>`<button class="svc" data-svc="${s.id}" aria-pressed="false"><span class="ck" aria-hidden="true">✓</span><img src="img/barberia-${s.img}.jpg?v=2" alt=""><span class="b"><h3>${s.n}</h3><p>${s.d}</p><span class="ft"><span class="pr">${money(s.p)}</span><span class="du">⏱ ${s.m} min</span></span></span></button>`).join('');
+$('#svcs').innerHTML=SV.map(s=>`<button class="svc" data-svc="${s.id}" aria-pressed="false"><span class="ck" aria-hidden="true">✓</span><img src="img/barberia-${s.img}.jpg?v=4" alt=""><span class="b"><h3>${s.n}</h3><p>${s.d}</p><span class="ft"><span class="pr">${money(s.p)}</span><span class="du">⏱ ${s.m} min</span></span></span></button>`).join('');
 $('#svcs').onclick=e=>{const b=e.target.closest('[data-svc]');if(!b)return;setSvc(b.dataset.svc);go('turnos')};
 // team
-$('#team').innerHTML=BB.map(b=>`<button class="barber" data-bar="${b.id}" aria-pressed="false"><img src="img/barberia-${b.id}.jpg?v=2" alt="${b.n}"><span class="b"><b>${b.n}</b><small>${b.r}</small><q>${b.q}</q><span class="sel">Reservar con ${b.n.split(' ')[0]} →</span></span></button>`).join('');
+$('#team').innerHTML=BB.map(b=>`<button class="barber" data-bar="${b.id}" aria-pressed="false"><img src="img/barberia-${b.id}.jpg?v=4" alt="${b.n}"><span class="b"><b>${b.n}</b><small>${b.r}</small><q>${b.q}</q><span class="sel">Reservar con ${b.n.split(' ')[0]} →</span></span></button>`).join('');
 $('#team').onclick=e=>{const b=e.target.closest('[data-bar]');if(!b)return;st.bar=b.dataset.bar;st.hr=null;draw();go('turnos')};
 // gallery + lightbox
 $('#gal').innerHTML=GL.map((g,i)=>`<button data-gi="${i}" aria-label="Ampliar: ${g[1]}"><img src="img/barberia-${g[0]}.jpg" alt=""></button>`).join('');

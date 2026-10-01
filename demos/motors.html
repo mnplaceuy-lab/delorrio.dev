@@ -234,7 +234,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 <main id="inicio">
 <section class="hero" aria-roledescription="carrusel" aria-label="Destacados">
  <div class="slide on">
-  <img src="img/motors-hero.jpg?v=2" alt="Toyota Corolla Cross gris en la rambla de Montevideo al atardecer">
+  <img src="img/motors-hero.jpg?v=4" alt="Toyota Corolla Cross gris en la rambla de Montevideo al atardecer">
   <div class="wrap">
    <p class="eyebrow">NUEVA GENERACIÓN</p>
    <h1>Toyota Corolla Cross</h1>
@@ -248,7 +248,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   </div>
  </div>
  <div class="slide alt">
-  <img src="img/motors-s10.jpg?v=2" alt="Chevrolet S10 blanca">
+  <img src="img/motors-s10.jpg?v=4" alt="Chevrolet S10 blanca">
   <div class="wrap">
    <p class="eyebrow">TRABAJO Y AVENTURA</p>
    <h2>Chevrolet S10 High Country</h2>
@@ -258,7 +258,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   </div>
  </div>
  <div class="slide alt">
-  <img src="img/motors-usado.jpg?v=2" alt="SUV usado certificado">
+  <img src="img/motors-usado.jpg?v=4" alt="SUV usado certificado">
   <div class="wrap">
    <p class="eyebrow">USADOS CERTIFICADOS</p>
    <h2>Calidad y confianza a un mejor precio</h2>
@@ -312,7 +312,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   <div>
    <h2 class="sec">Financiación a tu medida</h2>
    <p class="lead">Cuotas en pesos o dólares con los principales bancos del país. Elegí el auto, cuánto entregás y en cuántas cuotas: la cuota se calcula al instante.</p>
-   <div class="fin-photo"><img src="img/motors-finance.jpg?v=2" alt="Pareja revisando la cuota de su auto en una tablet"></div>
+   <div class="fin-photo"><img src="img/motors-finance.jpg?v=4" alt="Pareja revisando la cuota de su auto en una tablet"></div>
    <div class="banks" aria-label="Bancos asociados"><span>BBVA</span><span>Santander</span><span>Itaú</span><span>Scotiabank</span></div>
   </div>
   <div class="sim" id="sim">
@@ -330,14 +330,14 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
 <section class="wrap svc" id="servicios">
  <div class="svc-grid">
-  <div class="box"><img src="img/motors-service.jpg?v=2" alt=""><h3>Servicio técnico</h3><p>Mantené tu auto como nuevo. Service oficial con repuestos originales.</p><button class="btn btn-white" type="button" id="svcBtn">Agendá tu service</button></div>
+  <div class="box"><img src="img/motors-service.jpg?v=4" alt=""><h3>Servicio técnico</h3><p>Mantené tu auto como nuevo. Service oficial con repuestos originales.</p><button class="btn btn-white" type="button" id="svcBtn">Agendá tu service</button></div>
   <div class="why"><h3>¿Por qué elegir Frontera Motors?</h3><ul>
    <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e3141f" stroke-width="1.6"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/></svg><span><b>Más de 15 años</b>en el mercado uruguayo</span></li>
    <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e3141f" stroke-width="1.6"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 2.7-5 6-5s6 2 6 5M16 5a3 3 0 0 1 0 6M21 20c0-2-1-4-3-4.5"/></svg><span><b>Miles de clientes</b>que nos recomiendan</span></li>
    <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e3141f" stroke-width="1.6"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg><span><b>Vehículos revisados</b>y garantizados</span></li>
    <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e3141f" stroke-width="1.6"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg><span><b>Atención personalizada</b>de principio a fin</span></li>
   </ul></div>
-  <div class="box"><img src="img/motors-store.jpg?v=2" alt=""><h3>Visitanos en Montevideo</h3><p>Av. Italia 6201 · Lunes a viernes 9 a 19 h, sábados 9 a 13 h · 098 123 456</p><button class="btn btn-white" type="button" data-td="">Agendá una prueba de manejo</button></div>
+  <div class="box"><img src="img/motors-store.jpg?v=4" alt=""><h3>Visitanos en Montevideo</h3><p>Av. Italia 6201 · Lunes a viernes 9 a 19 h, sábados 9 a 13 h · 098 123 456</p><button class="btn btn-white" type="button" data-td="">Agendá una prueba de manejo</button></div>
  </div>
 </section>
 </main>
@@ -362,12 +362,12 @@ const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const usd=n=>'US$ '+Math.round(n).toLocaleString('es-UY');
 const uyu=n=>'$ '+Math.round(n).toLocaleString('es-UY');
 const CARS=[
- {id:'corolla',m:'Toyota',n:'Corolla Cross',v:'2.0 Hybrid SEG e-CVT',p:42990,y:2026,km:0,c:'Híbrido',t:'SUV',tr:'Automática',img:'img/motors-corolla.jpg?v=2',hp:'170 CV combinados',cons:'4,3 l/100 km'},
- {id:'s10',m:'Chevrolet',n:'S10',v:'2.8 LTZ 4x4 AT',p:48990,y:2026,km:0,c:'Diésel',t:'Pick-up',tr:'Automática',img:'img/motors-s10.jpg?v=2',hp:'200 CV',cons:'9,1 l/100 km'},
- {id:'tcross',m:'Volkswagen',n:'T-Cross',v:'1.0 TSI Comfortline',p:24900,y:2022,km:28000,c:'Nafta',t:'SUV',tr:'Automática',img:'img/motors-tcross.jpg?v=2',hp:'116 CV',cons:'6,4 l/100 km'},
- {id:'renegade',m:'Jeep',n:'Renegade',v:'1.8 Longitude AT6',p:21500,y:2021,km:42000,c:'Nafta',t:'SUV',tr:'Automática',img:'img/motors-renegade.jpg?v=2',hp:'139 CV',cons:'8,2 l/100 km'},
- {id:'tiggo',m:'Chery',n:'Tiggo 7 Pro',v:'1.5 Turbo Luxury CVT',p:31990,y:2026,km:0,c:'Nafta',t:'SUV',tr:'Automática',img:'img/motors-suv0km.jpg?v=2',hp:'156 CV',cons:'7,4 l/100 km'},
- {id:'creta',m:'Hyundai',n:'Creta',v:'1.6 Limited AT',p:19900,y:2020,km:61000,c:'Nafta',t:'SUV',tr:'Automática',img:'img/motors-usado.jpg?v=2',hp:'123 CV',cons:'7,8 l/100 km'}];
+ {id:'corolla',m:'Toyota',n:'Corolla Cross',v:'2.0 Hybrid SEG e-CVT',p:42990,y:2026,km:0,c:'Híbrido',t:'SUV',tr:'Automática',img:'img/motors-corolla.jpg?v=4',hp:'170 CV combinados',cons:'4,3 l/100 km'},
+ {id:'s10',m:'Chevrolet',n:'S10',v:'2.8 LTZ 4x4 AT',p:48990,y:2026,km:0,c:'Diésel',t:'Pick-up',tr:'Automática',img:'img/motors-s10.jpg?v=4',hp:'200 CV',cons:'9,1 l/100 km'},
+ {id:'tcross',m:'Volkswagen',n:'T-Cross',v:'1.0 TSI Comfortline',p:24900,y:2022,km:28000,c:'Nafta',t:'SUV',tr:'Automática',img:'img/motors-tcross.jpg?v=4',hp:'116 CV',cons:'6,4 l/100 km'},
+ {id:'renegade',m:'Jeep',n:'Renegade',v:'1.8 Longitude AT6',p:21500,y:2021,km:42000,c:'Nafta',t:'SUV',tr:'Automática',img:'img/motors-renegade.jpg?v=4',hp:'139 CV',cons:'8,2 l/100 km'},
+ {id:'tiggo',m:'Chery',n:'Tiggo 7 Pro',v:'1.5 Turbo Luxury CVT',p:31990,y:2026,km:0,c:'Nafta',t:'SUV',tr:'Automática',img:'img/motors-suv0km.jpg?v=4',hp:'156 CV',cons:'7,4 l/100 km'},
+ {id:'creta',m:'Hyundai',n:'Creta',v:'1.6 Limited AT',p:19900,y:2020,km:61000,c:'Nafta',t:'SUV',tr:'Automática',img:'img/motors-usado.jpg?v=4',hp:'123 CV',cons:'7,8 l/100 km'}];
 const st={tab:'todos',marca:'',tipo:'',precio:'',comb:'',sort:'dest',fav:new Set(),car:'corolla',ent:30,n:36,mon:'usd',slot:null};
 const isNew=c=>c.km===0;
 // marcas

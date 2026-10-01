@@ -260,7 +260,7 @@ footer .copy{grid-column:1/-1;border-top:1px solid var(--line);padding-top:20px;
 
 <main>
 <section class="hero" id="inicio">
- <img class="hero-img" src="img/gastro-hero.jpg?v=2" alt="Lomo con vegetales asados servido en la mesa">
+ <img class="hero-img" src="img/gastro-hero.jpg?v=4" alt="Lomo con vegetales asados servido en la mesa">
  <div class="wrap">
   <p class="kick">Cocina de estación</p>
   <h1>Sabores de estación,<br><em>hechos con calma</em></h1>
@@ -306,7 +306,7 @@ footer .copy{grid-column:1/-1;border-top:1px solid var(--line);padding-top:20px;
 <section class="sec res" id="reservas">
  <div class="wrap">
   <div class="res-pic">
-   <img src="img/gastro-vino.jpg?v=2" alt="Copa de Tannat junto a flores de estación" loading="lazy">
+   <img src="img/gastro-vino.jpg?v=4" alt="Copa de Tannat junto a flores de estación" loading="lazy">
    <blockquote>“Una mesa sin apuro es la mejor sobremesa.”<cite>— Martina Ferreira, chef de La Fonda</cite></blockquote>
   </div>
   <div>
@@ -342,9 +342,9 @@ footer .copy{grid-column:1/-1;border-top:1px solid var(--line);padding-top:20px;
    <div class="stats"><div><b>12</b><span>productores locales</span></div><div><b>4</b><span>cartas al año</span></div><div><b>4,8★</b><span>en reseñas</span></div></div>
   </div>
   <div class="mosaic">
-   <img src="img/gastro-lomo.jpg?v=2" alt="Lomo de estación" loading="lazy">
-   <img src="img/gastro-pulpo.jpg?v=2" alt="Pulpo a la parrilla" loading="lazy">
-   <img src="img/gastro-tarta.jpg?v=2" alt="Tarta de chocolate" loading="lazy">
+   <img src="img/gastro-lomo.jpg?v=4" alt="Lomo de estación" loading="lazy">
+   <img src="img/gastro-pulpo.jpg?v=4" alt="Pulpo a la parrilla" loading="lazy">
+   <img src="img/gastro-tarta.jpg?v=4" alt="Tarta de chocolate" loading="lazy">
   </div>
  </div>
 </section>
@@ -409,12 +409,12 @@ const byId=id=>D.find(x=>x.id==id);
 const cart=new Map();let mode='mesa';
 const bagIco='<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>';
 function addBtn(d){return `<button class="add" data-add="${d.id}" aria-label="Agregar ${d.n} al pedido">${bagIco}Agregar</button>`}
-$('#dest').innerHTML=D.filter(d=>d.f).map(d=>`<article class="dcard"><img src="img/gastro-${d.img}.jpg?v=2" alt="${d.n}" loading="lazy"><div><h3>${d.n}</h3><p>${d.d}</p><div class="row"><span class="price">${fmt(d.p)}</span>${addBtn(d)}</div></div></article>`).join('');
+$('#dest').innerHTML=D.filter(d=>d.f).map(d=>`<article class="dcard"><img src="img/gastro-${d.img}.jpg?v=4" alt="${d.n}" loading="lazy"><div><h3>${d.n}</h3><p>${d.d}</p><div class="row"><span class="price">${fmt(d.p)}</span>${addBtn(d)}</div></div></article>`).join('');
 const cats=['Todos','Entradas','Principales','Pastas','Postres','Vinos','Veggie'];
 $('#tabs').innerHTML=cats.map((c,i)=>`<button class="tab" aria-pressed="${i==0}" data-c="${c}">${c}</button>`).join('');
 function renderList(c){
  const it=D.filter(d=>c=='Todos'||d.c==c||(c=='Veggie'&&d.v));
- $('#list').innerHTML=it.map(d=>`<div class="item"><img src="img/gastro-${d.img}.jpg?v=2" alt="" loading="lazy"><div class="t"><h4>${d.n}${d.v?'<span class="tag">Veggie</span>':''}<span class="dots"></span><span class="price">${fmt(d.p)}</span></h4><p>${d.d}</p></div>${addBtn(d)}</div>`).join('');
+ $('#list').innerHTML=it.map(d=>`<div class="item"><img src="img/gastro-${d.img}.jpg?v=4" alt="" loading="lazy"><div class="t"><h4>${d.n}${d.v?'<span class="tag">Veggie</span>':''}<span class="dots"></span><span class="price">${fmt(d.p)}</span></h4><p>${d.d}</p></div>${addBtn(d)}</div>`).join('');
 }
 renderList('Todos');
 $('#tabs').addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;$$('.tab').forEach(t=>t.setAttribute('aria-pressed',t==b));renderList(b.dataset.c)});
@@ -429,7 +429,7 @@ function renderCart(){
  const n=[...cart.values()].reduce((a,b)=>a+b,0);
  $('#bagN').textContent=n;$('#bagN').classList.toggle('show',n>0);
  if(!n){$('#dList').innerHTML='<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>Tu pedido está vacío.<br>Sumá platos desde la carta.</div>'}
- else $('#dList').innerHTML=[...cart].map(([id,q])=>{const d=byId(id);return `<div class="li"><img src="img/gastro-${d.img}.jpg?v=2" alt=""><div class="t"><b>${d.n}</b><span>${fmt(d.p)} c/u</span></div><div class="qty"><button data-q="${id}" data-d="-1" aria-label="Quitar uno">−</button><output>${q}</output><button data-q="${id}" data-d="1" aria-label="Sumar uno">+</button></div></div>`}).join('');
+ else $('#dList').innerHTML=[...cart].map(([id,q])=>{const d=byId(id);return `<div class="li"><img src="img/gastro-${d.img}.jpg?v=4" alt=""><div class="t"><b>${d.n}</b><span>${fmt(d.p)} c/u</span></div><div class="qty"><button data-q="${id}" data-d="-1" aria-label="Quitar uno">−</button><output>${q}</output><button data-q="${id}" data-d="1" aria-label="Sumar uno">+</button></div></div>`}).join('');
  const sub=[...cart].reduce((a,[id,q])=>a+byId(id).p*q,0);
  const pers=Math.max(1,Math.ceil(n/2));
  const extra=n?(mode=='mesa'?90*pers:-Math.round(sub*.1)):0;
