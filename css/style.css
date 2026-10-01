@@ -1309,3 +1309,17 @@ a.ct-link:hover .ct-ic{border-color:rgba(55,182,255,.45);background:var(--accent
 .ct-or::before,.ct-or::after{content:"";flex:1;height:4px;background-image:radial-gradient(circle,rgba(147,165,194,.45) .9px,transparent 1px);background-size:7px 4px;}
 .ct-or span{white-space:nowrap;}
 @media (max-width:520px){.ct-quick{gap:8px;}.ct-quick__btn{gap:9px;padding:10px;font-size:12.5px;}.ct-quick__btn b{font-size:14px;}.ct-quick__btn .ct-ic{flex-basis:32px;width:32px;height:32px;border-radius:10px;}.ct-or span{white-space:normal;text-align:center;}.ct-modal{gap:16px;}}
+/* acceso directo a ejemplos por rubro */
+nav.links a.nav-rubros{display:inline-flex;align-items:center;gap:7px;padding:6px 8px 6px 12px;margin-block:-6px;border-radius:999px;border:1px solid rgba(55,182,255,.35);background:var(--pill-bg);color:var(--text);}
+nav.links a.nav-rubros svg{width:14px;height:14px;color:var(--accent);}
+nav.links a.nav-rubros:hover{border-color:var(--accent);background:var(--accent-soft);}
+nav.links a.nav-rubros.active::after{bottom:-9px;left:14px;right:14px;}
+.nav-rubros__n{display:inline-grid;place-items:center;min-width:22px;height:20px;padding:0 6px;border-radius:999px;background:var(--accent);color:#031521;font-size:11.5px;font-weight:700;}
+@media (min-width:860px) and (max-width:1060px){nav.links{gap:20px;}}
+.hero-rubros{display:flex;align-items:center;gap:14px;width:fit-content;max-width:100%;margin:-24px 0 40px;padding:12px 16px 12px 12px;border-radius:16px;border:1px solid var(--border);background:rgba(11,21,38,.6);color:var(--text-muted);font-size:13.5px;line-height:1.45;text-decoration:none;transition:border-color .2s,background .2s,transform .2s;}
+.hero-rubros b{display:block;color:var(--text);font-size:14.5px;font-weight:600;}
+.hero-rubros__ic{flex:0 0 40px;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);}
+.hero-rubros__ic svg{width:18px;height:18px;}
+.hero-rubros__arrow{flex:0 0 18px;width:18px;height:18px;color:var(--accent);transition:transform .2s;}
+.hero-rubros:hover{border-color:rgba(55,182,255,.5);background:var(--accent-soft);transform:translateY(-2px);}
+.hero-rubros:hover .hero-rubros__arrow{transform:translateX(4px);}

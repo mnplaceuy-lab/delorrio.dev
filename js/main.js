@@ -212,7 +212,7 @@
   })();
 
   // smooth scroll + active nav highlight
-  document.querySelectorAll('nav.links a[href^="#"]').forEach(function(link){
+  document.querySelectorAll('nav.links a[href^="#"], a.hero-rubros').forEach(function(link){
     link.addEventListener('click', function(e){
       e.preventDefault();
       var id = this.getAttribute('href').slice(1);
@@ -220,7 +220,7 @@
       if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
     });
   });
-  var sections = ['top','proyectos','proceso','contacto'].map(id=>document.getElementById(id)).filter(Boolean);
+  var sections = ['top','proyectos','tipos-web','proceso','contacto'].map(id=>document.getElementById(id)).filter(Boolean);
   var navLinks = Array.from(document.querySelectorAll('nav.links a'));
   function onScroll(){
     var pos = window.scrollY + 120;
