@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Barbería Central</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Oswald:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#121110;--ink2:#1b1916;--line:#33302b;--gold:#e8c27e;--gold2:#d3a356;--cream:#f5f1ea;--cream2:#ebe5da;--txt:#211e1a;--mut:#6c655b;--serif:'Lora',Georgia,serif;--sans:'Inter',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--cream);color:var(--txt);font-size:15px;line-height:1.55;overflow-x:hidden}
+img{display:block;max-width:100%}
+button{font:inherit;cursor:pointer;color:inherit}
+:focus-visible{outline:2px solid var(--gold2);outline-offset:3px}
+.wrap{max-width:1220px;margin:0 auto;padding:0 28px}
+.eyebrow{font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold2);font-weight:600}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.08}
+h2{font-size:clamp(28px,3.4vw,38px);margin-top:6px;display:flex;align-items:center;gap:18px}
+h2:after{content:"";width:34px;height:2px;background:var(--gold2)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:0;border-radius:5px;padding:13px 24px;font-weight:600;font-size:14px;transition:.2s;text-decoration:none}
+.btn-gold{background:var(--gold);color:#1b150c}
+.btn-gold:hover{background:#f2d39c;transform:translateY(-1px)}
+.btn-gold:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn-line{background:none;border:1px solid var(--gold2);color:#8d6526;padding:9px 16px;font-size:13px}
+.btn-line:hover{background:var(--gold2);color:#1b150c}
+/* header */
+header{position:sticky;top:0;z-index:40;background:rgba(18,17,16,.97);border-bottom:1px solid #2a2724}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{text-decoration:none;color:#fff;text-align:center;line-height:1}
+.logo small{display:block;font-size:9px;letter-spacing:.35em;font-weight:600}
+.logo b{display:block;font-family:'Oswald',sans-serif;font-size:28px;letter-spacing:.12em;font-weight:600;margin:2px 0}
+.logo i{display:block;font-style:normal;font-size:7.5px;letter-spacing:.3em;color:var(--gold)}
+.menu{display:flex;gap:34px;list-style:none}
+.menu a{color:#e6e0d6;text-decoration:none;font-size:13.5px;padding:6px 0;border-bottom:2px solid transparent}
+.menu a:hover,.menu a.on{color:var(--gold);border-color:var(--gold)}
+.burger{display:none;background:none;border:0;color:#fff;width:42px;height:42px}
+/* hero */
+.hero{background:var(--ink);color:#fff;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0 0 0 38%;background:url(img/barberia-hero.jpg) center/cover}
+.hero-bg:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--ink) 0%,rgba(18,17,16,.55) 22%,rgba(18,17,16,0) 55%)}
+.hero .wrap{position:relative;padding-top:56px;padding-bottom:58px}
+.hero h1{font-size:clamp(40px,5.6vw,62px);margin:12px 0 16px;max-width:520px}
+.hero p{max-width:430px;color:#e1dace;font-size:16px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:22px;align-items:center;margin-top:28px}
+.play{display:flex;align-items:center;gap:14px;color:#fff;font-size:14px;text-decoration:none}
+.play i{width:44px;height:44px;border:1px solid var(--gold);border-radius:50%;display:grid;place-items:center;font-style:normal}
+.feats{background:var(--ink2);color:#fff;border-top:1px solid #2a2724}
+.feats .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+.feat{display:flex;gap:16px;align-items:center;padding:20px 18px;border-left:1px solid var(--line)}
+.feat:first-child{border:0}
+.feat svg{color:var(--gold);flex:none}
+.feat b{font-size:14px;font-weight:600;display:block}
+.feat span{font-size:12px;color:#aaa294}
+section{padding:66px 0}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:28px}
+.head p{color:var(--mut);max-width:360px;font-size:13.5px}
+/* services */
+.svcs{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.svc{background:#fff;border:1px solid #e5dccd;border-radius:8px;overflow:hidden;display:flex;flex-direction:column;text-align:left;padding:0;transition:.25s;position:relative}
+.svc:hover{transform:translateY(-3px);box-shadow:0 14px 28px rgba(30,20,10,.12)}
+.svc img{width:100%;height:120px;object-fit:cover}
+.svc .b{padding:16px 18px 18px;display:flex;flex-direction:column;flex:1}
+.svc h3{font-size:19px}
+.svc p{font-size:12.5px;color:var(--mut);margin:4px 0 12px;flex:1}
+.svc .ft{display:flex;justify-content:space-between;align-items:center}
+.svc .pr{font-weight:700;font-size:18px;color:#a0742d}
+.svc .du{font-size:12px;color:var(--mut)}
+.svc[aria-pressed=true]{border-color:var(--gold2);box-shadow:0 0 0 2px var(--gold2)}
+.svc .ck{position:absolute;top:10px;right:10px;width:28px;height:28px;border-radius:50%;background:var(--gold);color:#1b150c;display:none;place-items:center;font-weight:700;font-size:14px}
+.svc[aria-pressed=true] .ck{display:grid}
+/* team + gallery */
+.dark{background:var(--ink);color:#fff}
+.dark h2{color:#fff}
+.tg{display:grid;grid-template-columns:1.5fr 1fr;gap:40px}
+.team{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.barber{background:var(--ink2);border:1px solid var(--line);border-radius:8px;overflow:hidden;text-align:left;padding:0;display:flex;flex-direction:column;transition:.25s}
+.barber img{width:100%;aspect-ratio:1/1.05;object-fit:cover;object-position:top}
+.barber .b{padding:14px}
+.barber b{font-family:var(--serif);font-size:17px;display:block}
+.barber small{font-size:12px;color:var(--gold);display:block}
+.barber q{display:block;font-size:12px;color:#b9b1a4;margin-top:6px;font-style:italic}
+.barber[aria-pressed=true]{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.barber .sel{display:block;font-size:11.5px;font-weight:600;margin-top:10px;color:#8e8678}
+.barber[aria-pressed=true] .sel{color:var(--gold)}
+.gal{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:110px;gap:8px}
+.gal button{border:0;padding:0;border-radius:6px;overflow:hidden;background:#222}
+.gal button:first-child{grid-row:span 2}
+.gal button:last-child{grid-column:span 2}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.gal button:hover img{transform:scale(1.08)}
+/* booking */
+.book{background:linear-gradient(rgba(18,17,16,.9),rgba(18,17,16,.96)),url(img/barberia-g2.jpg) center/cover;color:#fff}
+.bgrid{display:grid;grid-template-columns:1.55fr 1fr;gap:26px;align-items:start}
+.stp{background:rgba(27,25,22,.85);border:1px solid var(--line);border-radius:10px;padding:20px 22px;margin-bottom:14px}
+.stp h3{font-size:17px;display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.stp h3 .n{width:26px;height:26px;border-radius:50%;background:var(--gold);color:#1b150c;font-family:var(--sans);font-size:12px;display:grid;place-items:center;font-weight:700}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{background:#24211d;border:1px solid #3d3832;border-radius:6px;padding:9px 13px;font-size:13px;color:#e8e2d8;text-align:left}
+.pill small{display:block;color:#9b9386;font-size:11px}
+.pill[aria-pressed=true]{background:var(--gold);border-color:var(--gold);color:#1b150c}
+.pill[aria-pressed=true] small{color:#5a4520}
+.pill:disabled{opacity:.3;cursor:not-allowed;text-decoration:line-through}
+.days .pill{text-align:center;min-width:64px}
+.days .pill b{display:block;font-size:18px;font-family:var(--serif)}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(74px,1fr));gap:7px}
+.slots .pill{text-align:center;padding:9px 4px}
+.hint{font-size:12.5px;color:#9b9386}
+.sum{background:var(--cream);color:var(--txt);border-radius:10px;padding:24px;position:sticky;top:86px}
+.sum h3{font-size:22px;margin-bottom:12px}
+.sum .row{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--cream2);font-size:13.5px}
+.sum .row span:first-child{color:var(--mut)}
+.sum .row span:last-child{font-weight:600;text-align:right}
+.sum .tot{font-size:18px;border:0}
+.sum label{display:block;font-size:12px;color:var(--mut);margin:12px 0 4px}
+.sum input{width:100%;border:1px solid #d6ccbc;border-radius:5px;padding:10px 12px;font:inherit;background:#fff}
+.sum .btn{width:100%;margin-top:16px}
+.err{color:#a3402b;font-size:12.5px;min-height:16px;margin-top:8px}
+/* info */
+.info{display:grid;grid-template-columns:1fr 1fr;gap:0;background:#fff;border:1px solid #e5dccd;border-radius:10px;overflow:hidden}
+.info .t{padding:30px}
+.info ul{list-style:none;margin-top:14px;display:grid;gap:10px;font-size:14px}
+.info .im{background:url(img/barberia-local.jpg) center/cover;min-height:220px}
+footer{background:var(--ink);color:#9b9386;font-size:12.5px;padding:24px 0}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(8,7,6,.78);z-index:80;display:none;align-items:center;justify-content:center;padding:16px}
+.modal.open{display:flex}
+.dlg{background:var(--cream);border-radius:12px;max-width:440px;width:100%;padding:30px;position:relative;text-align:center;animation:up .3s}
+@keyframes up{from{opacity:0;transform:translateY(14px) scale(.98)}}
+.dlg .ok{width:60px;height:60px;border-radius:50%;background:var(--gold);display:grid;place-items:center;margin:0 auto 14px;font-size:28px;font-weight:700;color:#1b150c}
+.dlg h3{font-size:26px}
+.dlg .tk{background:#fff;border:1px dashed #cdbf9f;border-radius:8px;padding:14px;margin:16px 0;text-align:left;font-size:13.5px;display:grid;gap:4px}
+.dlg p{font-size:13px;color:var(--mut)}
+.x{position:absolute;top:10px;right:10px;width:36px;height:36px;border-radius:50%;border:0;background:rgba(18,17,16,.85);color:#fff;font-size:19px}
+.lb{background:none;padding:0;max-width:760px;text-align:center}
+.lb img{width:100%;max-height:78vh;object-fit:contain;border-radius:8px}
+.lb .nv{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:0;background:rgba(18,17,16,.85);color:#fff;font-size:22px}
+.lb .pv{left:8px}.lb .nx{right:8px}
+.lb p{color:#ddd;margin-top:8px;font-size:13px}
+@media (max-width:1000px){
+ .svcs{grid-template-columns:1fr 1fr}
+ .tg{grid-template-columns:1fr}
+ .bgrid{grid-template-columns:1fr}
+ .sum{position:static}
+ .feats .wrap{grid-template-columns:1fr 1fr}
+ .feat:nth-child(3){border:0}
+}
+@media (max-width:760px){
+ .wrap{padding:0 18px}
+ .menu{position:fixed;top:68px;left:0;right:0;flex-direction:column;gap:0;background:var(--ink);padding:6px 18px 16px;transform:translateY(-130%);visibility:hidden;transition:transform .3s,visibility .3s;z-index:-1}
+ .menu.open{transform:none;visibility:visible}
+ .menu a{display:block;padding:14px 0;border-bottom:1px solid #2a2724;font-size:15px}
+ .burger{display:block}
+ .nav>.btn{display:none}
+ .hero-bg{inset:0;background-position:65% center}
+ .hero-bg:after{background:linear-gradient(180deg,rgba(18,17,16,.35),rgba(18,17,16,.93) 62%)}
+ .hero .wrap{padding-top:130px}
+ .feats .wrap{grid-template-columns:1fr}
+ .feat{border:0;border-top:1px solid var(--line);padding:13px 0}
+ .feat:first-child{border:0}
+ section{padding:50px 0}
+ .svcs{grid-template-columns:1fr}
+ .svc{flex-direction:row}
+ .svc img{width:110px;height:auto;flex:none}
+ .team{grid-template-columns:1fr 1fr 1fr;gap:8px}
+ .barber q{display:none}
+ .barber .b{padding:10px}
+ .barber b{font-size:14px}
+ .gal{grid-template-columns:1fr 1fr;grid-auto-rows:120px}
+ .gal button:first-child{grid-row:auto;grid-column:span 2}
+ .gal button:last-child{grid-column:auto}
+ .stp{padding:16px}
+ .info{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+ <div class="wrap nav">
+  <a href="#inicio" class="logo" aria-label="Barbería Central, inicio"><small>BARBERÍA</small><b>CENTRAL</b><i>— EST. 2018 —</i></a>
+  <ul class="menu" id="menu">
+   <li><a href="#inicio" class="on">Inicio</a></li>
+   <li><a href="#servicios">Servicios</a></li>
+   <li><a href="#equipo">Equipo</a></li>
+   <li><a href="#equipo" data-g>Galería</a></li>
+   <li><a href="#turnos">Turnos</a></li>
+   <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <a href="#turnos" class="btn btn-gold" style="padding:10px 20px"><svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Reservar cita</a>
+  <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+ </div>
+</header>
+
+<main>
+<div class="hero" id="inicio">
+ <div class="hero-bg" role="img" aria-label="Barbero perfilando la barba de un cliente"></div>
+ <div class="wrap">
+  <div class="eyebrow">Más que un corte</div>
+  <h1>Estilo que<br>te acompaña</h1>
+  <p>Cortes, barba y cuidado personal en un espacio diseñado para que te veas bien y te sientas mejor.</p>
+  <div class="hero-cta">
+   <a href="#turnos" class="btn btn-gold"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Reservar cita</a>
+   <a href="#equipo" class="play"><i aria-hidden="true">▶</i>Conocé nuestra barbería</a>
+  </div>
+ </div>
+</div>
+<div class="feats"><div class="wrap">
+ <div class="feat"><svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="18" r="3"/><circle cx="18" cy="18" r="3"/><path d="M8 16 19 3M16 16 5 3"/></svg><div><b>Profesionales expertos</b><span>Pasión y experiencia real</span></div></div>
+ <div class="feat"><svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5zM17 10h1.5a2.5 2.5 0 0 1 0 5H17M8 3v3M12 3v3"/></svg><div><b>Un espacio para vos</b><span>Relajate y disfrutá</span></div></div>
+ <div class="feat"><svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6v4H9zM8 7h8v4a4 4 0 0 1-8 0zM12 15v4M8 21h8"/></svg><div><b>Productos de calidad</b><span>Cuidado que se nota</span></div></div>
+ <div class="feat"><svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8 6.6 19.7l1.1-6.1-4.5-4.2 6.1-.8z"/></svg><div><b>Ambiente auténtico</b><span>Buena música, buena compañía</span></div></div>
+</div></div>
+
+<section id="servicios">
+ <div class="wrap">
+  <div class="head">
+   <div><div class="eyebrow">Nuestros servicios</div><h2>Todo para tu mejor versión</h2></div>
+   <p>Tocá un servicio para sumarlo a tu turno. Desde un corte clásico hasta un look moderno, siempre con la mejor atención.</p>
+  </div>
+  <div class="svcs" id="svcs"></div>
+ </div>
+</section>
+
+<section class="dark" id="equipo">
+ <div class="wrap tg">
+  <div>
+   <div class="eyebrow">Nuestro equipo</div><h2 style="margin-bottom:22px">Barberos con historia</h2>
+   <div class="team" id="team"></div>
+  </div>
+  <div id="galeria">
+   <div class="eyebrow">Galería</div><h2 style="margin-bottom:22px">Momentos reales</h2>
+   <div class="gal" id="gal"></div>
+  </div>
+ </div>
+</section>
+
+<section class="book" id="turnos">
+ <div class="wrap">
+  <div class="head">
+   <div><div class="eyebrow">Agendá tu cita</div><h2 style="color:#fff">Te esperamos en Barbería Central</h2></div>
+   <p style="color:#b9b1a4">Elegí el servicio, el barbero y el horario que más te convenga. Confirmación al instante.</p>
+  </div>
+  <div class="bgrid">
+   <div>
+    <div class="stp"><h3><span class="n">1</span>Servicio</h3><div class="pills" id="bSvc" role="group" aria-label="Servicio"></div></div>
+    <div class="stp"><h3><span class="n">2</span>Barbero</h3><div class="pills" id="bBar" role="group" aria-label="Barbero"></div></div>
+    <div class="stp"><h3><span class="n">3</span>Día</h3><div class="pills days" id="bDay" role="group" aria-label="Día"></div></div>
+    <div class="stp"><h3><span class="n">4</span>Horario</h3><div id="bSlots" aria-live="polite"></div></div>
+   </div>
+   <aside class="sum">
+    <h3>Tu turno</h3>
+    <div class="row"><span>Servicio</span><span id="sSvc">—</span></div>
+    <div class="row"><span>Barbero</span><span id="sBar">—</span></div>
+    <div class="row"><span>Fecha</span><span id="sDay">—</span></div>
+    <div class="row"><span>Hora</span><span id="sHr">—</span></div>
+    <div class="row tot"><span>Total</span><span id="sTot">$ 0</span></div>
+    <form id="bform" novalidate>
+     <label for="bn">Nombre</label><input id="bn" autocomplete="name" placeholder="Ej: Martín Silva">
+     <label for="bp">Celular</label><input id="bp" type="tel" autocomplete="tel" placeholder="09X XXX XXX">
+     <div class="err" id="berr" aria-live="assertive"></div>
+     <button class="btn btn-gold" id="bOk" type="submit">Confirmar turno</button>
+    </form>
+   </aside>
+  </div>
+ </div>
+</section>
+
+<section id="contacto">
+ <div class="wrap">
+  <div class="info">
+   <div class="t">
+    <div class="eyebrow">Nuestra ubicación</div><h2>Un punto de encuentro</h2>
+    <ul>
+     <li>📍 Av. 18 de Julio 1234, Centro, Montevideo</li>
+     <li>🕙 Lun a Vie 10:00–20:00 · Sáb 10:00–18:00</li>
+     <li>📞 +598 98 123 456 · @barberiacentral.uy</li>
+    </ul>
+   </div>
+   <div class="im" role="img" aria-label="Fachada de Barbería Central"></div>
+  </div>
+ </div>
+</section>
+</main>
+<footer><div class="wrap"><span>© 2026 Barbería Central · Montevideo</span><span>barberiacentral.com</span></div></footer>
+
+<div class="modal" id="okM" role="dialog" aria-modal="true" aria-labelledby="okT"><div class="dlg"><button class="x" data-cl aria-label="Cerrar">×</button><div class="ok">✓</div><h3 id="okT">¡Turno confirmado! (demo)</h3><div class="tk" id="tk"></div><p>En tu web real esta reserva te llega por WhatsApp y el cliente recibe un recordatorio automático 2 horas antes.</p><button class="btn btn-gold" data-cl style="margin-top:18px;width:100%">Listo</button></div></div>
+<div class="modal" id="lbM" role="dialog" aria-modal="true" aria-label="Galería"><div class="dlg lb"><button class="x" data-cl aria-label="Cerrar" style="top:-6px;right:-6px">×</button><img id="lbImg" alt=""><button class="nv pv" id="pv" aria-label="Anterior">‹</button><button class="nv nx" id="nx" aria-label="Siguiente">›</button><p id="lbCap"></p></div></div>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const money=n=>'$ '+n.toLocaleString('es-UY');
+const SV=[
+ {id:'corte',n:'Corte de cabello',d:'Asesoría, lavado y peinado incluido.',p:550,m:40,img:'s1'},
+ {id:'barba',n:'Arreglo de barba',d:'Perfilado, toallas calientes y productos premium.',p:450,m:30,img:'s2'},
+ {id:'combo',n:'Combo completo',d:'Corte + arreglo de barba + tratamiento facial.',p:900,m:70,img:'s3'},
+ {id:'facial',n:'Limpieza facial',d:'Piel limpia, hidratada y con mejor apariencia.',p:600,m:40,img:'s4'}];
+const BB=[
+ {id:'diego',n:'Diego Ramos',r:'Fundador & Barbero',q:'El detalle hace la diferencia.'},
+ {id:'luis',n:'Luis Herrera',r:'Barbero Senior',q:'Estilo clásico, mentalidad moderna.'},
+ {id:'mateo',n:'Mateo Cruz',r:'Barbero',q:'Cortes con personalidad.'}];
+const GL=[['g1','Good hair, good mood'],['g2','Nuestro salón'],['g3','Sillones clásicos'],['g4','Cada detalle cuenta'],['g5','Productos premium'],['g6','Nuestra barra'],['g7','Fade a medida']];
+const st={svc:null,bar:'any',day:null,hr:null};
+// nav
+const burger=$('#burger'),menu=$('#menu');
+burger.onclick=()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)};
+function go(id){const el=document.getElementById(id);scrollTo({top:el.getBoundingClientRect().top+scrollY-68,behavior:'smooth'})}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(!a)return;e.preventDefault();go(a.hasAttribute('data-g')&&innerWidth<1000?'galeria':a.getAttribute('href').slice(1));menu.classList.remove('open');burger.setAttribute('aria-expanded',false)});
+const secs=['inicio','servicios','equipo','turnos','contacto'];
+addEventListener('scroll',()=>{let c='inicio';secs.forEach(s=>{if(document.getElementById(s).getBoundingClientRect().top<140)c=s});$$('.menu a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')=='#'+c&&!a.hasAttribute('data-g')))},{passive:true});
+// services
+$('#svcs').innerHTML=SV.map(s=>`<button class="svc" data-svc="${s.id}" aria-pressed="false"><span class="ck" aria-hidden="true">✓</span><img src="img/barberia-${s.img}.jpg" alt=""><span class="b"><h3>${s.n}</h3><p>${s.d}</p><span class="ft"><span class="pr">${money(s.p)}</span><span class="du">⏱ ${s.m} min</span></span></span></button>`).join('');
+$('#svcs').onclick=e=>{const b=e.target.closest('[data-svc]');if(!b)return;setSvc(b.dataset.svc);go('turnos')};
+// team
+$('#team').innerHTML=BB.map(b=>`<button class="barber" data-bar="${b.id}" aria-pressed="false"><img src="img/barberia-${b.id}.jpg" alt="${b.n}"><span class="b"><b>${b.n}</b><small>${b.r}</small><q>${b.q}</q><span class="sel">Reservar con ${b.n.split(' ')[0]} →</span></span></button>`).join('');
+$('#team').onclick=e=>{const b=e.target.closest('[data-bar]');if(!b)return;st.bar=b.dataset.bar;st.hr=null;draw();go('turnos')};
+// gallery + lightbox
+$('#gal').innerHTML=GL.map((g,i)=>`<button data-gi="${i}" aria-label="Ampliar: ${g[1]}"><img src="img/barberia-${g[0]}.jpg" alt=""></button>`).join('');
+let gi=0;function lb(i){gi=(i+GL.length)%GL.length;$('#lbImg').src=`img/barberia-${GL[gi][0]}.jpg`;$('#lbImg').alt=GL[gi][1];$('#lbCap').textContent=`${GL[gi][1]} · ${gi+1}/${GL.length}`}
+$('#gal').onclick=e=>{const b=e.target.closest('[data-gi]');if(!b)return;lb(+b.dataset.gi);openM('#lbM')};
+$('#pv').onclick=()=>lb(gi-1);$('#nx').onclick=()=>lb(gi+1);
+function openM(s){$(s).classList.add('open');$(s+' .x').focus()}
+$$('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target==m||e.target.closest('[data-cl]'))m.classList.remove('open')}));
+addEventListener('keydown',e=>{if(e.key=='Escape')$$('.modal').forEach(m=>m.classList.remove('open'));if($('#lbM').classList.contains('open')){if(e.key=='ArrowRight')lb(gi+1);if(e.key=='ArrowLeft')lb(gi-1)}});
+// booking
+const DN=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'],MN=['ene','feb','mar','abr','may','jun','jul','ago','set','oct','nov','dic'];
+const today=new Date();today.setHours(0,0,0,0);
+const DAYS=[...Array(8)].map((_,i)=>{const d=new Date(today);d.setDate(d.getDate()+i);return d});
+function setSvc(id){st.svc=id;st.hr=null;draw()}
+function slotsFor(d){if(d.getDay()==0)return[];const end=d.getDay()==6?18:20,out=[];for(let h=10;h<end;h++)for(const m of[0,30])out.push(`${String(h).padStart(2,'0')}:${m?'30':'00'}`);return out}
+function taken(d,hr,bar){const s=d.getDate()*7+parseInt(hr)*13+(+hr.slice(3))*3+(bar=='any'?0:BB.findIndex(b=>b.id==bar)*11);
+ if(bar=='any')return(s%11)==0;return(s%5)<2}
+function isPast(d,hr){const n=new Date();if(d.toDateString()!=n.toDateString())return false;const[h,m]=hr.split(':').map(Number);return h*60+m<=n.getHours()*60+n.getMinutes()+30}
+function draw(){
+ $('#bSvc').innerHTML=SV.map(s=>`<button class="pill" data-s="${s.id}" aria-pressed="${st.svc==s.id}">${s.n}<small>${money(s.p)} · ${s.m} min</small></button>`).join('');
+ $('#bBar').innerHTML=[{id:'any',n:'Sin preferencia',r:'El primero disponible'},...BB].map(b=>`<button class="pill" data-b="${b.id}" aria-pressed="${st.bar==b.id}">${b.n}<small>${b.r}</small></button>`).join('');
+ $('#bDay').innerHTML=DAYS.map((d,i)=>`<button class="pill" data-d="${i}" aria-pressed="${st.day===i}" ${d.getDay()==0?'disabled aria-label="Domingo cerrado"':''}><small>${i==0?'Hoy':DN[d.getDay()]}</small><b>${d.getDate()}</b><small>${MN[d.getMonth()]}</small></button>`).join('');
+ if(st.day===null){$('#bSlots').innerHTML='<p class="hint">Elegí un día para ver los horarios disponibles.</p>'}
+ else{const d=DAYS[st.day],sl=slotsFor(d);const free=sl.filter(h=>!taken(d,h,st.bar)&&!isPast(d,h));
+  $('#bSlots').innerHTML=free.length?`<p class="hint" style="margin-bottom:10px">${free.length} horarios libres · ${DN[d.getDay()]} ${d.getDate()} de ${MN[d.getMonth()]}</p><div class="slots">${sl.map(h=>{const off=taken(d,h,st.bar)||isPast(d,h);return`<button class="pill" data-h="${h}" aria-pressed="${st.hr==h}" ${off?'disabled aria-label="'+h+' ocupado"':''}>${h}</button>`}).join('')}</div>`:'<p class="hint">No quedan horarios para este día. Probá con otro.</p>'}
+ const s=SV.find(x=>x.id==st.svc),b=BB.find(x=>x.id==st.bar);
+ $('#sSvc').textContent=s?s.n:'—';$('#sBar').textContent=b?b.n:(st.bar=='any'?'Sin preferencia':'—');
+ $('#sDay').textContent=st.day!==null?`${DN[DAYS[st.day].getDay()]} ${DAYS[st.day].getDate()} de ${MN[DAYS[st.day].getMonth()]}`:'—';
+ $('#sHr').textContent=st.hr?`${st.hr} hs${s?' ('+s.m+' min)':''}`:'—';$('#sTot').textContent=money(s?s.p:0);
+ $$('.svc').forEach(x=>x.setAttribute('aria-pressed',x.dataset.svc==st.svc));
+ $$('.barber').forEach(x=>x.setAttribute('aria-pressed',x.dataset.bar==st.bar))}
+$('#turnos').addEventListener('click',e=>{const t=e.target.closest('.pill');if(!t||t.disabled)return;
+ if(t.dataset.s)st.svc=t.dataset.s;if(t.dataset.b){st.bar=t.dataset.b;st.hr=null}if(t.dataset.d){st.day=+t.dataset.d;st.hr=null}if(t.dataset.h)st.hr=t.dataset.h;
+ const k=t.dataset.s?'s':t.dataset.b?'b':t.dataset.d?'d':'h',v=t.dataset[k];draw();$('#berr').textContent='';const nb=$(`#turnos [data-${k}="${v}"]`);nb&&nb.focus({preventScroll:true})});
+$('#bform').onsubmit=e=>{e.preventDefault();const n=$('#bn').value.trim(),p=$('#bp').value.replace(/\D/g,'');
+ const miss=!st.svc?'Elegí un servicio.':st.day===null?'Elegí un día.':!st.hr?'Elegí un horario.':n.length<2?'Ingresá tu nombre.':!/^09\d{7}$/.test(p)?'Ingresá un celular uruguayo válido (09X XXX XXX).':'';
+ if(miss){$('#berr').textContent=miss;return}
+ const s=SV.find(x=>x.id==st.svc),b=BB.find(x=>x.id==st.bar)||BB[(st.day+parseInt(st.hr))%3],d=DAYS[st.day];
+ $('#tk').innerHTML=`<div><b>${n}</b></div><div>✂ ${s.n} · ${s.m} min</div><div>💈 con ${b.n}</div><div>📅 ${DN[d.getDay()]} ${d.getDate()} de ${MN[d.getMonth()]} · ${st.hr} hs</div><div>💵 ${money(s.p)} · pagás en el local</div>`;
+ openM('#okM');Object.assign(st,{hr:null});e.target.reset();draw()};
+draw();
+</script>
+</body>
+</html>

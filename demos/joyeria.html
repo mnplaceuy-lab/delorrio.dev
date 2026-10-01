@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Aurea Joyas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#141110;--ink2:#1d1916;--gold:#d8b878;--gold2:#c49a52;--goldd:#9a7434;--cream:#f7f2eb;--card:#fff;--line:#e7dccd;--txt:#2a231d;--mut:#6e6257;--serif:'Cormorant Garamond',Georgia,serif;--sans:'Jost',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{font-family:var(--sans);color:var(--txt);background:var(--cream);line-height:1.5;overflow-x:hidden}
+img{display:block;max-width:100%}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+:focus-visible{outline:2px solid var(--gold2);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1180px,100% - 40px);margin:auto}
+.eyebrow{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--goldd);font-weight:500}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.08}
+.btn{text-decoration:none;display:inline-flex;align-items:center;gap:.6rem;padding:.8rem 1.4rem;border-radius:4px;font-weight:500;font-size:.92rem;transition:.2s}
+.btn-gold{background:linear-gradient(180deg,#e7cb92,#d4b072);color:#22190f}
+.btn-gold:hover{filter:brightness(1.06);transform:translateY(-1px)}
+.btn-line{border:1px solid var(--gold2);color:var(--goldd)}
+.btn-line:hover{background:var(--gold2);color:#fff}
+.arrow::after{content:"→"}
+/* header */
+header{position:sticky;top:0;z-index:40;background:var(--ink);border-bottom:1px solid #2c2620}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{display:flex;flex-direction:column;align-items:center;color:var(--gold);line-height:1;text-decoration:none}
+.logo b{font-family:var(--serif);font-weight:500;font-size:2rem;letter-spacing:.14em}
+.logo small{font-size:.55rem;letter-spacing:.5em;margin-top:2px;padding-left:.5em}
+.menu{display:flex;gap:2rem;list-style:none}
+.menu a{color:#e9e2d8;text-decoration:none;font-size:.88rem;padding:.3rem 0;border-bottom:1px solid transparent}
+.menu a:hover,.menu a.on{color:var(--gold);border-color:var(--gold)}
+.icons{display:flex;gap:.4rem;align-items:center}
+.ic{position:relative;width:42px;height:42px;display:grid;place-items:center;color:#efe6da;border-radius:50%}
+.ic:hover{color:var(--gold)}
+.ic svg{width:22px;height:22px}
+.badge{position:absolute;top:3px;right:2px;min-width:18px;height:18px;border-radius:9px;background:var(--gold);color:#1a140c;font-size:.68rem;font-weight:600;display:grid;place-items:center;padding:0 4px;transition:transform .25s}
+.badge.pop{transform:scale(1.35)}
+.burger{display:none}
+/* hero */
+.hero{position:relative;background:#120e0b;overflow:hidden}
+.hero-img{position:absolute;inset:0 0 0 auto;width:62%;height:100%;object-fit:cover}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#120e0b 36%,rgba(18,14,11,.85) 46%,rgba(18,14,11,0) 70%);z-index:1}
+.hero .wrap{position:relative;z-index:2;padding:4.2rem 0 4.4rem}
+.hero .eyebrow{color:var(--gold)}
+.hero h1{font-size:clamp(2.5rem,5.2vw,4rem);color:#f5eee4;margin:.9rem 0 1.1rem;max-width:560px}
+.hero h1 em{color:var(--gold)}
+.hero h1 span{color:var(--gold)}
+.hero p{color:#e6ddd1;max-width:440px;font-size:1.05rem}
+.hero-cta{display:flex;gap:1.4rem;align-items:center;margin-top:1.8rem;flex-wrap:wrap}
+.play{text-decoration:none;display:flex;align-items:center;gap:.8rem;color:var(--gold)}
+.play i{width:42px;height:42px;border:1px solid var(--gold);border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:.8rem}
+.feats{background:var(--ink2);border-top:1px solid #2c2620}
+.feats ul{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);padding:1.1rem 0}
+.feats li{display:flex;gap:.9rem;align-items:center;padding:.3rem 1.2rem;border-left:1px solid #3a322a;color:#c9bfb2;font-size:.8rem}
+.feats li:first-child{border:0;padding-left:0}
+.feats b{display:block;font-family:var(--serif);font-weight:500;color:#f2eadf;font-size:1.12rem}
+.feats svg{width:30px;height:30px;color:var(--gold);flex:none}
+/* sections */
+section.sec{padding:3.4rem 0 1rem}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:1.5rem;margin-bottom:1.4rem;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(1.9rem,3vw,2.4rem);margin-top:.35rem;display:flex;align-items:center;gap:1.2rem}
+.sec-head h2::after{content:"";width:46px;height:1px;background:var(--gold2)}
+.sec-head p{max-width:330px;color:var(--mut);font-size:.86rem}
+.cols{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.col{position:relative;border-radius:3px;overflow:hidden;aspect-ratio:298/150;text-align:left;color:#fff;box-shadow:0 6px 18px rgba(40,25,10,.12)}
+.col img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.col:hover img{transform:scale(1.06)}
+.col::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(15,10,6,.78))}
+.col div{position:absolute;left:16px;right:16px;bottom:12px;z-index:1}
+.col h3{font-size:1.45rem}
+.col span{font-size:.78rem;opacity:.9;display:flex;justify-content:space-between}
+.col.on{outline:2px solid var(--gold2);outline-offset:3px}
+.tabs{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem}
+.tab{padding:.45rem 1rem;border:1px solid var(--line);border-radius:30px;font-size:.84rem;color:var(--mut);background:#fff}
+.tab.on{background:var(--ink);color:var(--gold);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.prod{display:flex;background:var(--card);border-radius:3px;box-shadow:0 2px 10px rgba(60,40,20,.06);position:relative;overflow:hidden;transition:box-shadow .2s,transform .2s;animation:fade .35s}
+.prod:hover{box-shadow:0 10px 26px rgba(60,40,20,.13);transform:translateY(-2px)}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}}
+.prod .pi{width:48%;background:#f1ebe3;flex:none}
+.prod .pi img{width:100%;height:100%;object-fit:cover;aspect-ratio:1}
+.prod .pb{padding:.9rem .8rem;display:flex;flex-direction:column;gap:.25rem;flex:1;min-width:0}
+.prod h3{font-family:var(--sans);font-size:.9rem;font-weight:500;padding-right:26px}
+.prod small{color:var(--mut);font-size:.72rem}
+.prod .pr{margin-top:auto;color:var(--goldd);font-weight:600}
+.prod .open{position:absolute;inset:0;z-index:1}
+.heart{position:absolute;top:8px;right:8px;z-index:2;width:32px;height:32px;display:grid;place-items:center;color:var(--gold2);border-radius:50%}
+.heart:hover{background:#f6efe5}
+.heart svg{width:19px;height:19px}
+.heart.on svg{fill:var(--gold2)}
+/* talles */
+.talles{display:grid;grid-template-columns:1.1fr 1fr;gap:2.2rem;background:#fff;border:1px solid var(--line);border-radius:4px;padding:2rem;align-items:center}
+.talles h3{font-size:1.9rem;margin:.3rem 0 .6rem}
+.talles p{color:var(--mut);font-size:.9rem}
+.ringbox{display:flex;flex-direction:column;align-items:center;gap:1rem}
+.ring{border-radius:50%;border:7px solid #d9b67a;box-shadow:inset 0 0 0 2px #f2dfb6,0 6px 14px rgba(120,80,20,.25);transition:width .15s,height .15s;display:grid;place-items:center}
+.ringstage{height:150px;display:grid;place-items:center}
+.ring span{font-size:.72rem;color:var(--mut)}
+.range{width:100%;accent-color:var(--gold2)}
+.result{display:flex;gap:1.2rem;justify-content:center;text-align:center}
+.result div{background:var(--cream);padding:.7rem 1rem;border-radius:4px;min-width:96px}
+.result b{display:block;font-family:var(--serif);font-size:1.8rem;color:var(--goldd);line-height:1}
+.result small{font-size:.72rem;color:var(--mut)}
+.steps{list-style:none;margin-top:1rem;display:grid;gap:.5rem;font-size:.86rem}
+.steps li{display:flex;gap:.6rem}
+.steps li b{width:22px;height:22px;flex:none;border-radius:50%;background:var(--ink);color:var(--gold);font-size:.72rem;display:grid;place-items:center}
+/* banners */
+.banners{display:grid;grid-template-columns:1fr 1fr;margin-top:3.4rem}
+.ban{position:relative;min-height:230px;display:flex;align-items:center;overflow:hidden}
+.ban img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ban.dark{background:#1a1511}
+.ban.dark img{width:52%}
+.ban.dark::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 30%,#1a1511 54%);z-index:1}
+.ban.light{background:#f1e6da}
+.ban.light img{width:58%}
+.ban.light::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 35%,#f1e6da 60%);z-index:1}
+.ban .bt{position:relative;z-index:2;margin-left:auto;width:48%;padding:1.6rem 1.6rem 1.6rem 0}
+.ban h3{font-size:1.75rem;margin:.3rem 0 .5rem}
+.ban.dark h3,.ban.dark p{color:#f2ebe1}
+.ban.dark .eyebrow{color:var(--gold)}
+.ban p{font-size:.84rem;margin-bottom:1rem;color:var(--mut)}
+footer{background:var(--ink);color:#b8ad9f;font-size:.82rem;padding:2rem 0}
+footer .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:center}
+/* overlay, modal, drawer */
+.ov{position:fixed;inset:0;background:rgba(15,10,6,.55);z-index:60;opacity:0;pointer-events:none;transition:.25s}
+.ov.on{opacity:1;pointer-events:auto}
+.modal{position:fixed;z-index:70;left:50%;top:50%;transform:translate(-50%,-46%);opacity:0;pointer-events:none;transition:.25s;width:min(820px,94vw);max-height:92vh;overflow:auto;background:#fff;border-radius:6px;display:grid;grid-template-columns:.85fr 1.15fr}
+.modal.on{opacity:1;pointer-events:auto;transform:translate(-50%,-50%)}
+.mimg{background:#f1ebe3;position:relative;min-height:300px;display:grid;place-items:center;padding:48px 18px}
+.mimg img{width:100%;max-width:300px;height:auto;max-height:100%;object-fit:contain;border-radius:3px;transition:filter .4s;box-shadow:0 8px 24px rgba(80,50,20,.15)}
+.mimg img.silver{filter:grayscale(1) brightness(1.1) contrast(1.05)}
+.mimg .tag{position:absolute;left:12px;top:12px;background:rgba(20,17,16,.85);color:var(--gold);font-size:.7rem;padding:.25rem .6rem;border-radius:20px;letter-spacing:.08em}
+.mbody{padding:1.8rem 1.6rem;display:flex;flex-direction:column;gap:.9rem}
+.mbody h3{font-size:2rem}
+.mprice{font-size:1.5rem;color:var(--goldd);font-weight:600}
+.mprice small{font-size:.75rem;color:var(--mut);font-weight:400;display:block}
+.lbl{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin-bottom:.4rem}
+.opts{display:flex;gap:.5rem;flex-wrap:wrap}
+.opt{border:1px solid var(--line);padding:.5rem .9rem;border-radius:4px;font-size:.86rem;display:flex;align-items:center;gap:.5rem}
+.opt i{width:14px;height:14px;border-radius:50%;display:inline-block}
+.opt.on{border-color:var(--ink);background:var(--ink);color:#fff}
+.opt.sz{min-width:42px;justify-content:center;padding:.45rem .5rem}
+.link{color:var(--goldd);text-decoration:underline;font-size:.8rem;align-self:flex-start}
+.close{position:absolute;right:10px;top:10px;width:36px;height:36px;border-radius:50%;background:#fff;z-index:3;font-size:1.3rem;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.mact{display:flex;gap:.6rem;margin-top:.3rem;flex-wrap:wrap}
+.mact .btn{flex:1;justify-content:center}
+.drawer{position:fixed;z-index:70;top:0;right:0;height:100%;width:min(380px,100vw);background:#fff;transform:translateX(100%);transition:.3s;display:flex;flex-direction:column}
+.drawer.on{transform:none}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 1.2rem;border-bottom:1px solid var(--line)}
+.dh h3{font-size:1.6rem}
+.dlist{flex:1;overflow:auto;padding:.6rem 1.2rem}
+.it{display:flex;gap:.8rem;align-items:center;padding:.7rem 0;border-bottom:1px solid #f0e8de}
+.it img{width:64px;height:64px;object-fit:cover;border-radius:3px}
+.it img.silver{filter:grayscale(1) brightness(1.1)}
+.it div{flex:1;font-size:.84rem;min-width:0}
+.it b{display:block;font-weight:500}
+.it small{color:var(--mut)}
+.it .x{color:var(--mut);font-size:1.1rem;width:30px;height:30px;border-radius:50%}
+.it .x:hover{background:#f4ede4}
+.qty{display:flex;align-items:center;gap:.4rem;margin-top:.2rem}
+.qty button{width:24px;height:24px;border:1px solid var(--line);border-radius:3px}
+.df{padding:1.1rem 1.2rem;border-top:1px solid var(--line);display:grid;gap:.7rem}
+.tot{display:flex;justify-content:space-between;font-size:1.05rem}
+.tot b{color:var(--goldd)}
+.empty{color:var(--mut);text-align:center;padding:2.5rem 0;font-size:.9rem}
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,140%);z-index:90;background:var(--ink);color:#f3ece2;border:1px solid var(--goldd);padding:.95rem 1.2rem;border-radius:6px;width:min(440px,92vw);box-shadow:0 14px 40px rgba(0,0,0,.35);transition:.35s;display:flex;gap:.8rem;align-items:flex-start;font-size:.86rem}
+.toast.on{transform:translate(-50%,0)}
+.toast b{color:var(--gold);display:block;font-size:.95rem}
+.toast i{font-style:normal;width:28px;height:28px;flex:none;border-radius:50%;background:var(--gold);color:#1b140c;display:grid;place-items:center}
+@media (max-width:1000px){
+ .menu{gap:1.1rem}.grid{grid-template-columns:repeat(2,1fr)}
+ .feats ul{grid-template-columns:repeat(2,1fr);gap:.6rem 0}.feats li:nth-child(3){border:0;padding-left:0}
+}
+@media (max-width:780px){
+ .burger{display:grid}
+ .menu{position:fixed;top:64px;left:0;right:0;background:var(--ink);flex-direction:column;gap:0;padding:.5rem 20px 1rem;transform:translateY(-130%);transition:.3s;z-index:-1;border-bottom:1px solid #2c2620}
+ .menu.on{transform:none}
+ .menu a{display:block;padding:.85rem 0;border-bottom:1px solid #2a241e}
+ .hero-img{width:100%;opacity:.55}
+ .hero::before{background:linear-gradient(180deg,rgba(18,14,11,.4),#120e0b 92%)}
+ .hero .wrap{padding:3rem 0}
+ .cols{grid-template-columns:repeat(2,1fr)}
+ .talles{grid-template-columns:1fr;padding:1.4rem}
+ .banners{grid-template-columns:1fr}
+ .modal{grid-template-columns:1fr}
+ .mimg{min-height:0;padding:44px 18px 16px}.mimg img{max-width:220px}
+}
+@media (max-width:560px){
+ .grid{grid-template-columns:1fr}
+ .feats ul{grid-template-columns:1fr}.feats li{border:0;padding-left:0}
+ .col h3{font-size:1.2rem}.col span{font-size:.7rem}
+ .ban .bt{width:58%}
+ .ban.dark img,.ban.light img{width:62%}
+ .ic{width:38px}
+ .logo b{font-size:1.6rem}
+}
+</style>
+</head>
+<body>
+<header>
+ <div class="wrap nav">
+  <a class="logo" href="#inicio" aria-label="Aurea Joyas, inicio"><b>AUREA</b><small>JOYAS</small></a>
+  <ul class="menu" id="menu">
+   <li><a href="#inicio" class="on">Inicio</a></li>
+   <li><a href="#colecciones">Colecciones</a></li>
+   <li><a href="#joyas">Joyas</a></li>
+   <li><a href="#talles">Guía de talles</a></li>
+   <li><a href="#nosotros">Nosotros</a></li>
+  </ul>
+  <div class="icons">
+   <button class="ic" id="wishBtn" aria-label="Lista de deseos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg><span class="badge" id="wishN">0</span></button>
+   <button class="ic" id="bagBtn" aria-label="Bolsa de compras"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="badge" id="bagN">0</span></button>
+   <button class="ic burger" id="burger" aria-label="Abrir menú" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+ </div>
+</header>
+
+<main>
+<section class="hero" id="inicio">
+ <img class="hero-img" src="img/joyeria-hero.jpg" alt="Anillo de oro con diamante sobre piedra natural">
+ <div class="wrap">
+  <p class="eyebrow">Joyas que cuentan tu historia</p>
+  <h1>Belleza <em>atemporal</em>,<br><span>para cada momento</span></h1>
+  <p>Diseños únicos, elaborados a mano en Montevideo con materiales nobles que celebran lo más valioso: tu historia.</p>
+  <div class="hero-cta">
+   <a class="btn btn-gold" href="#colecciones">Descubrir colecciones <span class="arrow"></span></a>
+   <a class="play" href="#nosotros"><i>▶</i> Conocé nuestro taller</a>
+  </div>
+ </div>
+</section>
+<div class="feats">
+ <ul class="wrap">
+  <li><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 12l5-6h10l5 6-10 14z"/><path d="M6 12h20M11 6l5 20 5-20"/></svg><div><b>Materiales nobles</b>Oro 18k, plata 950 y piedras naturales</div></li>
+  <li><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M10 17V8a2 2 0 0 1 4 0v7m0-9a2 2 0 0 1 4 0v9m0-7a2 2 0 0 1 4 0v8m0-4a2 2 0 0 1 4 0v5c0 6-4 9-9 9s-7-3-9-6l-3-5a2 2 0 0 1 3-2l3 3"/></svg><div><b>Hecho a mano</b>Artesanía en cada detalle</div></li>
+  <li><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9h16v13H3zM19 13h6l4 5v4H19z"/><circle cx="9" cy="23" r="2.5"/><circle cx="23" cy="23" r="2.5"/></svg><div><b>Envíos a todo el país</b>Seguros y con seguimiento</div></li>
+  <li><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 13h22v5H5zM7 18h18v9H7zM16 13v14M16 13c-2-5-8-6-8-2s8 2 8 2zm0 0c2-5 8-6 8-2s-8 2-8 2z"/></svg><div><b>Empaque premium</b>Listo para regalar</div></li>
+ </ul>
+</div>
+
+<section class="sec" id="colecciones">
+ <div class="wrap">
+  <div class="sec-head">
+   <div><p class="eyebrow">Colecciones destacadas</p><h2>Piezas únicas, para cada historia</h2></div>
+   <p>Elegí una colección para ver sus piezas. Inspiradas en la naturaleza, el amor y los momentos que nos hacen únicos.</p>
+  </div>
+  <div class="cols" id="cols"></div>
+ </div>
+</section>
+
+<section class="sec" id="joyas">
+ <div class="wrap">
+  <div class="sec-head">
+   <div><p class="eyebrow">Nuestras joyas</p><h2>Selección especial</h2></div>
+   <p>Tocá una pieza para ver su ficha, elegir el material y agregarla a tu bolsa.</p>
+  </div>
+  <div class="tabs" id="tabs" role="tablist" aria-label="Filtrar por categoría"></div>
+  <div class="grid" id="grid"></div>
+ </div>
+</section>
+
+<section class="sec" id="talles">
+ <div class="wrap">
+  <div class="talles">
+   <div>
+    <p class="eyebrow">Guía de talles de anillo</p>
+    <h3>Encontrá tu talle en 10 segundos</h3>
+    <p>Tomá un anillo que te quede bien, medí su diámetro interior con una regla y mové el control. Te decimos tu talle al instante.</p>
+    <ol class="steps">
+     <li><b>1</b>Apoyá el anillo sobre una regla en milímetros.</li>
+     <li><b>2</b>Medí de borde interno a borde interno.</li>
+     <li><b>3</b>Ajustá el control hasta que el círculo coincida.</li>
+    </ol>
+   </div>
+   <div class="ringbox">
+    <div class="ringstage"><div class="ring" id="ring"><span id="ringmm"></span></div></div>
+    <label for="diam" class="lbl" style="margin:0">Diámetro interior: <strong id="dval"></strong></label>
+    <input class="range" type="range" id="diam" min="14" max="21" step="0.1" value="16.6">
+    <div class="result"><div><b id="tUY">12</b><small>Talle UY / AR</small></div><div><b id="tCirc">52</b><small>Circunferencia (mm)</small></div></div>
+    <button class="btn btn-line" id="useSize">Usar este talle en anillos</button>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="banners" id="nosotros">
+ <div class="ban dark"><img src="img/joyeria-taller.jpg" alt="Manos de orfebre engarzando una piedra"><div class="bt"><p class="eyebrow">Artesanía con alma</p><h3>Hechas a mano, para toda la vida</h3><p>Cada pieza nace en nuestro taller de Ciudad Vieja, con atención al detalle y pasión por lo auténtico.</p><a class="btn btn-gold" href="#joyas">Ver piezas <span class="arrow"></span></a></div></div>
+ <div class="ban light"><img src="img/joyeria-regalo.jpg" alt="Caja de regalo Aurea con moño"><div class="bt"><p class="eyebrow">Regalos con significado</p><h3>Momentos que perduran</h3><p>Grabado personalizado sin costo y empaque premium en cada compra.</p><button class="btn btn-gold" id="giftBtn">Personalizá tu joya <span class="arrow"></span></button></div></div>
+</section>
+</main>
+<footer><div class="wrap"><span class="logo" style="align-items:flex-start"><b style="font-size:1.4rem">AUREA</b></span><span>Pérez Castellano 1430, Montevideo · Lun a Sáb 10–19 h · hola@aureajoyas.com</span><span>© 2026 Aurea Joyas</span></div></footer>
+
+<div class="ov" id="ov"></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mName">
+ <div class="mimg"><img id="mImg" src="" alt=""><span class="tag" id="mTag">ORO 18K</span><button class="close" data-close aria-label="Cerrar">×</button></div>
+ <div class="mbody">
+  <p class="eyebrow" id="mCat"></p>
+  <h3 id="mName"></h3>
+  <p id="mDesc" style="color:var(--mut);font-size:.9rem"></p>
+  <div class="mprice" id="mPrice"></div>
+  <div><p class="lbl">Material</p><div class="opts" id="mMat"></div></div>
+  <div id="mSizeWrap"><p class="lbl">Talle</p><div class="opts" id="mSize"></div><button class="link" id="goGuide" style="margin-top:.5rem">¿No sabés tu talle? Abrí la guía</button></div>
+  <div class="mact"><button class="btn btn-gold" id="addBag">Agregar a la bolsa</button><button class="btn btn-line" id="mWish">♡ Deseos</button></div>
+ </div>
+</div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dTitle">
+ <div class="dh"><h3 id="dTitle">Tu bolsa</h3><button class="ic" data-close aria-label="Cerrar" style="color:var(--txt)">✕</button></div>
+ <div class="dlist" id="dlist"></div>
+ <div class="df" id="dfoot"></div>
+</aside>
+<div class="toast" id="toast" role="status" aria-live="polite"><i>✓</i><div><b id="tT"></b><span id="tM"></span></div></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const fmt=n=>'$ '+n.toLocaleString('es-UY');
+const CATS={collares:['Collares','Llevá cerca lo que te inspira','col-collares'],anillos:['Anillos','Símbolos de grandes momentos','col-anillos'],aros:['Aros','Luz en cada detalle','col-aros'],pulseras:['Pulseras','Elegancia en tu día a día','col-pulseras']};
+const P=[
+ {id:1,n:'Collar Sol de Oro',c:'collares',img:'p-collar',d:'Diamante natural',o:72000,p:9800,t:'Dije solar con diamante natural de 0,10 ct y cadena forzatina de 45 cm.'},
+ {id:2,n:'Anillo Luna',c:'anillos',img:'p-anillo',d:'Piedra luna',o:58000,p:8900,t:'Solitario con piedra luna engarzada en garras y aro de pavé.'},
+ {id:3,n:'Aros Brisa',c:'aros',img:'p-aros',d:'Con diamantes',o:49000,p:7600,t:'Argollas de 14 mm con microengaste de circonias, cierre a presión.'},
+ {id:4,n:'Pulsera Esencia',c:'pulseras',img:'p-pulsera',d:'Amatista natural',o:51000,p:8200,t:'Cadena con cristales y amatista central, largo regulable 16–19 cm.'},
+ {id:5,n:'Collar Raíz',c:'collares',img:'col-collares',d:'Topacio blanco',o:64000,p:9200,t:'Medalla redonda con halo de topacios y cadena rolo de 50 cm.'},
+ {id:6,n:'Alianzas Dúo',c:'anillos',img:'col-anillos',d:'Par de alianzas',o:96000,p:14500,t:'Par de alianzas media caña con solitario. Grabado interior sin costo.'},
+ {id:7,n:'Aros Aurora',c:'aros',img:'col-aros',d:'Circonias facetadas',o:54000,p:8400,t:'Argollas grandes de 22 mm con piedras facetadas en todo el frente.'},
+ {id:8,n:'Pulsera Rocío',c:'pulseras',img:'col-pulseras',d:'Cristales engarzados',o:61000,p:9600,t:'Pulsera rivière de cristales engarzados en chatones individuales.'}
+];
+const S={cat:'todas',wish:new Set(),bag:[],cur:null,mat:'o',size:null,mySize:null};
+const heart='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>';
+
+// colecciones
+$('#cols').innerHTML=Object.entries(CATS).map(([k,v])=>`<button class="col" data-cat="${k}" aria-label="Ver ${v[0]}"><img src="img/joyeria-${v[2]}.jpg" alt=""><div><h3>${v[0]}</h3><span>${v[1]} <b>→</b></span></div></button>`).join('');
+$('#cols').onclick=e=>{const b=e.target.closest('.col');if(!b)return;setCat(b.dataset.cat);$('#joyas').scrollIntoView({behavior:'smooth'})};
+// tabs
+const tabs=[['todas','Todas'],...Object.entries(CATS).map(([k,v])=>[k,v[0]])];
+$('#tabs').innerHTML=tabs.map(([k,l])=>`<button class="tab" role="tab" data-cat="${k}">${l}</button>`).join('');
+$('#tabs').onclick=e=>{const b=e.target.closest('.tab');if(b)setCat(b.dataset.cat)};
+function setCat(c){S.cat=c;document.querySelectorAll('.tab').forEach(t=>{t.classList.toggle('on',t.dataset.cat==c);t.setAttribute('aria-selected',t.dataset.cat==c)});document.querySelectorAll('.col').forEach(t=>t.classList.toggle('on',t.dataset.cat==c));renderGrid()}
+function renderGrid(){
+ $('#grid').innerHTML=P.filter(p=>S.cat=='todas'||p.c==S.cat).map(p=>`<article class="prod"><div class="pi"><img src="img/joyeria-${p.img}.jpg" alt="${p.n}"></div><div class="pb"><h3>${p.n}</h3><small>Oro 18k · ${p.d}</small><span class="pr">${fmt(p.o)}</span><small>Plata desde ${fmt(p.p)}</small></div><button class="open" data-id="${p.id}" aria-label="Ver ficha de ${p.n}"></button><button class="heart ${S.wish.has(p.id)?'on':''}" data-w="${p.id}" aria-label="Agregar ${p.n} a deseos" aria-pressed="${S.wish.has(p.id)}">${heart}</button></article>`).join('');
+}
+$('#grid').onclick=e=>{const w=e.target.closest('[data-w]');if(w)return toggleWish(+w.dataset.w);const o=e.target.closest('[data-id]');if(o)openModal(+o.dataset.id)};
+function bump(el){el.classList.add('pop');setTimeout(()=>el.classList.remove('pop'),250)}
+function toggleWish(id){
+ const p=P.find(x=>x.id==id);
+ if(S.wish.has(id)){S.wish.delete(id);toast('Quitada de tus deseos',p.n)}else{S.wish.add(id);toast('Guardada en tus deseos ♡',p.n+' — tocá el corazón de arriba para verla.')}
+ $('#wishN').textContent=S.wish.size;bump($('#wishN'));renderGrid();if(S.cur&&S.cur.id==id)syncWishBtn();if($('#drawer').classList.contains('on')&&S.dmode=='wish')renderDrawer();
+}
+// modal
+function openModal(id){S.cur=P.find(p=>p.id==id);S.mat='o';S.size=S.mySize;const p=S.cur;
+ $('#mImg').src=`img/joyeria-${p.img}.jpg`;$('#mImg').alt=p.n;$('#mName').textContent=p.n;$('#mCat').textContent=CATS[p.c][0];$('#mDesc').textContent=p.t;
+ $('#mSizeWrap').style.display=p.c=='anillos'?'':'none';
+ $('#mSize').innerHTML=[9,10,11,12,13,14,15,16,17,18,19,20].map(s=>`<button class="opt sz" data-s="${s}">${s}</button>`).join('');
+ renderModal();syncWishBtn();show('#modal');}
+function renderModal(){const p=S.cur;
+ $('#mMat').innerHTML=[['o','Oro 18k','linear-gradient(135deg,#f3d58f,#b8862f)'],['p','Plata 950','linear-gradient(135deg,#f4f4f4,#9c9c9c)']].map(([k,l,g])=>`<button class="opt ${S.mat==k?'on':''}" data-m="${k}" aria-pressed="${S.mat==k}"><i style="background:${g}"></i>${l}</button>`).join('');
+ const pr=S.mat=='o'?p.o:p.p;$('#mPrice').innerHTML=fmt(pr)+`<small>o 6 cuotas sin recargo de ${fmt(Math.round(pr/6))}</small>`;
+ $('#mImg').classList.toggle('silver',S.mat=='p');$('#mTag').textContent=S.mat=='o'?'ORO 18K':'PLATA 950';
+ document.querySelectorAll('#mSize .opt').forEach(b=>b.classList.toggle('on',+b.dataset.s==S.size));}
+$('#mMat').onclick=e=>{const b=e.target.closest('[data-m]');if(b){S.mat=b.dataset.m;renderModal()}};
+$('#mSize').onclick=e=>{const b=e.target.closest('[data-s]');if(b){S.size=+b.dataset.s;renderModal()}};
+function syncWishBtn(){const on=S.wish.has(S.cur.id);$('#mWish').textContent=on?'♥ En deseos':'♡ Deseos';$('#mWish').setAttribute('aria-pressed',on)}
+$('#mWish').onclick=()=>toggleWish(S.cur.id);
+$('#goGuide').onclick=()=>{hide();$('#talles').scrollIntoView({behavior:'smooth'})};
+$('#addBag').onclick=()=>{const p=S.cur;
+ if(p.c=='anillos'&&!S.size){toast('Elegí tu talle','Seleccioná un talle o usá la guía de talles.',true);return}
+ const key=p.id+S.mat+(p.c=='anillos'?S.size:'');const ex=S.bag.find(i=>i.key==key);
+ if(ex)ex.q++;else S.bag.push({key,id:p.id,mat:S.mat,size:p.c=='anillos'?S.size:null,q:1});
+ updBag();hide();toast('Agregado a tu bolsa',`${p.n} · ${S.mat=='o'?'Oro 18k':'Plata 950'}${p.c=='anillos'?' · talle '+S.size:''}`);};
+function updBag(){$('#bagN').textContent=S.bag.reduce((a,i)=>a+i.q,0);bump($('#bagN'))}
+// drawer
+function renderDrawer(){
+ if(S.dmode=='wish'){
+  $('#dTitle').textContent='Lista de deseos';const L=P.filter(p=>S.wish.has(p.id));
+  $('#dlist').innerHTML=L.length?L.map(p=>`<div class="it"><img src="img/joyeria-${p.img}.jpg" alt=""><div><b>${p.n}</b><small>Oro 18k · ${fmt(p.o)}</small><br><button class="link" data-view="${p.id}">Ver ficha</button></div><button class="x" data-unw="${p.id}" aria-label="Quitar">✕</button></div>`).join(''):'<p class="empty">Todavía no guardaste piezas.<br>Tocá el ♡ de cualquier joya.</p>';
+  $('#dfoot').innerHTML=L.length?`<button class="btn btn-line" id="shareW" style="justify-content:center">Compartir lista</button>`:'';
+ }else{
+  $('#dTitle').textContent='Tu bolsa';
+  $('#dlist').innerHTML=S.bag.length?S.bag.map((i,ix)=>{const p=P.find(x=>x.id==i.id);const pr=i.mat=='o'?p.o:p.p;return `<div class="it"><img class="${i.mat=='p'?'silver':''}" src="img/joyeria-${p.img}.jpg" alt=""><div><b>${p.n}</b><small>${i.mat=='o'?'Oro 18k':'Plata 950'}${i.size?' · talle '+i.size:''}</small><div class="qty"><button data-q="${ix}" data-d="-1" aria-label="Restar">−</button>${i.q}<button data-q="${ix}" data-d="1" aria-label="Sumar">+</button><span style="margin-left:auto;font-weight:600">${fmt(pr*i.q)}</span></div></div></div>`}).join(''):'<p class="empty">Tu bolsa está vacía.</p>';
+  const tot=S.bag.reduce((a,i)=>{const p=P.find(x=>x.id==i.id);return a+(i.mat=='o'?p.o:p.p)*i.q},0);
+  $('#dfoot').innerHTML=S.bag.length?`<div class="tot"><span>Total</span><b>${fmt(tot)}</b></div><small style="color:var(--mut)">Envío gratis a todo Uruguay · Empaque de regalo incluido</small><button class="btn btn-gold" id="checkout" style="justify-content:center">Finalizar compra</button>`:'';
+ }}
+$('#dlist').onclick=e=>{const q=e.target.closest('[data-q]');if(q){const i=S.bag[q.dataset.q];i.q+=+q.dataset.d;if(i.q<1)S.bag.splice(q.dataset.q,1);updBag();renderDrawer()}
+ const u=e.target.closest('[data-unw]');if(u)toggleWish(+u.dataset.unw);
+ const v=e.target.closest('[data-view]');if(v){hide();setTimeout(()=>openModal(+v.dataset.view),260)}};
+$('#dfoot').onclick=e=>{if(e.target.id=='checkout'){S.bag=[];updBag();hide();toast('¡Compra confirmada! (demo)','En tu web real el pago se procesa con Mercado Pago y te llega el aviso por WhatsApp o mail.')}
+ if(e.target.id=='shareW'){hide();toast('Lista compartida (demo)','En tu web real se genera un enlace para mandar por WhatsApp.')}};
+$('#bagBtn').onclick=()=>{S.dmode='bag';renderDrawer();show('#drawer')};
+$('#wishBtn').onclick=()=>{S.dmode='wish';renderDrawer();show('#drawer')};
+// overlay helpers
+let lastFocus;
+function show(sel){lastFocus=document.activeElement;$('#ov').classList.add('on');$(sel).classList.add('on');setTimeout(()=>$(sel).querySelector('[data-close]').focus(),50)}
+function hide(){['#ov','#modal','#drawer'].forEach(s=>$(s).classList.remove('on'));lastFocus&&lastFocus.focus&&lastFocus.focus({preventScroll:true})}
+$('#ov').onclick=hide;document.querySelectorAll('[data-close]').forEach(b=>b.onclick=hide);
+document.addEventListener('keydown',e=>{if(e.key=='Escape')hide()});
+// talles
+function ring(){const d=+$('#diam').value,c=Math.PI*d,t=Math.round(c-40);
+ $('#dval').textContent=d.toFixed(1)+' mm';$('#ringmm').textContent=d.toFixed(1)+' mm';$('#tUY').textContent=t;$('#tCirc').textContent=c.toFixed(1);
+ const px=d*6.6;$('#ring').style.width=$('#ring').style.height=px+'px';S.tmp=Math.min(20,Math.max(9,t))}
+$('#diam').oninput=ring;ring();
+$('#useSize').onclick=()=>{S.mySize=S.tmp;toast('Talle '+S.tmp+' guardado','Lo vas a ver preseleccionado en todos los anillos.');setCat('anillos');setTimeout(()=>$('#joyas').scrollIntoView({behavior:'smooth'}),400)};
+$('#giftBtn').onclick=()=>toast('Grabado personalizado','Elegí una pieza y en tu web real podés escribir el texto a grabar (hasta 20 letras).');
+// toast
+let tt;function toast(t,m,warn){$('#tT').textContent=t;$('#tM').textContent=m;$('#toast i').textContent=warn?'!':'✓';$('#toast').classList.add('on');clearTimeout(tt);tt=setTimeout(()=>$('#toast').classList.remove('on'),3800)}
+// nav
+const menu=$('#menu');$('#burger').onclick=()=>{const on=menu.classList.toggle('on');$('#burger').setAttribute('aria-expanded',on)};
+menu.onclick=e=>{if(e.target.tagName=='A'){menu.classList.remove('on');document.querySelectorAll('.menu a').forEach(a=>a.classList.toggle('on',a==e.target))}};
+setCat('todas');
+</script>
+</body>
+</html>

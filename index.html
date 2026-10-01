@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=202610011420">
+<link rel="stylesheet" href="css/style.css?v=202610011530">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 </head>
@@ -187,114 +187,130 @@
       </div>
 
       <div class="rx" data-rx>
-        <button type="button" class="rx-opt is-active" style="--i:0" aria-pressed="true" aria-label="Gastronomía">
+        <button type="button" class="rx-opt is-active" style="--i:0" data-demo="gastro" aria-pressed="true" aria-label="Gastronomía">
           <img class="rx-img" src="img/rubro-gastro.jpg" alt="La Fonda — restaurante de cocina de estación" loading="eager">
           <span class="rx-shade"></span>
+          <span class="rx-try"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>Probar demo</span>
           <span class="rx-url">lafonda.dev</span>
           <span class="rx-label">
             <span class="rx-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 2v6a2 2 0 002 2v12M7 2a2 2 0 00-2 2v4a2 2 0 002 2M7 2a2 2 0 012 2v4a2 2 0 01-2 2M17 2a4 4 0 00-4 4v4h4M17 10v12"/></svg></span>
             <span class="rx-info"><strong>Gastronomía</strong><small>Web de restaurante con carta editorial, reservas y pedidos por WhatsApp.</small></span>
           </span>
         </button>
-        <button type="button" class="rx-opt" style="--i:1" aria-pressed="false" aria-label="Hogar">
+        <button type="button" class="rx-opt" style="--i:1" data-demo="hogar" aria-pressed="false" aria-label="Hogar">
           <img class="rx-img" src="img/rubro-hogar.jpg" alt="Nexo Shop — tienda de hogar y decoración" loading="lazy">
           <span class="rx-shade"></span>
+          <span class="rx-try"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>Probar demo</span>
           <span class="rx-url">nexoshop.dev</span>
           <span class="rx-label">
             <span class="rx-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7"/><path d="M5 10v9a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1v-9"/></svg></span>
             <span class="rx-info"><strong>Hogar</strong><small>E-commerce de decoración con categorías por ambiente y productos destacados.</small></span>
           </span>
         </button>
-        <button type="button" class="rx-opt" style="--i:2" aria-pressed="false" aria-label="Free Shop">
+        <button type="button" class="rx-opt" style="--i:2" data-demo="freeshop" aria-pressed="false" aria-label="Free Shop">
           <img class="rx-img" src="img/rubro-freeshop.jpg" alt="Frontera Free Shop — tienda libre de impuestos" loading="lazy">
           <span class="rx-shade"></span>
+          <span class="rx-try"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>Probar demo</span>
           <span class="rx-url">fronterafreeshop.com.uy</span>
           <span class="rx-label">
             <span class="rx-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2l1.5 4h9L18 2M3.5 6h17l-1.6 10.5a2 2 0 01-2 1.5H7.1a2 2 0 01-2-1.5L3.5 6z"/><circle cx="9" cy="21" r="1"/><circle cx="16" cy="21" r="1"/></svg></span>
             <span class="rx-info"><strong>Free Shop</strong><small>Catálogo multi-categoría con ofertas destacadas y precios en dólares.</small></span>
           </span>
         </button>
-        <button type="button" class="rx-opt" style="--i:3" aria-pressed="false" aria-label="Agencia">
+        <button type="button" class="rx-opt" style="--i:3" data-demo="agencia" aria-pressed="false" aria-label="Agencia">
           <img class="rx-img" src="img/rubro-agencia.jpg" alt="Estudio Norte — agencia de branding y desarrollo" loading="lazy">
           <span class="rx-shade"></span>
+          <span class="rx-try"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>Probar demo</span>
           <span class="rx-url">estudionorte.dev</span>
           <span class="rx-label">
             <span class="rx-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2"/></svg></span>
             <span class="rx-info"><strong>Agencia</strong><small>Sitio institucional con servicios, proceso de trabajo y casos de éxito.</small></span>
           </span>
         </button>
-        <button type="button" class="rx-opt" style="--i:4" aria-pressed="false" aria-label="Moda">
+        <button type="button" class="rx-opt" style="--i:4" data-demo="moda" aria-pressed="false" aria-label="Moda">
           <img class="rx-img" src="img/rubro-moda.jpg" alt="Línea Sur — marca de indumentaria" loading="lazy">
           <span class="rx-shade"></span>
+          <span class="rx-try"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>Probar demo</span>
           <span class="rx-url">lineasur.com</span>
           <span class="rx-label">
             <span class="rx-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3l4 2 4-2 4 4-3 3v11H7V10L4 7l4-4z"/></svg></span>
             <span class="rx-info"><strong>Moda</strong><small>Landing editorial con colección destacada y navegación por categoría.</small></span>
           </span>
         </button>
-        <button type="button" class="rx-opt" style="--i:5" aria-pressed="false" aria-label="Barbería">
+        <button type="button" class="rx-opt" style="--i:5" data-demo="barberia" aria-pressed="false" aria-label="Barbería">
           <img class="rx-img" src="img/rubro-barberia.jpg" alt="Barbería Central — barbería clásica" loading="lazy">
           <span class="rx-shade"></span>
+          <span class="rx-try"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>Probar demo</span>
           <span class="rx-url">barberiacentral.com</span>
           <span class="rx-label">
             <span class="rx-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12"/></svg></span>
             <span class="rx-info"><strong>Barbería</strong><small>Web con servicios, equipo de barberos y reserva de citas.</small></span>
           </span>
         </button>
-        <button type="button" class="rx-opt" style="--i:6" aria-pressed="false" aria-label="Joyería">
+        <button type="button" class="rx-opt" style="--i:6" data-demo="joyeria" aria-pressed="false" aria-label="Joyería">
           <img class="rx-img" src="img/rubro-joyeria.jpg" alt="Aurea Joyas — joyería artesanal" loading="lazy">
           <span class="rx-shade"></span>
+          <span class="rx-try"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>Probar demo</span>
           <span class="rx-url">aureajoyas.com</span>
           <span class="rx-label">
             <span class="rx-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12l4 6-10 12L2 9l4-6z"/><path d="M2 9h20M8 3l4 6 4-6M12 9l-4 12M12 9l4 12"/></svg></span>
             <span class="rx-info"><strong>Joyería</strong><small>Vitrina elegante con colecciones y piezas hechas a mano.</small></span>
           </span>
         </button>
-        <button type="button" class="rx-opt" style="--i:7" aria-pressed="false" aria-label="Inmobiliaria">
+        <button type="button" class="rx-opt" style="--i:7" data-demo="inmobiliaria" aria-pressed="false" aria-label="Inmobiliaria">
           <img class="rx-img" src="img/rubro-inmobiliaria.jpg" alt="Rivera Propiedades — inmobiliaria local" loading="lazy">
           <span class="rx-shade"></span>
+          <span class="rx-try"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>Probar demo</span>
           <span class="rx-url">riverapropiedades.uy</span>
           <span class="rx-label">
             <span class="rx-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9a1 1 0 01-1 1h-4v-6H8v6H4a1 1 0 01-1-1z"/></svg></span>
             <span class="rx-info"><strong>Inmobiliaria</strong><small>Buscador de propiedades con filtros, mapa y equipo de asesores.</small></span>
           </span>
         </button>
-        <button type="button" class="rx-opt" style="--i:8" aria-pressed="false" aria-label="Salud">
+        <button type="button" class="rx-opt" style="--i:8" data-demo="salud" aria-pressed="false" aria-label="Salud">
           <img class="rx-img" src="img/rubro-salud.jpg" alt="Clínica Norte — centro médico" loading="lazy">
           <span class="rx-shade"></span>
+          <span class="rx-try"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>Probar demo</span>
           <span class="rx-url">clinicanorte.com.uy</span>
           <span class="rx-label">
             <span class="rx-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.35-9.5-8.5C1 9 2.5 5 6.2 5c2 0 3.3 1.1 3.8 2C10.5 6.1 11.8 5 13.8 5c3.7 0 5.2 4 3.7 7.5C15 16.65 12 21 12 21z"/><path d="M9 12h2l1-2 1.5 4L15 12h1"/></svg></span>
             <span class="rx-info"><strong>Salud</strong><small>Sitio de salud con especialidades, profesionales y turnos online.</small></span>
           </span>
         </button>
-        <button type="button" class="rx-opt" style="--i:9" aria-pressed="false" aria-label="Turismo">
+        <button type="button" class="rx-opt" style="--i:9" data-demo="turismo" aria-pressed="false" aria-label="Turismo">
           <img class="rx-img" src="img/rubro-turismo.jpg" alt="Posada Lunarejo — posada boutique" loading="lazy">
           <span class="rx-shade"></span>
+          <span class="rx-try"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>Probar demo</span>
           <span class="rx-url">posadalunarejo.uy</span>
           <span class="rx-label">
             <span class="rx-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></span>
             <span class="rx-info"><strong>Turismo</strong><small>Web de hospedaje con habitaciones, experiencias y buscador de disponibilidad.</small></span>
           </span>
         </button>
-        <button type="button" class="rx-opt" style="--i:10" aria-pressed="false" aria-label="Automotriz">
+        <button type="button" class="rx-opt" style="--i:10" data-demo="motors" aria-pressed="false" aria-label="Automotriz">
           <img class="rx-img" src="img/rubro-motors.jpg" alt="Frontera Motors — concesionaria de vehículos" loading="lazy">
           <span class="rx-shade"></span>
+          <span class="rx-try"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>Probar demo</span>
           <span class="rx-url">fronteramotors.com.uy</span>
           <span class="rx-label">
             <span class="rx-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 13l1.5-4.5A2 2 0 016.4 7h11.2a2 2 0 011.9 1.5L21 13"/><rect x="2" y="13" width="20" height="5" rx="1.5"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg></span>
             <span class="rx-info"><strong>Automotriz</strong><small>Catálogo de autos nuevos y usados con financiación y búsqueda avanzada.</small></span>
           </span>
         </button>
-        <button type="button" class="rx-opt" style="--i:11" aria-pressed="false" aria-label="Arquitectura">
+        <button type="button" class="rx-opt" style="--i:11" data-demo="arquitectura" aria-pressed="false" aria-label="Arquitectura">
           <img class="rx-img" src="img/rubro-arquitectura.jpg" alt="Estudio Horizonte — estudio de arquitectura" loading="lazy">
           <span class="rx-shade"></span>
+          <span class="rx-try"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>Probar demo</span>
           <span class="rx-url">estudiohorizonte.uy</span>
           <span class="rx-label">
             <span class="rx-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M4 21V10l8-6 8 6v11M9 21v-6h6v6"/></svg></span>
             <span class="rx-info"><strong>Arquitectura</strong><small>Portfolio de proyectos con servicios y proceso de diseño y construcción.</small></span>
           </span>
         </button>
+      </div>
+      <div class="rx-cta">
+        <p><b>Cada rubro tiene una web de ejemplo que podés usar.</b> Reservá una mesa, armá un carrito o pedí un turno: así se sentiría tu web.</p>
+        <button type="button" class="rx-cta__btn" data-demo-open><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg><span>Probar la demo de <b data-demo-name>Gastronomía</b></span></button>
       </div>
     </div>
   </section>
@@ -495,11 +511,29 @@
   </form>
 </div>
 
+
+<!-- DEMO MODAL -->
+<div class="dm" id="demo-modal" hidden role="dialog" aria-modal="true" aria-labelledby="dm-title">
+  <div class="dm-win">
+    <div class="dm-bar">
+      <span class="dm-dots"><i></i><i></i><i></i></span>
+      <span class="dm-url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg><span id="dm-url">lafonda.dev</span></span>
+      <span class="dm-badge" id="dm-title">Demo interactiva · <b id="dm-name">Gastronomía</b></span>
+      <button type="button" class="dm-want" id="dm-want">Quiero una web así</button>
+      <button type="button" class="dm-close" id="dm-close" aria-label="Cerrar demo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="dm-body">
+      <div class="dm-loading" id="dm-loading"><span></span>Cargando demo…</div>
+      <iframe id="dm-frame" title="Demo interactiva" loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
   <span id="toast-text">Mensaje enviado. ¡Gracias por escribir!</span>
 </div>
 
-<script src="js/main.js?v=202610011420"></script>
+<script src="js/main.js?v=202610011530"></script>
 </body>
 </html>

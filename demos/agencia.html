@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Estudio Norte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#16130f;--ink2:#1f1b16;--line:#3a332a;--gold:#c8955a;--gold2:#e9d2a6;--cream:#f7f3ec;--cream2:#efe8dc;--txt:#2a241d;--mut:#6d6357;--serif:'Newsreader',Georgia,serif;--sans:'Inter',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--cream);color:var(--txt);font-size:15px;line-height:1.55;overflow-x:hidden}
+img{display:block;max-width:100%}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+.eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:600}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.08}
+h2{font-size:clamp(28px,3.4vw,40px);margin-top:6px}
+h2 em,h1 em{font-style:normal;color:var(--gold)}
+.btn{display:inline-flex;align-items:center;gap:10px;border:0;border-radius:6px;padding:13px 22px;font-weight:600;font-size:14px;transition:.2s}
+.btn-gold{background:var(--gold2);color:#1b160f}
+.btn-gold:hover{background:#f3dfb8;transform:translateY(-1px)}
+.btn-line{background:transparent;border:1px solid var(--gold);color:#9a6a33;padding:10px 18px;font-size:13px}
+.btn-line:hover{background:var(--gold);color:#fff}
+/* header */
+header{position:sticky;top:0;z-index:40;background:rgba(22,19,15,.96);backdrop-filter:blur(8px);border-bottom:1px solid #2a251e}
+.nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+.logo{display:flex;align-items:center;gap:12px;color:#fff;text-decoration:none}
+.logo b{font-family:var(--serif);font-weight:500;font-size:25px;display:block;line-height:1}
+.logo small{display:block;font-size:8.5px;letter-spacing:.2em;color:var(--gold);margin-top:4px;font-weight:600}
+.menu{display:flex;gap:30px;list-style:none}
+.menu a{color:#e8e1d6;text-decoration:none;font-size:13px;padding:6px 0;border-bottom:2px solid transparent}
+.menu a:hover,.menu a.on{color:#fff;border-color:var(--gold)}
+.burger{display:none;background:none;border:0;width:40px;height:40px;color:#fff}
+.burger span{display:block;width:22px;height:2px;background:currentColor;margin:5px auto;transition:.25s}
+/* hero */
+.hero{background:var(--ink);color:#fff;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0 0 0 34%;background:url(img/agencia-hero.jpg) center/cover}
+.hero-bg:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--ink) 0%,rgba(22,19,15,.6) 30%,rgba(22,19,15,0) 65%)}
+.hero .wrap{position:relative;padding-top:64px;padding-bottom:70px}
+.hero h1{font-size:clamp(36px,5vw,58px);margin:16px 0 18px;max-width:560px}
+.hero p{max-width:440px;color:#ddd5c8;font-size:15.5px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:22px;align-items:center;margin-top:30px}
+.play{display:flex;align-items:center;gap:14px;background:none;border:0;color:#fff;font-size:14px}
+.play i{width:44px;height:44px;border:1px solid var(--gold);border-radius:50%;display:grid;place-items:center;font-style:normal}
+.feats{background:var(--ink2);color:#fff;border-top:1px solid #2a251e}
+.feats .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+.feat{display:flex;gap:16px;align-items:center;padding:20px 16px;border-left:1px solid var(--line)}
+.feat:first-child{border:0}
+.feat svg{flex:none;color:var(--gold)}
+.feat b{font-family:var(--serif);font-weight:500;font-size:16px;display:block}
+.feat span{font-size:12px;color:#b7ad9f}
+section{padding:72px 0}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:32px}
+.head p{color:var(--mut);max-width:330px;font-size:13.5px}
+/* tabs */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.tab{background:#fff;border:1px solid #e1d7c7;border-radius:40px;padding:10px 18px;font-size:13.5px;color:var(--txt);display:flex;gap:8px;align-items:center}
+.tab small{color:var(--gold);font-weight:600}
+.tab[aria-selected=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.panel{display:grid;grid-template-columns:1.1fr 1fr;background:#fff;border:1px solid #e7dfd2;border-radius:10px;overflow:hidden;animation:fade .35s}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}}
+.panel .txt{padding:36px}
+.panel h3{font-size:28px;margin:8px 0 12px}
+.panel ul{list-style:none;margin:18px 0 24px;display:grid;grid-template-columns:1fr 1fr;gap:8px 18px}
+.panel li{font-size:13.5px;padding-left:22px;position:relative}
+.panel li:before{content:"✓";position:absolute;left:0;color:var(--gold);font-weight:700}
+.panel .meta{display:flex;gap:28px;border-top:1px solid #eee5d8;padding-top:18px;margin-bottom:20px}
+.panel .meta b{font-family:var(--serif);font-size:22px;font-weight:500;display:block}
+.panel .meta span{font-size:12px;color:var(--mut)}
+.panel img{width:100%;height:0;min-height:100%;object-fit:cover}
+/* process */
+.process{background:var(--cream2);padding:52px 0}
+.steps{display:grid;grid-template-columns:1.1fr repeat(4,1fr);gap:26px;align-items:start}
+.step .n{width:32px;height:32px;border-radius:50%;background:#e5d8c3;display:grid;place-items:center;font-size:11px;font-weight:600;margin-bottom:10px}
+.step b{font-family:var(--serif);font-size:17px;font-weight:500;display:block}
+.step p{font-size:12.5px;color:var(--mut)}
+/* projects */
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.chip{background:none;border:1px solid #d9cdb9;border-radius:30px;padding:7px 15px;font-size:12.5px;color:var(--txt)}
+.chip.on{background:var(--gold);border-color:var(--gold);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.case{position:relative;border:0;border-radius:10px;overflow:hidden;aspect-ratio:4/3;background:#222;color:#fff;text-align:left;padding:0}
+.case img{width:100%;height:100%;object-fit:cover;transition:transform .5s;filter:brightness(.7)}
+.case:hover img{transform:scale(1.06)}
+.case .cap{position:absolute;inset:auto 0 0 0;padding:20px;background:linear-gradient(transparent,rgba(0,0,0,.8))}
+.case b{font-family:var(--serif);font-size:26px;font-weight:500;display:block}
+.case small{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold2)}
+.case .res{position:absolute;top:14px;right:14px;background:rgba(22,19,15,.75);border:1px solid rgba(233,210,166,.4);border-radius:30px;padding:4px 11px;font-size:11.5px}
+.case.hide{display:none}
+/* quote */
+.quote{background:var(--ink);color:#fff}
+.quote .head p{color:#b7ad9f}
+.qgrid{display:grid;grid-template-columns:1.4fr 1fr;gap:28px;align-items:start}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;background:var(--ink2);border:1px solid var(--line);border-radius:8px;padding:16px;color:#fff}
+.opt .box{flex:none;width:20px;height:20px;border:1.5px solid #6b5f50;border-radius:4px;display:grid;place-items:center;font-size:12px;color:transparent;margin-top:2px}
+.opt[aria-pressed=true]{border-color:var(--gold);background:#2a2219}
+.opt[aria-pressed=true] .box{background:var(--gold);border-color:var(--gold);color:#16130f}
+.opt b{font-weight:500;font-size:14px;display:block}
+.opt span{font-size:12px;color:#a99f90}
+.lbl{font-size:12px;color:#b7ad9f;margin:22px 0 8px;display:block}
+.seg{display:flex;background:var(--ink2);border:1px solid var(--line);border-radius:8px;padding:4px;gap:4px;flex-wrap:wrap}
+.seg button{flex:1;background:none;border:0;color:#d8cfc2;padding:9px 10px;border-radius:5px;font-size:13px;min-width:90px}
+.seg button.on{background:var(--gold2);color:#1b160f;font-weight:600}
+.est{background:linear-gradient(160deg,#2a2219,#1c1813);border:1px solid #4a3f31;border-radius:12px;padding:28px;position:sticky;top:90px}
+.est .big{font-family:var(--serif);font-size:44px;line-height:1;margin:8px 0 4px;color:var(--gold2)}
+.est .row{display:flex;justify-content:space-between;font-size:13px;padding:7px 0;border-bottom:1px solid #3a3229;color:#cfc6b8}
+.est .row:last-of-type{border:0}
+.est .lines{margin:14px 0 18px;min-height:40px}
+.est .empty{font-size:13px;color:#8d8374}
+.est .btn{width:100%;justify-content:center}
+.est .btn:disabled{opacity:.4;cursor:not-allowed}
+footer{background:#100e0b;color:#9b9183;font-size:12.5px;padding:26px 0}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+/* modal + toast */
+.modal{position:fixed;inset:0;background:rgba(10,8,6,.7);z-index:80;display:none;align-items:center;justify-content:center;padding:16px}
+.modal.open{display:flex}
+.dlg{background:var(--cream);border-radius:12px;max-width:620px;width:100%;max-height:92vh;overflow:auto;position:relative;animation:fade .3s}
+.dlg img{width:100%;height:220px;object-fit:cover}
+.dlg .in{padding:26px}
+.dlg h3{font-size:30px;margin:6px 0 10px}
+.x{position:absolute;top:10px;right:10px;width:36px;height:36px;border-radius:50%;border:0;background:rgba(22,19,15,.8);color:#fff;font-size:18px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}
+.kpis div{background:#fff;border:1px solid #e7dfd2;border-radius:8px;padding:12px;text-align:center}
+.kpis b{white-space:nowrap;font-family:var(--serif);font-size:24px;font-weight:500;color:#9a6a33;display:block}
+.kpis span{font-size:11px;color:var(--mut)}
+form label{display:block;font-size:12px;color:var(--mut);margin:12px 0 5px}
+form input,form textarea{width:100%;border:1px solid #d9cdb9;border-radius:6px;padding:11px 12px;font:inherit;background:#fff}
+form .btn{margin-top:18px}
+.err{color:#a3402b;font-size:12px;margin-top:8px;min-height:16px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,150%);background:var(--ink);color:#fff;border:1px solid var(--gold);border-radius:10px;padding:16px 20px;z-index:90;max-width:calc(100% - 32px);width:440px;display:flex;gap:14px;align-items:flex-start;visibility:hidden;transition:transform .4s,visibility .4s;box-shadow:0 20px 40px rgba(0,0,0,.35)}
+.toast.show{transform:translate(-50%,0);visibility:visible}
+.toast i{flex:none;width:30px;height:30px;border-radius:50%;background:var(--gold2);color:#1b160f;display:grid;place-items:center;font-style:normal;font-weight:700}
+.toast b{display:block;font-size:14.5px}
+.toast span{font-size:12.5px;color:#cfc6b8}
+@media (max-width:980px){
+ .feats .wrap{grid-template-columns:1fr 1fr}
+ .feat:nth-child(3){border:0}
+ .steps{grid-template-columns:1fr 1fr}
+ .steps>div:first-child{grid-column:1/-1}
+ .grid{grid-template-columns:1fr 1fr}
+ .qgrid{grid-template-columns:1fr}
+ .est{position:static}
+}
+@media (max-width:760px){
+ .wrap{padding:0 18px}
+ .menu{position:fixed;top:66px;left:0;right:0;flex-direction:column;gap:0;background:var(--ink);padding:8px 18px 18px;transform:translateY(-120%);visibility:hidden;transition:transform .3s,visibility .3s;z-index:-1;border-bottom:1px solid var(--line)}
+ .menu.open{transform:none;visibility:visible}
+ .menu a{display:block;padding:14px 0;border-bottom:1px solid #2a251e;font-size:15px}
+ .burger{display:block}
+ .nav>.btn{display:none}
+ .burger[aria-expanded=true] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+ .burger[aria-expanded=true] span:nth-child(2){opacity:0}
+ .burger[aria-expanded=true] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+ .hero-bg{inset:0}
+ .hero-bg:after{background:linear-gradient(180deg,rgba(22,19,15,.55),rgba(22,19,15,.92) 60%)}
+ .hero .wrap{padding-top:56px}
+ .feats .wrap{grid-template-columns:1fr}
+ .feat{border:0;border-top:1px solid var(--line);padding:14px 0}
+ .feat:first-child{border:0}
+ section{padding:52px 0}
+ .panel{grid-template-columns:1fr}
+ .panel img{min-height:0;height:190px;order:-1}
+ .panel .txt{padding:24px}
+ .panel ul{grid-template-columns:1fr}
+ .grid,.opts{grid-template-columns:1fr}
+ .steps{grid-template-columns:1fr}
+ .kpis b{font-size:17px}
+}
+</style>
+</head>
+<body>
+<header>
+ <div class="wrap nav">
+  <a href="#inicio" class="logo" aria-label="Estudio Norte, inicio">
+   <svg width="40" height="26" viewBox="0 0 40 26" aria-hidden="true"><path d="M0 26 13 4l13 22z" fill="#c8955a"/><path d="M14 26 24 9l10 17z" fill="#e9d2a6"/><path d="M28 26l5-9 7 9z" fill="#c8955a" opacity=".7"/></svg>
+   <span><b>Estudio Norte</b><small>ESTRATEGIA · DISEÑO · CRECIMIENTO</small></span>
+  </a>
+  <ul class="menu" id="menu">
+   <li><a href="#inicio" class="on">Inicio</a></li>
+   <li><a href="#servicios">Servicios</a></li>
+   <li><a href="#proyectos">Proyectos</a></li>
+   <li><a href="#cotizador">Cotizador</a></li>
+   <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <a href="#cotizador" class="btn btn-gold" style="padding:10px 18px;text-decoration:none"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Hablemos</a>
+  <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+ </div>
+</header>
+
+<main>
+<div class="hero" id="inicio">
+ <div class="hero-bg" role="img" aria-label="Escritorio del estudio con laptop, taza y libros"></div>
+ <div class="wrap">
+  <div class="eyebrow">Estrategia y diseño para negocios reales</div>
+  <h1>Ideas con propósito,<br><em>negocios que crecen.</em></h1>
+  <p>Somos un estudio creativo de Montevideo que combina estrategia, diseño y acompañamiento para ayudarte a construir una marca sólida y un negocio con futuro.</p>
+  <div class="hero-cta">
+   <a href="#cotizador" class="btn btn-gold" style="text-decoration:none"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Cotizá tu proyecto</a>
+   <button class="play" data-goto="proyectos"><i aria-hidden="true">▶</i>Conocé nuestro trabajo</button>
+  </div>
+ </div>
+</div>
+<div class="feats">
+ <div class="wrap">
+  <div class="feat"><svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18M6 17v-4M10 17V9M14 17v-6M18 17V5"/></svg><div><b>Estrategia que funciona</b><span>Del propósito a los resultados</span></div></div>
+  <div class="feat"><svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12l3 6-9 12L3 9z"/><path d="M3 9h18M9 3l3 18 3-18"/></svg><div><b>Diseño con identidad</b><span>Marcas que dejan huella</span></div></div>
+  <div class="feat"><svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="13" rx="1"/><path d="M8 21h8M12 17v4"/></svg><div><b>Sitios web que convierten</b><span>Experiencias que generan oportunidades</span></div></div>
+  <div class="feat"><svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6M15 14c3 0 6 2 6 5"/></svg><div><b>Acompañamiento real</b><span>Un equipo a tu lado en cada etapa</span></div></div>
+ </div>
+</div>
+
+<section id="servicios">
+ <div class="wrap">
+  <div class="head">
+   <div><div class="eyebrow">Nuestros servicios</div><h2>Todo lo que tu negocio necesita,<br><em>en un solo lugar.</em></h2></div>
+   <p>Estrategia, diseño y acompañamiento para marcas que buscan crecer con sentido y diferenciarse de verdad.</p>
+  </div>
+  <div class="tabs" role="tablist" aria-label="Servicios" id="tabs"></div>
+  <div id="panel" role="tabpanel"></div>
+ </div>
+</section>
+
+<div class="process">
+ <div class="wrap steps">
+  <div><div class="eyebrow">Cómo trabajamos</div><h2 style="font-size:30px">Un proceso simple,<br><em>claro y colaborativo.</em></h2></div>
+  <div class="step"><div class="n">01</div><b>Conversamos</b><p>Conocemos tu negocio, tus objetivos y los desafíos que enfrentás.</p></div>
+  <div class="step"><div class="n">02</div><b>Diseñamos</b><p>Creamos una propuesta a medida con estrategia y creatividad.</p></div>
+  <div class="step"><div class="n">03</div><b>Construimos</b><p>Llevamos las ideas a la realidad con un equipo experto.</p></div>
+  <div class="step"><div class="n">04</div><b>Impulsamos</b><p>Te acompañamos para que sigas creciendo y midas resultados.</p></div>
+ </div>
+</div>
+
+<section id="proyectos">
+ <div class="wrap">
+  <div class="head">
+   <div><div class="eyebrow">Proyectos destacados</div><h2>Marcas reales,<br><em>resultados tangibles.</em></h2></div>
+   <div class="filters" role="group" aria-label="Filtrar proyectos" id="filters">
+    <button class="chip on" data-f="all" aria-pressed="true">Todos</button>
+    <button class="chip" data-f="branding" aria-pressed="false">Branding</button>
+    <button class="chip" data-f="web" aria-pressed="false">Web</button>
+    <button class="chip" data-f="ecommerce" aria-pressed="false">E-commerce</button>
+   </div>
+  </div>
+  <div class="grid" id="grid"></div>
+ </div>
+</section>
+
+<section class="quote" id="cotizador">
+ <div class="wrap">
+  <div class="head">
+   <div><div class="eyebrow">Cotizador online</div><h2>Armá tu proyecto,<br><em>conocé tu inversión.</em></h2></div>
+   <p>Elegí los servicios que necesitás y te mostramos una estimación de precio y plazo al instante.</p>
+  </div>
+  <div class="qgrid">
+   <div>
+    <div class="opts" id="opts"></div>
+    <span class="lbl" id="lblSize">Tamaño del negocio</span>
+    <div class="seg" role="group" aria-labelledby="lblSize" id="size">
+     <button data-v="1" class="on" aria-pressed="true">Emprendimiento</button>
+     <button data-v="1.35" aria-pressed="false">Pyme</button>
+     <button data-v="1.8" aria-pressed="false">Empresa</button>
+    </div>
+    <span class="lbl" id="lblUrg">Plazo de entrega</span>
+    <div class="seg" role="group" aria-labelledby="lblUrg" id="urg">
+     <button data-v="0" class="on" aria-pressed="true">Normal</button>
+     <button data-v="1" aria-pressed="false">Prioritario (+20%)</button>
+    </div>
+   </div>
+   <aside class="est" aria-live="polite">
+    <div class="eyebrow">Tu estimación</div>
+    <div class="big" id="total">US$ 0</div>
+    <div style="font-size:13px;color:#b7ad9f" id="plazo">Elegí al menos un servicio</div>
+    <div class="lines" id="lines"></div>
+    <button class="btn btn-gold" id="pedir" disabled>Solicitar propuesta formal →</button>
+    <p style="font-size:11.5px;color:#8d8374;margin-top:12px">Precios orientativos en dólares, IVA no incluido. Hasta 3 cuotas sin recargo.</p>
+   </aside>
+  </div>
+ </div>
+</section>
+</main>
+
+<footer id="contacto">
+ <div class="wrap"><span>© 2026 Estudio Norte · Montevideo, Uruguay</span><span>hola@estudionorte.dev · +598 99 214 380</span></div>
+</footer>
+
+<div class="modal" id="caseModal" role="dialog" aria-modal="true" aria-labelledby="caseTitle">
+ <div class="dlg"><button class="x" data-close aria-label="Cerrar">×</button><div id="caseBody"></div></div>
+</div>
+<div class="modal" id="formModal" role="dialog" aria-modal="true" aria-labelledby="formTitle">
+ <div class="dlg"><button class="x" data-close aria-label="Cerrar">×</button>
+  <div class="in">
+   <div class="eyebrow">Último paso</div>
+   <h3 id="formTitle">Recibí tu propuesta</h3>
+   <p style="font-size:13.5px;color:var(--mut)" id="formSum"></p>
+   <form id="qform" novalidate>
+    <label for="fn">Nombre</label><input id="fn" autocomplete="name" placeholder="Ej: Lucía Pereira">
+    <label for="fe">Email</label><input id="fe" type="email" autocomplete="email" placeholder="lucia@tunegocio.com.uy">
+    <label for="fm">Contanos de tu negocio (opcional)</label><textarea id="fm" rows="3" placeholder="Rubro, objetivos, fecha ideal de lanzamiento…"></textarea>
+    <div class="err" id="ferr" aria-live="assertive"></div>
+    <button class="btn btn-gold" type="submit">Enviar solicitud</button>
+   </form>
+  </div>
+ </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"><i>✓</i><div><b id="tTitle"></b><span id="tMsg"></span></div></div>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const fmt=n=>'US$ '+Math.round(n).toLocaleString('es-UY');
+// menu
+const burger=$('#burger'),menu=$('#menu');
+burger.onclick=()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)};
+function go(id){const el=document.getElementById(id);if(!el)return;window.scrollTo({top:el.getBoundingClientRect().top+scrollY-66,behavior:'smooth'})}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a){e.preventDefault();go(a.getAttribute('href').slice(1));menu.classList.remove('open');burger.setAttribute('aria-expanded',false)}
+ const g=e.target.closest('[data-goto]');if(g)go(g.dataset.goto)});
+const secs=['inicio','servicios','proyectos','cotizador','contacto'];
+addEventListener('scroll',()=>{let cur='inicio';secs.forEach(s=>{const el=document.getElementById(s);if(el.getBoundingClientRect().top<140)cur=s});$$('.menu a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')=='#'+cur))},{passive:true});
+// toast
+let tt;function toast(t,m){$('#tTitle').textContent=t;$('#tMsg').textContent=m;$('#toast').classList.add('show');clearTimeout(tt);tt=setTimeout(()=>$('#toast').classList.remove('show'),5200)}
+// modals
+function openM(id){const m=$(id);m.classList.add('open');m.querySelector('.x').focus()}
+function closeM(m){m.classList.remove('open')}
+$$('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m||e.target.closest('[data-close]'))closeM(m)}));
+addEventListener('keydown',e=>{if(e.key==='Escape')$$('.modal.open').forEach(closeM)});
+
+// tabs
+const SV=[
+ {id:'branding',sh:'Branding',n:'01',t:'Branding y estrategia de marca',img:'svc1',d:'Te ayudamos a definir, construir y comunicar una marca auténtica, memorable y alineada con tus objetivos de negocio.',li:['Investigación y posicionamiento','Naming y tono de voz','Logo y sistema visual','Manual de marca','Papelería y aplicaciones','Kit para redes'],p:'US$ 950',w:'3–4 semanas'},
+ {id:'web',sh:'Diseño web',n:'02',t:'Diseño y desarrollo web',img:'svc2',d:'Creamos sitios web modernos, rápidos y enfocados en resultados, que reflejan la esencia de tu marca y convierten visitas en clientes.',li:['Diseño UX/UI a medida','Desarrollo responsive','SEO técnico inicial','Integración con WhatsApp','Tiendas online','Hosting y dominio .uy'],p:'US$ 1.400',w:'4–6 semanas'},
+ {id:'acomp',sh:'Acompañamiento',n:'03',t:'Acompañamiento para negocios',img:'svc3',d:'Te asesoramos en estrategia, estructura y comunicación para que tu negocio crezca con foco y sostenibilidad.',li:['Diagnóstico de negocio','Plan de comunicación','Gestión de redes','Campañas en Meta y Google','Reportes mensuales','Reunión quincenal'],p:'US$ 450/mes',w:'Mínimo 3 meses'}];
+const tabs=$('#tabs');
+SV.forEach((s,i)=>{const b=document.createElement('button');b.className='tab';b.role='tab';b.id='tab-'+s.id;b.setAttribute('aria-selected',i==0);b.innerHTML=`<small>${s.n}</small>${s.sh}`;b.onclick=()=>selTab(i);tabs.append(b)});
+tabs.addEventListener('keydown',e=>{const bs=$$('.tab'),i=bs.indexOf(document.activeElement);if(e.key=='ArrowRight'||e.key=='ArrowLeft'){const n=(i+(e.key=='ArrowRight'?1:-1)+bs.length)%bs.length;selTab(n);bs[n].focus()}});
+function selTab(i){const s=SV[i];$$('.tab').forEach((b,j)=>{b.setAttribute('aria-selected',i==j);b.tabIndex=i==j?0:-1});
+ $('#panel').innerHTML=`<div class="panel"><div class="txt"><div class="eyebrow">Servicio ${s.n}</div><h3>${s.t}</h3><p style="color:var(--mut)">${s.d}</p><ul>${s.li.map(l=>`<li>${l}</li>`).join('')}</ul><div class="meta"><div><span>Desde</span><b>${s.p}</b></div><div><span>Plazo típico</span><b>${s.w}</b></div></div><button class="btn btn-line" data-add="${s.id}">Sumarlo al cotizador →</button></div><img src="img/agencia-${s.img}.jpg" alt="${s.t}"></div>`}
+selTab(0);
+document.addEventListener('click',e=>{const b=e.target.closest('[data-add]');if(!b)return;const map={branding:'logo',web:'web',acomp:'mkt'};const o=OP.find(x=>x.id==map[b.dataset.add]);o.on=true;renderOpts();calc();go('cotizador')});
+
+// projects
+const CS=[
+ {n:'Raíz',c:'branding',tg:'Branding · Web',img:'svc1',r:'+48% consultas',cl:'Almacén orgánico · Montevideo',d:'Rediseñamos la identidad de un almacén de productos orgánicos de Pocitos para que se viera tan cuidado como lo que vende.',k:[['+48%','consultas'],['3x','seguidores'],['6 sem','de trabajo']]},
+ {n:'Luma',c:'web',tg:'Branding · Web',img:'laptop',r:'+62% reservas',cl:'Estudio de yoga · Punta Carretas',d:'Sitio web con reserva de clases online integrado a WhatsApp, que redujo los mensajes manuales a la mitad.',k:[['+62%','reservas'],['1,2 s','de carga'],['5 sem','de trabajo']]},
+ {n:'Terral',c:'ecommerce',tg:'Web · E-commerce',img:'books',r:'US$ 18k/mes',cl:'Vinos de autor · Canelones',d:'Tienda online para una bodega familiar con envíos a todo el país y club de suscripción mensual.',k:[['US$ 18k','ventas/mes'],['+2.100','pedidos'],['8 sem','de trabajo']]},
+ {n:'Nido',c:'branding',tg:'Branding · Estrategia',img:'mug',r:'2 locales nuevos',cl:'Café de especialidad · Cordón',d:'Estrategia y marca para una cafetería que pasó de un local a tres en un año, con identidad coherente en cada punto.',k:[['3','locales'],['+35%','ticket medio'],['4 sem','de trabajo']]},
+ {n:'Brisa',c:'web',tg:'Web · SEO',img:'plant',r:'Top 3 en Google',cl:'Inmobiliaria · Punta del Este',d:'Sitio con buscador de propiedades y SEO local. Hoy aparecen en el top 3 para “alquileres en Punta del Este”.',k:[['Top 3','en Google'],['+90%','tráfico'],['6 sem','de trabajo']]},
+ {n:'Ámbar',c:'ecommerce',tg:'Branding · E-commerce',img:'sign',r:'+130% ventas',cl:'Cosmética natural · Colonia',d:'Nueva marca y tienda online con Mercado Pago y envíos, más campañas en Instagram para el lanzamiento.',k:[['+130%','ventas'],['4,8★','reseñas'],['7 sem','de trabajo']]}];
+const grid=$('#grid');
+CS.forEach((c,i)=>{const b=document.createElement('button');b.className='case';b.dataset.c=c.c;b.setAttribute('aria-label',`Ver caso ${c.n}`);b.innerHTML=`<img src="img/agencia-${c.img}.jpg" alt=""><span class="res">${c.r}</span><span class="cap"><b>${c.n}</b><small>${c.tg}</small></span>`;b.onclick=()=>openCase(i);grid.append(b)});
+$('#filters').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;$$('.chip').forEach(c=>{c.classList.toggle('on',c==b);c.setAttribute('aria-pressed',c==b)});const f=b.dataset.f;$$('.case').forEach(c=>c.classList.toggle('hide',f!='all'&&c.dataset.c!=f))});
+function openCase(i){const c=CS[i];$('#caseBody').innerHTML=`<img src="img/agencia-${c.img}.jpg" alt="Proyecto ${c.n}"><div class="in"><div class="eyebrow">${c.tg}</div><h3 id="caseTitle">${c.n}</h3><p style="font-size:13px;color:var(--mut)">${c.cl}</p><p style="margin-top:10px">${c.d}</p><div class="kpis">${c.k.map(k=>`<div><b>${k[0]}</b><span>${k[1]}</span></div>`).join('')}</div><button class="btn btn-gold" data-close data-goto="cotizador">Quiero algo así →</button></div>`;openM('#caseModal')}
+
+// quote
+const OP=[
+ {id:'logo',t:'Identidad de marca',s:'Logo, paleta, tipografías y manual',p:950,w:3},
+ {id:'web',t:'Sitio web institucional',s:'Hasta 6 secciones, responsive',p:1400,w:4},
+ {id:'shop',t:'Tienda online',s:'Catálogo, Mercado Pago y envíos',p:2200,w:6},
+ {id:'seo',t:'SEO y Google Business',s:'Posicionamiento local',p:380,w:2},
+ {id:'mkt',t:'Redes y campañas (3 meses)',s:'Contenido + anuncios en Meta',p:1350,w:1},
+ {id:'foto',t:'Sesión de fotos de producto',s:'Hasta 30 fotos editadas',p:320,w:1}];
+let size=1,urg=0;
+function renderOpts(){$('#opts').innerHTML=OP.map(o=>`<button class="opt" data-o="${o.id}" aria-pressed="${!!o.on}"><span class="box" aria-hidden="true">✓</span><span><b>${o.t}</b><span>${o.s} · desde ${fmt(o.p)}</span></span></button>`).join('')}
+$('#opts').addEventListener('click',e=>{const b=e.target.closest('.opt');if(!b)return;const o=OP.find(x=>x.id==b.dataset.o);o.on=!o.on;b.setAttribute('aria-pressed',o.on);calc()});
+function seg(id,cb){$(id).addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;$$(id+' button').forEach(x=>{x.classList.toggle('on',x==b);x.setAttribute('aria-pressed',x==b)});cb(+b.dataset.v);calc()})}
+seg('#size',v=>size=v);seg('#urg',v=>urg=v);
+let last={};
+function calc(){const sel=OP.filter(o=>o.on);let t=sel.reduce((a,o)=>a+o.p,0)*size;if(urg)t*=1.2;
+ let w=sel.length?Math.max(...sel.map(o=>o.w))+Math.max(0,sel.length-1):0;if(urg)w=Math.ceil(w*.7);
+ const el=$('#total'),from=last.t||0;animate(el,from,t);
+ $('#plazo').textContent=sel.length?`Plazo estimado: ${w}–${w+2} semanas`:'Elegí al menos un servicio';
+ $('#lines').innerHTML=sel.length?sel.map(o=>`<div class="row"><span>${o.t}</span><span>${fmt(o.p*size*(urg?1.2:1))}</span></div>`).join(''):'<p class="empty">Todavía no elegiste servicios.</p>';
+ $('#pedir').disabled=!sel.length;last={t,w,sel}}
+function animate(el,a,b){const t0=performance.now();(function f(n){const k=Math.min(1,(n-t0)/400);el.textContent=fmt(a+(b-a)*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(f)})(t0)}
+renderOpts();calc();
+$('#pedir').onclick=()=>{$('#formSum').textContent=`${last.sel.length} servicio(s) · ${fmt(last.t)} · ${last.w}–${last.w+2} semanas`;$('#ferr').textContent='';openM('#formModal')};
+$('#qform').onsubmit=e=>{e.preventDefault();const n=$('#fn').value.trim(),m=$('#fe').value.trim();
+ if(n.length<2){$('#ferr').textContent='Ingresá tu nombre.';$('#fn').focus();return}
+ if(!/^\S+@\S+\.\S+$/.test(m)){$('#ferr').textContent='Ingresá un email válido.';$('#fe').focus();return}
+ closeM($('#formModal'));e.target.reset();toast(`¡Gracias, ${n.split(' ')[0]}! Solicitud enviada (demo)`,'En tu web real esta cotización te llega por mail y WhatsApp al instante.')};
+</script>
+</body>
+</html>

@@ -308,6 +308,70 @@
 
   // (efecto de scroll del hero quitado: la imagen queda fija)
 
+  // demos interactivas por rubro
+  (function(){
+    var modal = document.getElementById('demo-modal');
+    var root = document.querySelector('[data-rx]');
+    if(!modal || !root) return;
+    var frame = document.getElementById('dm-frame');
+    var load = document.getElementById('dm-loading');
+    var urlEl = document.getElementById('dm-url');
+    var nameEl = document.getElementById('dm-name');
+    var ctaName = document.querySelector('[data-demo-name]');
+    var lastFocus = null, current = null;
+    function info(opt){
+      return { key: opt.getAttribute('data-demo'), name: opt.getAttribute('aria-label'),
+               url: (opt.querySelector('.rx-url') || {}).textContent || '' };
+    }
+    function activeOpt(){ return root.querySelector('.rx-opt.is-active') || root.querySelector('.rx-opt'); }
+    function open(opt){
+      var d = info(opt); current = d;
+      lastFocus = document.activeElement;
+      urlEl.textContent = d.url; nameEl.textContent = d.name;
+      load.hidden = false;
+      frame.onload = function(){ load.hidden = true; };
+      frame.src = 'demos/' + d.key + '.html';
+      modal.hidden = false;
+      document.documentElement.classList.add('dm-lock');
+      setTimeout(function(){ document.getElementById('dm-close').focus(); }, 30);
+    }
+    function close(){
+      modal.hidden = true;
+      document.documentElement.classList.remove('dm-lock');
+      frame.src = 'about:blank';
+      if(lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+    // click en la opción ya activa (o en "Probar demo") → abre la demo
+    root.addEventListener('click', function(e){
+      var opt = e.target.closest('.rx-opt');
+      if(!opt) return;
+      var wasActive = opt.getAttribute('data-was-active') === '1';
+      if(wasActive || e.target.closest('.rx-try')) open(opt);
+    });
+    root.addEventListener('pointerdown', function(e){
+      var opt = e.target.closest('.rx-opt');
+      if(opt) opt.setAttribute('data-was-active', opt.classList.contains('is-active') ? '1' : '0');
+    });
+    root.addEventListener('keydown', function(e){
+      var opt = e.target.closest('.rx-opt');
+      if(opt && (e.key === 'Enter' || e.key === ' ')) opt.setAttribute('data-was-active', opt.classList.contains('is-active') ? '1' : '0');
+    });
+    // nombre del rubro activo en el botón de abajo
+    new MutationObserver(function(){ var o = activeOpt(); if(ctaName && o) ctaName.textContent = o.getAttribute('aria-label'); })
+      .observe(root, { subtree:true, attributes:true, attributeFilter:['class'] });
+    document.querySelectorAll('[data-demo-open]').forEach(function(b){ b.addEventListener('click', function(){ open(activeOpt()); }); });
+    document.getElementById('dm-close').addEventListener('click', close);
+    modal.addEventListener('click', function(e){ if(e.target === modal) close(); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !modal.hidden) close(); });
+    document.getElementById('dm-want').addEventListener('click', function(){
+      var name = current ? current.name : '';
+      close();
+      openModal();
+      var f = document.getElementById('contact-form');
+      if(f && f.mensaje && !f.mensaje.value) f.mensaje.value = 'Hola Santiago, vi la demo de ' + name + ' y quiero una web así para mi negocio.';
+    });
+  })();
+
   // tipos de web — selector interactivo (acordeón)
   (function(){
     var root = document.querySelector('[data-rx]');
