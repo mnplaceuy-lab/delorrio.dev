@@ -278,7 +278,7 @@
 
     // subtle tilt on hero mockups following cursor
     var heroVisual = document.querySelector('.hero-visual');
-    var hvLeft = document.querySelector('.hv-mock-left');
+    var hvLeft = document.querySelector('.hv-mock-left, .hv-shot');
     var hvRight = document.querySelector('.hv-mock-right');
     if(heroVisual && (hvLeft || hvRight)){
       heroVisual.addEventListener('mousemove', function(e){
