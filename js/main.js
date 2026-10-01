@@ -278,7 +278,7 @@
 
     // subtle tilt on hero mockups following cursor
     var heroVisual = document.querySelector('.hero-visual');
-    var hvLeft = document.querySelector('.hv-mock-left, .hv-shot');
+    var hvLeft = document.querySelector('.hv-mock-left');
     var hvRight = document.querySelector('.hv-mock-right');
     if(heroVisual && (hvLeft || hvRight)){
       heroVisual.addEventListener('mousemove', function(e){
@@ -306,29 +306,7 @@
     });
   }
 
-  // scroll-linked 3D card: la imagen del hero arranca inclinada y se endereza/agranda al bajar
-  (function(){
-    var el = document.getElementById('scrollCard');
-    if(!el) return;
-    var ticking = false;
-    function update(){
-      ticking = false;
-      var mobile = window.innerWidth <= 980;
-      var range = window.innerHeight * (mobile ? 0.45 : 0.6);
-      var p = Math.min(1, Math.max(0, window.scrollY / range));
-      var e = 1 - Math.pow(1 - p, 3);                       // easeOutCubic
-      var rotate = (mobile ? 14 : 20) * (1 - e);
-      var scale = mobile ? 0.94 + 0.06 * e : 0.86 + 0.14 * e;
-      var ty = (mobile ? 0 : 40) * e;
-      el.style.transform = 'perspective(1200px) rotateX(' + rotate.toFixed(2) + 'deg) scale(' + scale.toFixed(4) + ') translateY(' + ty.toFixed(1) + 'px)';
-    }
-    function onScroll(){
-      if(!ticking){ requestAnimationFrame(update); ticking = true; }
-    }
-    window.addEventListener('scroll', onScroll, {passive:true});
-    window.addEventListener('resize', onScroll);
-    update();
-  })();
+  // (efecto de scroll del hero quitado: la imagen queda fija)
 
   // tipos de web — selector interactivo (acordeón)
   (function(){
