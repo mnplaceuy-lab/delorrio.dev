@@ -306,24 +306,21 @@
     });
   }
 
-  // scroll-linked 3D card (vanilla equivalent of a ContainerScroll effect)
+  // scroll-linked 3D card: la imagen del hero arranca inclinada y se endereza/agranda al bajar
   (function(){
     var el = document.getElementById('scrollCard');
     if(!el) return;
     var ticking = false;
-    function isMobileView(){ return window.innerWidth <= 768; }
     function update(){
       ticking = false;
-      if(reduceMotion){ el.style.transform = 'none'; return; }
-      var wh = window.innerHeight;
-      var range = wh * 0.65;
-      var progress = window.scrollY / range;
-      progress = Math.min(1, Math.max(0, progress));
-      var rotate = 18 * (1 - progress);
-      var scaleRange = isMobileView() ? [0.85, 0.96] : [1.06, 1];
-      var scaleVal = scaleRange[0] + (scaleRange[1] - scaleRange[0]) * progress;
-      var translate = -26 * progress;
-      el.style.transform = 'rotateX(' + rotate + 'deg) scale(' + scaleVal + ') translateY(' + translate + 'px)';
+      var mobile = window.innerWidth <= 980;
+      var range = window.innerHeight * (mobile ? 0.45 : 0.6);
+      var p = Math.min(1, Math.max(0, window.scrollY / range));
+      var e = 1 - Math.pow(1 - p, 3);                       // easeOutCubic
+      var rotate = (mobile ? 14 : 20) * (1 - e);
+      var scale = mobile ? 0.94 + 0.06 * e : 0.86 + 0.14 * e;
+      var ty = (mobile ? 0 : 40) * e;
+      el.style.transform = 'perspective(1200px) rotateX(' + rotate.toFixed(2) + 'deg) scale(' + scale.toFixed(4) + ') translateY(' + ty.toFixed(1) + 'px)';
     }
     function onScroll(){
       if(!ticking){ requestAnimationFrame(update); ticking = true; }
