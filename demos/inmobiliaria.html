@@ -222,7 +222,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
 
 <main>
 <section class="hero" id="inicio">
- <img src="img/inmobiliaria-hero.jpg" alt="Casa moderna con galería y piscina al atardecer">
+ <img src="img/inmobiliaria-hero.jpg?v=2" alt="Casa moderna con galería y piscina al atardecer">
  <div class="wrap">
   <p class="eyebrow">Tu próximo hogar en Rivera</p>
   <h1>Propiedades que conectan personas</h1>
@@ -261,7 +261,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
    <aside class="mapbox">
     <h3>Explorá en el mapa</h3>
     <p>Tocá un precio para abrir la ficha.</p>
-    <div class="map" id="map"><img src="img/inmobiliaria-mapa.jpg" alt="Mapa de Rivera con propiedades"></div>
+    <div class="map" id="map"><img src="img/inmobiliaria-mapa.jpg?v=2" alt="Mapa de Rivera con propiedades"></div>
    </aside>
   </div>
  </div>
@@ -279,9 +279,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
  <div id="equipo">
   <div class="shead"><div><h2>Conocé a nuestro equipo</h2><p>Profesionales locales, comprometidos con vos.</p></div></div>
   <div class="team">
-   <div class="tm"><img src="img/inmobiliaria-t1.jpg" alt=""><div><b>Diego Pereira</b><span>Director</span></div></div>
-   <div class="tm"><img src="img/inmobiliaria-t2.jpg" alt=""><div><b>Lucía Ferreira</b><span>Asesora</span></div></div>
-   <div class="tm"><img src="img/inmobiliaria-t3.jpg" alt=""><div><b>Matías Silva</b><span>Asesor</span></div></div>
+   <div class="tm"><img src="img/inmobiliaria-t1.jpg?v=2" alt=""><div><b>Diego Pereira</b><span>Director</span></div></div>
+   <div class="tm"><img src="img/inmobiliaria-t2.jpg?v=2" alt=""><div><b>Lucía Ferreira</b><span>Asesora</span></div></div>
+   <div class="tm"><img src="img/inmobiliaria-t3.jpg?v=2" alt=""><div><b>Matías Silva</b><span>Asesor</span></div></div>
   </div>
  </div>
 </section>
@@ -342,7 +342,7 @@ function list(){
 function render(){
  const L=list();
  $('#count').innerHTML=`<b>${L.length}</b> ${L.length==1?'propiedad':'propiedades'}${S.onlyFav?' en favoritos':''}`;
- $('#grid').innerHTML=L.length?L.map(p=>`<article class="card" data-pid="${p.id}"><div class="ph"><img src="img/inmobiliaria-${p.img}.jpg" alt="${p.t}"><div class="tags">${p.dest?'<span class="tg g">Destacada</span>':''}<span class="tg">${opName(p.op)}</span></div><button class="heart ${S.fav.has(p.id)?'on':''}" data-fav="${p.id}" aria-label="Guardar ${p.t} en favoritos" aria-pressed="${S.fav.has(p.id)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-8-5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6-8 11-8 11z"/></svg></button></div><div class="bd"><div class="price">${money(p)}</div><h3>${p.t}</h3><div class="specs">${p.d?`<span>${IC.bed}${p.d}</span>`:''}${p.b?`<span>${IC.bath}${p.b}</span>`:''}<span>${IC.m2}${p.m} m²</span></div><div class="addr">${p.z}</div></div><button class="open" data-open="${p.id}" aria-label="Ver ficha de ${p.t}"></button></article>`).join(''):`<div class="empty"><b style="color:var(--ink)">No hay propiedades con esos filtros.</b><br>Probá ampliar el precio o cambiar el tipo.<br><button class="btn btn-line" id="clear" style="margin-top:.8rem">Limpiar filtros</button></div>`;
+ $('#grid').innerHTML=L.length?L.map(p=>`<article class="card" data-pid="${p.id}"><div class="ph"><img src="img/inmobiliaria-${p.img}.jpg?v=2" alt="${p.t}"><div class="tags">${p.dest?'<span class="tg g">Destacada</span>':''}<span class="tg">${opName(p.op)}</span></div><button class="heart ${S.fav.has(p.id)?'on':''}" data-fav="${p.id}" aria-label="Guardar ${p.t} en favoritos" aria-pressed="${S.fav.has(p.id)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-8-5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6-8 11-8 11z"/></svg></button></div><div class="bd"><div class="price">${money(p)}</div><h3>${p.t}</h3><div class="specs">${p.d?`<span>${IC.bed}${p.d}</span>`:''}${p.b?`<span>${IC.bath}${p.b}</span>`:''}<span>${IC.m2}${p.m} m²</span></div><div class="addr">${p.z}</div></div><button class="open" data-open="${p.id}" aria-label="Ver ficha de ${p.t}"></button></article>`).join(''):`<div class="empty"><b style="color:var(--ink)">No hay propiedades con esos filtros.</b><br>Probá ampliar el precio o cambiar el tipo.<br><button class="btn btn-line" id="clear" style="margin-top:.8rem">Limpiar filtros</button></div>`;
  const ids=new Set(L.map(p=>p.id));
  $$('.pin').forEach(el=>el.classList.toggle('dim',!ids.has(+el.dataset.open)));
 }
@@ -374,7 +374,7 @@ function openP(id){const p=P.find(x=>x.id==id);S.cur=p;S.gi=0;S.day=null;S.hr=nu
  $('#mTags').innerHTML=(p.dest?'<span class="tg g">Destacada</span>':'')+`<span class="tg" style="background:#f3ece2">${opName(p.op)}</span>`;
  $('#mSpecs').innerHTML=[[p.d||'—','Dorm.'],[p.b||'—','Baños'],[p.m,'m²'],[p.tipo=='terreno'?'Sí':p.d>2?'Sí':'No','Garaje']].map(([v,l])=>`<div><b>${v}</b>${l}</div>`).join('');
  $('#mDesc').textContent=p.ds;$('#visit').classList.remove('on');$('#agendar').style.display='';$('#vErr').textContent='';
- $('#thumbs').innerHTML=p.g.map((g,i)=>`<button data-g="${i}" aria-label="Foto ${i+1}"><img src="img/inmobiliaria-${g}.jpg" alt=""></button>`).join('');
+ $('#thumbs').innerHTML=p.g.map((g,i)=>`<button data-g="${i}" aria-label="Foto ${i+1}"><img src="img/inmobiliaria-${g}.jpg?v=2" alt=""></button>`).join('');
  gal();show()}
 function gal(){const p=S.cur;$('#gImg').src=`img/inmobiliaria-${p.g[S.gi]}.jpg`;$('#gImg').alt=p.t+' foto '+(S.gi+1);$('#gCount').textContent=(S.gi+1)+' / '+p.g.length;$$('#thumbs button').forEach((b,i)=>b.classList.toggle('on',i==S.gi))}
 $('#gPrev').onclick=()=>{S.gi=(S.gi+S.cur.g.length-1)%S.cur.g.length;gal()};

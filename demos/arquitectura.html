@@ -211,7 +211,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 </header>
 <main>
 <section class="hero" id="inicio">
- <img src="img/arquitectura-hero.jpg" alt="Casa de hormigón y madera iluminada al atardecer, con piscina, en Punta del Este">
+ <img src="img/arquitectura-hero.jpg?v=2" alt="Casa de hormigón y madera iluminada al atardecer, con piscina, en Punta del Este">
  <div class="wrap">
   <p class="over">ARQUITECTURA &nbsp;·&nbsp; CONSTRUCCIÓN &nbsp;·&nbsp; INTERIORES</p>
   <h1>Espacios que mejoran tu vida</h1>
@@ -247,8 +247,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   </div>
   <div>
    <div class="cmp" id="cmp" style="--x:50%">
-    <img src="img/arquitectura-despues.jpg" alt="Casa terminada">
-    <img class="before" src="img/arquitectura-antes.jpg" alt="Croquis de la casa">
+    <img src="img/arquitectura-despues.jpg?v=2" alt="Casa terminada">
+    <img class="before" src="img/arquitectura-antes.jpg?v=2" alt="Croquis de la casa">
     <span class="lbl l1">BOCETO</span><span class="lbl l2">OBRA</span>
     <div class="bar"><span class="knob" aria-hidden="true">◀▶</span></div>
     <input type="range" min="0" max="100" value="50" id="cmpR" aria-label="Comparar boceto y obra terminada">
@@ -311,12 +311,12 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 <script>
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const P=[
- {t:'Casa Laguna',c:'viviendas',k:'Vivienda unifamiliar',y:2024,l:'Punta del Este',m:410,img:'img/arquitectura-laguna.jpg',d:'Dos volúmenes de hormigón visto que se abren a la laguna. Galerías profundas para la sombra de verano y piscina de borde infinito.'},
- {t:'Edificio Nostrum',c:'edificios',k:'Residencial',y:2023,l:'Montevideo',m:3200,img:'img/arquitectura-nostrum.jpg',d:'Siete pisos con 24 unidades en Punta Carretas. Balcones corridos, fachada ventilada y jardín compartido en azotea.'},
- {t:'Casa Arenas',c:'viviendas',k:'Vivienda unifamiliar',y:2024,l:'José Ignacio',m:260,img:'img/arquitectura-arenas.jpg',d:'Piedra local, madera de eucalipto y vegetación nativa. Una casa baja que se funde con la duna.'},
- {t:'Living Horizonte',c:'interiores',k:'Interiorismo',y:2024,l:'Punta del Este',m:120,img:'img/arquitectura-interior.jpg',d:'Interiores de la Casa Horizonte: listones de madera, iluminación cálida indirecta y piezas de diseño uruguayo.'},
- {t:'Parador Las Garzas',c:'comercial',k:'Gastronómico',y:2023,l:'Rocha',m:340,img:'img/arquitectura-terraza.jpg',d:'Restaurante frente al mar con deck sobre espejo de agua. Estructura metálica liviana y grandes paños vidriados.'},
- {t:'Oficinas Rambla',c:'comercial',k:'Corporativo',y:2022,l:'Montevideo',m:780,img:'img/arquitectura-fachada.jpg',d:'Reconversión de un edificio de los 70 en oficinas flexibles, con parasoles de madera y planta libre.'}];
+ {t:'Casa Laguna',c:'viviendas',k:'Vivienda unifamiliar',y:2024,l:'Punta del Este',m:410,img:'img/arquitectura-laguna.jpg?v=2',d:'Dos volúmenes de hormigón visto que se abren a la laguna. Galerías profundas para la sombra de verano y piscina de borde infinito.'},
+ {t:'Edificio Nostrum',c:'edificios',k:'Residencial',y:2023,l:'Montevideo',m:3200,img:'img/arquitectura-nostrum.jpg?v=2',d:'Siete pisos con 24 unidades en Punta Carretas. Balcones corridos, fachada ventilada y jardín compartido en azotea.'},
+ {t:'Casa Arenas',c:'viviendas',k:'Vivienda unifamiliar',y:2024,l:'José Ignacio',m:260,img:'img/arquitectura-arenas.jpg?v=2',d:'Piedra local, madera de eucalipto y vegetación nativa. Una casa baja que se funde con la duna.'},
+ {t:'Living Horizonte',c:'interiores',k:'Interiorismo',y:2024,l:'Punta del Este',m:120,img:'img/arquitectura-interior.jpg?v=2',d:'Interiores de la Casa Horizonte: listones de madera, iluminación cálida indirecta y piezas de diseño uruguayo.'},
+ {t:'Parador Las Garzas',c:'comercial',k:'Gastronómico',y:2023,l:'Rocha',m:340,img:'img/arquitectura-terraza.jpg?v=2',d:'Restaurante frente al mar con deck sobre espejo de agua. Estructura metálica liviana y grandes paños vidriados.'},
+ {t:'Oficinas Rambla',c:'comercial',k:'Corporativo',y:2022,l:'Montevideo',m:780,img:'img/arquitectura-fachada.jpg?v=2',d:'Reconversión de un edificio de los 70 en oficinas flexibles, con parasoles de madera y planta libre.'}];
 const CATS=[['todos','Todos'],['viviendas','Viviendas'],['edificios','Edificios'],['comercial','Comercial'],['interiores','Interiores']];
 let cat='todos',vis=[],cur=0;
 const pinSvg='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 21s-7-6-7-12a7 7 0 0 1 14 0c0 6-7 12-7 12z"/></svg>';

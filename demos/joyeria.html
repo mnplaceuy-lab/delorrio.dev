@@ -222,7 +222,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
 
 <main>
 <section class="hero" id="inicio">
- <img class="hero-img" src="img/joyeria-hero.jpg" alt="Anillo de oro con diamante sobre piedra natural">
+ <img class="hero-img" src="img/joyeria-hero.jpg?v=2" alt="Anillo de oro con diamante sobre piedra natural">
  <div class="wrap">
   <p class="eyebrow">Joyas que cuentan tu historia</p>
   <h1>Belleza <em>atemporal</em>,<br><span>para cada momento</span></h1>
@@ -288,8 +288,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
 </section>
 
 <section class="banners" id="nosotros">
- <div class="ban dark"><img src="img/joyeria-taller.jpg" alt="Manos de orfebre engarzando una piedra"><div class="bt"><p class="eyebrow">Artesanía con alma</p><h3>Hechas a mano, para toda la vida</h3><p>Cada pieza nace en nuestro taller de Ciudad Vieja, con atención al detalle y pasión por lo auténtico.</p><a class="btn btn-gold" href="#joyas">Ver piezas <span class="arrow"></span></a></div></div>
- <div class="ban light"><img src="img/joyeria-regalo.jpg" alt="Caja de regalo Aurea con moño"><div class="bt"><p class="eyebrow">Regalos con significado</p><h3>Momentos que perduran</h3><p>Grabado personalizado sin costo y empaque premium en cada compra.</p><button class="btn btn-gold" id="giftBtn">Personalizá tu joya <span class="arrow"></span></button></div></div>
+ <div class="ban dark"><img src="img/joyeria-taller.jpg?v=2" alt="Manos de orfebre engarzando una piedra"><div class="bt"><p class="eyebrow">Artesanía con alma</p><h3>Hechas a mano, para toda la vida</h3><p>Cada pieza nace en nuestro taller de Ciudad Vieja, con atención al detalle y pasión por lo auténtico.</p><a class="btn btn-gold" href="#joyas">Ver piezas <span class="arrow"></span></a></div></div>
+ <div class="ban light"><img src="img/joyeria-regalo.jpg?v=2" alt="Caja de regalo Aurea con moño"><div class="bt"><p class="eyebrow">Regalos con significado</p><h3>Momentos que perduran</h3><p>Grabado personalizado sin costo y empaque premium en cada compra.</p><button class="btn btn-gold" id="giftBtn">Personalizá tu joya <span class="arrow"></span></button></div></div>
 </section>
 </main>
 <footer><div class="wrap"><span class="logo" style="align-items:flex-start"><b style="font-size:1.4rem">AUREA</b></span><span>Pérez Castellano 1430, Montevideo · Lun a Sáb 10–19 h · hola@aureajoyas.com</span><span>© 2026 Aurea Joyas</span></div></footer>
@@ -340,7 +340,7 @@ $('#tabs').innerHTML=tabs.map(([k,l])=>`<button class="tab" role="tab" data-cat=
 $('#tabs').onclick=e=>{const b=e.target.closest('.tab');if(b)setCat(b.dataset.cat)};
 function setCat(c){S.cat=c;document.querySelectorAll('.tab').forEach(t=>{t.classList.toggle('on',t.dataset.cat==c);t.setAttribute('aria-selected',t.dataset.cat==c)});document.querySelectorAll('.col').forEach(t=>t.classList.toggle('on',t.dataset.cat==c));renderGrid()}
 function renderGrid(){
- $('#grid').innerHTML=P.filter(p=>S.cat=='todas'||p.c==S.cat).map(p=>`<article class="prod"><div class="pi"><img src="img/joyeria-${p.img}.jpg" alt="${p.n}"></div><div class="pb"><h3>${p.n}</h3><small>Oro 18k · ${p.d}</small><span class="pr">${fmt(p.o)}</span><small>Plata desde ${fmt(p.p)}</small></div><button class="open" data-id="${p.id}" aria-label="Ver ficha de ${p.n}"></button><button class="heart ${S.wish.has(p.id)?'on':''}" data-w="${p.id}" aria-label="Agregar ${p.n} a deseos" aria-pressed="${S.wish.has(p.id)}">${heart}</button></article>`).join('');
+ $('#grid').innerHTML=P.filter(p=>S.cat=='todas'||p.c==S.cat).map(p=>`<article class="prod"><div class="pi"><img src="img/joyeria-${p.img}.jpg?v=2" alt="${p.n}"></div><div class="pb"><h3>${p.n}</h3><small>Oro 18k · ${p.d}</small><span class="pr">${fmt(p.o)}</span><small>Plata desde ${fmt(p.p)}</small></div><button class="open" data-id="${p.id}" aria-label="Ver ficha de ${p.n}"></button><button class="heart ${S.wish.has(p.id)?'on':''}" data-w="${p.id}" aria-label="Agregar ${p.n} a deseos" aria-pressed="${S.wish.has(p.id)}">${heart}</button></article>`).join('');
 }
 $('#grid').onclick=e=>{const w=e.target.closest('[data-w]');if(w)return toggleWish(+w.dataset.w);const o=e.target.closest('[data-id]');if(o)openModal(+o.dataset.id)};
 function bump(el){el.classList.add('pop');setTimeout(()=>el.classList.remove('pop'),250)}
@@ -351,7 +351,7 @@ function toggleWish(id){
 }
 // modal
 function openModal(id){S.cur=P.find(p=>p.id==id);S.mat='o';S.size=S.mySize;const p=S.cur;
- $('#mImg').src=`img/joyeria-${p.img}.jpg`;$('#mImg').alt=p.n;$('#mName').textContent=p.n;$('#mCat').textContent=CATS[p.c][0];$('#mDesc').textContent=p.t;
+ $('#mImg').src=`img/joyeria-${p.img}.jpg?v=2`;$('#mImg').alt=p.n;$('#mName').textContent=p.n;$('#mCat').textContent=CATS[p.c][0];$('#mDesc').textContent=p.t;
  $('#mSizeWrap').style.display=p.c=='anillos'?'':'none';
  $('#mSize').innerHTML=[9,10,11,12,13,14,15,16,17,18,19,20].map(s=>`<button class="opt sz" data-s="${s}">${s}</button>`).join('');
  renderModal();syncWishBtn();show('#modal');}
@@ -375,11 +375,11 @@ function updBag(){$('#bagN').textContent=S.bag.reduce((a,i)=>a+i.q,0);bump($('#b
 function renderDrawer(){
  if(S.dmode=='wish'){
   $('#dTitle').textContent='Lista de deseos';const L=P.filter(p=>S.wish.has(p.id));
-  $('#dlist').innerHTML=L.length?L.map(p=>`<div class="it"><img src="img/joyeria-${p.img}.jpg" alt=""><div><b>${p.n}</b><small>Oro 18k · ${fmt(p.o)}</small><br><button class="link" data-view="${p.id}">Ver ficha</button></div><button class="x" data-unw="${p.id}" aria-label="Quitar">✕</button></div>`).join(''):'<p class="empty">Todavía no guardaste piezas.<br>Tocá el ♡ de cualquier joya.</p>';
+  $('#dlist').innerHTML=L.length?L.map(p=>`<div class="it"><img src="img/joyeria-${p.img}.jpg?v=2" alt=""><div><b>${p.n}</b><small>Oro 18k · ${fmt(p.o)}</small><br><button class="link" data-view="${p.id}">Ver ficha</button></div><button class="x" data-unw="${p.id}" aria-label="Quitar">✕</button></div>`).join(''):'<p class="empty">Todavía no guardaste piezas.<br>Tocá el ♡ de cualquier joya.</p>';
   $('#dfoot').innerHTML=L.length?`<button class="btn btn-line" id="shareW" style="justify-content:center">Compartir lista</button>`:'';
  }else{
   $('#dTitle').textContent='Tu bolsa';
-  $('#dlist').innerHTML=S.bag.length?S.bag.map((i,ix)=>{const p=P.find(x=>x.id==i.id);const pr=i.mat=='o'?p.o:p.p;return `<div class="it"><img class="${i.mat=='p'?'silver':''}" src="img/joyeria-${p.img}.jpg" alt=""><div><b>${p.n}</b><small>${i.mat=='o'?'Oro 18k':'Plata 950'}${i.size?' · talle '+i.size:''}</small><div class="qty"><button data-q="${ix}" data-d="-1" aria-label="Restar">−</button>${i.q}<button data-q="${ix}" data-d="1" aria-label="Sumar">+</button><span style="margin-left:auto;font-weight:600">${fmt(pr*i.q)}</span></div></div></div>`}).join(''):'<p class="empty">Tu bolsa está vacía.</p>';
+  $('#dlist').innerHTML=S.bag.length?S.bag.map((i,ix)=>{const p=P.find(x=>x.id==i.id);const pr=i.mat=='o'?p.o:p.p;return `<div class="it"><img class="${i.mat=='p'?'silver':''}" src="img/joyeria-${p.img}.jpg?v=2" alt=""><div><b>${p.n}</b><small>${i.mat=='o'?'Oro 18k':'Plata 950'}${i.size?' · talle '+i.size:''}</small><div class="qty"><button data-q="${ix}" data-d="-1" aria-label="Restar">−</button>${i.q}<button data-q="${ix}" data-d="1" aria-label="Sumar">+</button><span style="margin-left:auto;font-weight:600">${fmt(pr*i.q)}</span></div></div></div>`}).join(''):'<p class="empty">Tu bolsa está vacía.</p>';
   const tot=S.bag.reduce((a,i)=>{const p=P.find(x=>x.id==i.id);return a+(i.mat=='o'?p.o:p.p)*i.q},0);
   $('#dfoot').innerHTML=S.bag.length?`<div class="tot"><span>Total</span><b>${fmt(tot)}</b></div><small style="color:var(--mut)">Envío gratis a todo Uruguay · Empaque de regalo incluido</small><button class="btn btn-gold" id="checkout" style="justify-content:center">Finalizar compra</button>`:'';
  }}

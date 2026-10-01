@@ -40,7 +40,7 @@ header{position:sticky;top:0;z-index:40;background:rgba(15,14,12,.96);backdrop-f
 .burger{display:none}
 /* hero */
 .hero{background:var(--ink);color:#fff;position:relative;overflow:hidden;min-height:420px}
-.hero-bg{position:absolute;inset:0 0 0 36%;background:url(img/moda-hero.jpg) 40% 20%/cover}
+.hero-bg{position:absolute;inset:0 0 0 36%;background:url(img/moda-hero.jpg?v=2) 40% 20%/cover}
 .hero-bg:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--ink) 0%,rgba(15,14,12,.5) 25%,rgba(15,14,12,0) 55%,rgba(15,14,12,.55))}
 .hero .wrap{position:relative;padding-top:48px;padding-bottom:56px;display:flex;justify-content:space-between;align-items:center}
 .hero .eyebrow{color:var(--gold)}
@@ -94,7 +94,7 @@ section{padding:64px 0}
 /* editorial */
 .edit{background:var(--ink);color:#fff;padding:0}
 .edit .wrap{display:grid;grid-template-columns:1fr 1fr;align-items:stretch;padding:0}
-.edit .ed-img{background:url(img/moda-hero.jpg) 62% 30%/cover;min-height:380px}
+.edit .ed-img{background:url(img/moda-hero.jpg?v=2) 62% 30%/cover;min-height:380px}
 .edit .ed-txt{padding:60px 48px;display:flex;flex-direction:column;justify-content:center}
 .edit .eyebrow{color:var(--gold)}
 .edit h2{font-size:clamp(38px,4.6vw,56px);margin:12px 0 14px}
@@ -313,7 +313,7 @@ $('#searchBtn').onclick=()=>{go('coleccion');setTimeout(()=>$('#q').focus({preve
 const heart='<svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>';
 function render(){let l=P.filter(p=>(filter=='all'||p.c.includes(filter))&&(!q||p.n.toLowerCase().includes(q)));
  if(sort=='asc')l=[...l].sort((a,b)=>a.p-b.p);if(sort=='desc')l=[...l].sort((a,b)=>b.p-a.p);
- $('#grid').innerHTML=l.length?l.map(p=>`<article class="card"><button class="ph" data-qv="${p.id}" aria-label="Vista rápida: ${p.n}"><img src="img/moda-${p.img}.jpg" alt="${p.n}" style="object-position:${p.pos||'center'}">${p.tag?`<span class="tag">${p.tag}</span>`:''}<span class="qv">Vista rápida</span></button><button class="fav" data-fav="${p.id}" aria-pressed="${favs.has(p.id)}" aria-label="Agregar ${p.n} a favoritos">${heart}</button><div class="info"><div><b>${p.n}</b><div class="pr">${money(p.p)}${p.old?` <s style="color:var(--mut);font-weight:400;font-size:12.5px">${money(p.old)}</s>`:''}</div></div><div class="sw">${p.col.map(c=>`<i style="background:${c[1]}" title="${c[0]}"></i>`).join('')}</div></div></article>`).join(''):'<p class="empty">No encontramos prendas con ese criterio. Probá con otra búsqueda.</p>'}
+ $('#grid').innerHTML=l.length?l.map(p=>`<article class="card"><button class="ph" data-qv="${p.id}" aria-label="Vista rápida: ${p.n}"><img src="img/moda-${p.img}.jpg?v=2" alt="${p.n}" style="object-position:${p.pos||'center'}">${p.tag?`<span class="tag">${p.tag}</span>`:''}<span class="qv">Vista rápida</span></button><button class="fav" data-fav="${p.id}" aria-pressed="${favs.has(p.id)}" aria-label="Agregar ${p.n} a favoritos">${heart}</button><div class="info"><div><b>${p.n}</b><div class="pr">${money(p.p)}${p.old?` <s style="color:var(--mut);font-weight:400;font-size:12.5px">${money(p.old)}</s>`:''}</div></div><div class="sw">${p.col.map(c=>`<i style="background:${c[1]}" title="${c[0]}"></i>`).join('')}</div></div></article>`).join(''):'<p class="empty">No encontramos prendas con ese criterio. Probá con otra búsqueda.</p>'}
 $('#grid').onclick=e=>{const f=e.target.closest('[data-fav]');if(f){const id=+f.dataset.fav;favs.has(id)?favs.delete(id):favs.add(id);f.setAttribute('aria-pressed',favs.has(id));$('#favN').textContent=favs.size;$('#favBtn').setAttribute('aria-label','Favoritos: '+favs.size);bump('#favN');return}
  const b=e.target.closest('[data-qv]');if(b)openQV(+b.dataset.qv)};
 $('#favBtn').onclick=()=>{if(!favs.size){toast('Todavía no tenés favoritos','Tocá el corazón de una prenda para guardarla.');return}toast(`${favs.size} prenda(s) en favoritos`,P.filter(p=>favs.has(p.id)).map(p=>p.n).join(' · '))};
@@ -324,7 +324,7 @@ let cur;
 function overlay(on){$('#ov').classList.toggle('open',on)}
 function openQV(id){const p=P.find(x=>x.id==id);cur={p,col:0,sz:p.sz.length==1?p.sz[0]:null,q:1};drawQV();$('#qv').classList.add('open');overlay(true);$('#qv .x').focus()}
 function drawQV(){const {p,col,sz,q}=cur;
- $('#qvBox').innerHTML=`<button class="x" data-cl aria-label="Cerrar">×</button><div class="im"><img id="qvImg" src="img/moda-${p.img}.jpg" alt="${p.n}" style="object-position:${p.pos||'center'};filter:${p.col[col][2]||'none'}"></div><div class="bd"><div class="eyebrow">${p.c[0]}</div><h3 id="qvT">${p.n}</h3><div class="pr">${money(p.p)}</div><p class="ds">${p.d}</p>
+ $('#qvBox').innerHTML=`<button class="x" data-cl aria-label="Cerrar">×</button><div class="im"><img id="qvImg" src="img/moda-${p.img}.jpg?v=2" alt="${p.n}" style="object-position:${p.pos||'center'};filter:${p.col[col][2]||'none'}"></div><div class="bd"><div class="eyebrow">${p.c[0]}</div><h3 id="qvT">${p.n}</h3><div class="pr">${money(p.p)}</div><p class="ds">${p.d}</p>
  <div class="lab">Color <span>${p.col[col][0]}</span></div><div class="colors">${p.col.map((c,i)=>`<button data-col="${i}" style="background:${c[1]}" aria-label="${c[0]}" aria-pressed="${i==col}"></button>`).join('')}</div>
  <div class="lab">Talle <span>${p.sz.length>1?'Calce regular':''}</span></div><div class="sizes">${p.sz.map(s=>`<button data-sz="${s}" aria-pressed="${s==sz}" ${p.out.includes(s)?'disabled aria-label="Talle '+s+' sin stock"':''}>${s}</button>`).join('')}</div>
  <div class="lab">Cantidad</div><div style="display:flex;gap:12px;flex-wrap:wrap"><div class="qty"><button data-q="-1" aria-label="Restar">−</button><output>${q}</output><button data-q="1" aria-label="Sumar">+</button></div><button class="btn btn-dark" id="addBtn" style="flex:1">Agregar al carrito · ${money(p.p*q)}</button></div><div class="err" id="qerr" aria-live="assertive"></div></div>`}
@@ -345,7 +345,7 @@ addEventListener('keydown',e=>{if(e.key=='Escape'){closeCart();closeQV()}});
 function updCart(){const n=cart.reduce((a,i)=>a+i.q,0),sub=cart.reduce((a,i)=>a+i.q*i.p.p,0),FREE=4000,env=sub>=FREE||!sub?0:250;
  $('#cartN').textContent=n;
  $('#ship').innerHTML=sub>=FREE?'🎉 <b>¡Tenés envío gratis!</b><div class="tr"><i style="width:100%"></i></div>':`Te faltan <b>${money(FREE-sub)}</b> para el envío gratis<div class="tr"><i style="width:${sub/FREE*100}%"></i></div>`;
- $('#items').innerHTML=cart.length?cart.map((i,k)=>`<div class="it"><img src="img/moda-${i.p.img}.jpg" alt="" style="object-position:${i.p.pos||'center'};filter:${i.p.col[i.col][2]||'none'}"><div><b>${i.p.n}</b><small>${i.p.col[i.col][0]} · Talle ${i.sz}</small><div class="qty"><button data-k="${k}" data-d="-1" aria-label="Restar">−</button><output>${i.q}</output><button data-k="${k}" data-d="1" aria-label="Sumar">+</button></div></div><div><div class="p">${money(i.q*i.p.p)}</div><button class="rm" data-rm="${k}">Quitar</button></div></div>`).join(''):'<div class="dempty"><p style="font-family:var(--serif);font-size:24px;color:var(--txt)">Tu carrito está vacío</p><p style="font-size:13px">Descubrí la nueva colección de otoño.</p></div>';
+ $('#items').innerHTML=cart.length?cart.map((i,k)=>`<div class="it"><img src="img/moda-${i.p.img}.jpg?v=2" alt="" style="object-position:${i.p.pos||'center'};filter:${i.p.col[i.col][2]||'none'}"><div><b>${i.p.n}</b><small>${i.p.col[i.col][0]} · Talle ${i.sz}</small><div class="qty"><button data-k="${k}" data-d="-1" aria-label="Restar">−</button><output>${i.q}</output><button data-k="${k}" data-d="1" aria-label="Sumar">+</button></div></div><div><div class="p">${money(i.q*i.p.p)}</div><button class="rm" data-rm="${k}">Quitar</button></div></div>`).join(''):'<div class="dempty"><p style="font-family:var(--serif);font-size:24px;color:var(--txt)">Tu carrito está vacío</p><p style="font-size:13px">Descubrí la nueva colección de otoño.</p></div>';
  $('#df').innerHTML=cart.length?`<div class="row"><span>Subtotal</span><span>${money(sub)}</span></div><div class="row"><span>Envío</span><span>${env?money(env):'Gratis'}</span></div><div class="row tot"><span>Total</span><span>${money(sub+env)}</span></div><div style="font-size:12px;color:var(--mut)">o 6 cuotas sin recargo de ${money(Math.round((sub+env)/6))}</div><button class="btn btn-dark" id="buy">Finalizar compra</button>`:`<button class="btn btn-gold" id="keep" style="width:100%">Ver colección</button>`}
 $('#drawer').onclick=e=>{const d=e.target.closest('[data-d]');if(d){const i=cart[+d.dataset.k];i.q+= +d.dataset.d;if(i.q<1)cart.splice(+d.dataset.k,1);updCart();return}
  const r=e.target.closest('[data-rm]');if(r){cart.splice(+r.dataset.rm,1);updCart();return}

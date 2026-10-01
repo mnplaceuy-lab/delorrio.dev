@@ -164,7 +164,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 <body>
 <header>
  <nav class="wrap nav" aria-label="Principal">
-  <a class="brand" href="#inicio"><img src="img/turismo-logo.jpg" alt=""><span><b>Posada<br>Lunarejo</b><small>RIVERA · URUGUAY</small></span></a>
+  <a class="brand" href="#inicio"><img src="img/turismo-logo.jpg?v=2" alt=""><span><b>Posada<br>Lunarejo</b><small>RIVERA · URUGUAY</small></span></a>
   <ul class="links" id="links">
    <li><a href="#inicio" class="on">Inicio</a></li>
    <li><a href="#habitaciones">Habitaciones</a></li>
@@ -178,7 +178,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
 <main>
 <section class="hero" id="inicio">
- <img src="img/turismo-hero.jpg" alt="Atardecer sobre el valle del Lunarejo desde el deck de la posada">
+ <img src="img/turismo-hero.jpg?v=2" alt="Atardecer sobre el valle del Lunarejo desde el deck de la posada">
  <div class="wrap">
   <h1>Naturaleza que te hace bien</h1>
   <h2>Descansá, explorá y viví la esencia de Lunarejo.</h2>
@@ -262,14 +262,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 const $=s=>document.querySelector(s);
 const fmt=n=>'$ '+Math.round(n).toLocaleString('es-UY');
 const ROOMS=[
- {id:'std',name:'Habitación Estándar',sub:'Confort y calidez',cap:2,price:4900,img:'img/turismo-room1.jpg'},
- {id:'sup',name:'Habitación Superior',sub:'Vistas a la naturaleza',cap:3,price:6400,img:'img/turismo-room2.jpg'},
- {id:'suite',name:'Suite Lunarejo',sub:'Espacio, privacidad y encanto',cap:4,price:9800,img:'img/turismo-room3.jpg'}];
+ {id:'std',name:'Habitación Estándar',sub:'Confort y calidez',cap:2,price:4900,img:'img/turismo-room1.jpg?v=2'},
+ {id:'sup',name:'Habitación Superior',sub:'Vistas a la naturaleza',cap:3,price:6400,img:'img/turismo-room2.jpg?v=2'},
+ {id:'suite',name:'Suite Lunarejo',sub:'Espacio, privacidad y encanto',cap:4,price:9800,img:'img/turismo-room3.jpg?v=2'}];
 const EXP=[
- {id:'sen',name:'Senderismo',d:'Recorridos guiados por sierras y cascadas, 4 h.',p:1200,img:'img/turismo-exp1.jpg',ic:'M13 4a2 2 0 1 0 0-.1M10 21l2-7 3 3v5M8 12l2-4 4 1 2 3'},
- {id:'ban',name:'Baños naturales',d:'Pozones de agua cristalina con picnic incluido.',p:900,img:'img/turismo-exp2.jpg',ic:'M2 16c3 0 3 2 6 2s3-2 6-2 3 2 6 2M5 12c3-5 11-5 14 0'},
- {id:'cab',name:'Cabalgatas',d:'Salida al atardecer con baqueano local, 2 h.',p:1800,img:'img/turismo-exp3.jpg',ic:'M12 3a3 3 0 1 0 0 .1M6 21v-5l6-4 6 4v5'},
- {id:'gas',name:'Gastronomía local',d:'Cena de pasos con quesos, cordero y vinos de Rivera.',p:2400,img:'img/turismo-exp4.jpg',ic:'M8 3v8a3 3 0 0 0 6 0V3M11 3v18M18 3c-2 2-2 6 0 8v10'}];
+ {id:'sen',name:'Senderismo',d:'Recorridos guiados por sierras y cascadas, 4 h.',p:1200,img:'img/turismo-exp1.jpg?v=2',ic:'M13 4a2 2 0 1 0 0-.1M10 21l2-7 3 3v5M8 12l2-4 4 1 2 3'},
+ {id:'ban',name:'Baños naturales',d:'Pozones de agua cristalina con picnic incluido.',p:900,img:'img/turismo-exp2.jpg?v=2',ic:'M2 16c3 0 3 2 6 2s3-2 6-2 3 2 6 2M5 12c3-5 11-5 14 0'},
+ {id:'cab',name:'Cabalgatas',d:'Salida al atardecer con baqueano local, 2 h.',p:1800,img:'img/turismo-exp3.jpg?v=2',ic:'M12 3a3 3 0 1 0 0 .1M6 21v-5l6-4 6 4v5'},
+ {id:'gas',name:'Gastronomía local',d:'Cena de pasos con quesos, cordero y vinos de Rivera.',p:2400,img:'img/turismo-exp4.jpg?v=2',ic:'M8 3v8a3 3 0 0 0 6 0V3M11 3v18M18 3c-2 2-2 6 0 8v10'}];
 const st={cin:null,cout:null,guests:2,room:null,exp:new Set()};
 const d2s=d=>d.toISOString().slice(0,10);
 const pretty=s=>new Date(s+'T12:00').toLocaleDateString('es-UY',{day:'numeric',month:'short',year:'numeric'});

@@ -210,7 +210,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
 
 <main>
 <section class="hero" id="inicio">
- <img src="img/salud-hero.jpg" alt="Médica conversando sonriente con una paciente mayor">
+ <img src="img/salud-hero.jpg?v=2" alt="Médica conversando sonriente con una paciente mayor">
  <div class="wrap">
   <p class="eyebrow">Atención médica en Uruguay</p>
   <h1>Cuidamos lo más importante: tu salud</h1>
@@ -273,7 +273,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
    <div class="t"><p>“Saqué el turno online en minutos y me atendieron puntual. Muy buena la doctora.”</p><div><b>María González</b>Marzo 2026</div></div>
    <div class="t"><p>“Un lugar de confianza para toda la familia. La atención pediátrica es excelente.”</p><div><b>Carolina Ramírez</b>Enero 2026</div></div>
   </div>
-  <div class="visit"><div><h3>Visitanos</h3>Av. Italia 4567<br>Montevideo (zona Buceo)<br>Lun a Vie 8–20 h · Sáb 8–13 h<br><button class="btn btn-o" id="howto" style="margin-top:.6rem;padding:.45rem .9rem;font-size:.8rem">Cómo llegar</button></div><img src="img/salud-clinica.jpg" alt="Fachada de Clínica Norte"></div>
+  <div class="visit"><div><h3>Visitanos</h3>Av. Italia 4567<br>Montevideo (zona Buceo)<br>Lun a Vie 8–20 h · Sáb 8–13 h<br><button class="btn btn-o" id="howto" style="margin-top:.6rem;padding:.45rem .9rem;font-size:.8rem">Cómo llegar</button></div><img src="img/salud-clinica.jpg?v=2" alt="Fachada de Clínica Norte"></div>
  </section>
 </div>
 </main>
@@ -323,7 +323,7 @@ function renderDocs(){
  const q=norm(S.q.trim());
  const L=DOC.filter(d=>(!S.esp||d.e==S.esp)&&(!q||norm(d.n+' '+espName(d.e)).includes(q)));
  $('#filt').innerHTML=S.esp||q?`${L.length} profesional${L.length==1?'':'es'}${S.esp?' en <b>'+espName(S.esp)+'</b>':''}${q?' para “'+S.q.replace(/</g,'')+'”':''} · <button id="clr">Ver todos</button>`:'Atendemos con agenda en el día para la mayoría de las especialidades.';
- $('#docs').innerHTML=L.length?L.map(d=>`<article class="doc"><div class="ph">${d.img?`<img src="img/salud-${d.img}.jpg" alt="${d.n}">`:`<span aria-hidden="true">${d.n.split(' ').slice(1).map(w=>w[0]).join('')}</span>`}</div><div class="bd"><h3>${d.n}</h3><small>${espName(d.e)}</small><span class="stars"><b>${d.r.toFixed(1)}</b> (${d.o} opiniones)</span><button class="go" data-book="${d.id}">Reservar con ${d.n.split(' ')[0]=='Dra.'?'ella':'él'} →</button></div></article>`).join(''):'<div class="none">No encontramos profesionales con esa búsqueda.</div>';
+ $('#docs').innerHTML=L.length?L.map(d=>`<article class="doc"><div class="ph">${d.img?`<img src="img/salud-${d.img}.jpg?v=2" alt="${d.n}">`:`<span aria-hidden="true">${d.n.split(' ').slice(1).map(w=>w[0]).join('')}</span>`}</div><div class="bd"><h3>${d.n}</h3><small>${espName(d.e)}</small><span class="stars"><b>${d.r.toFixed(1)}</b> (${d.o} opiniones)</span><button class="go" data-book="${d.id}">Reservar con ${d.n.split(' ')[0]=='Dra.'?'ella':'él'} →</button></div></article>`).join(''):'<div class="none">No encontramos profesionales con esa búsqueda.</div>';
 }
 document.addEventListener('click',e=>{if(e.target.id=='clr'){S.esp='';S.q='';$('#q').value='';renderDocs()}
  const b=e.target.closest('[data-book]');if(b){const d=DOC.find(x=>x.id==+b.dataset.book);setEsp(d.e);$('#bDoc').value=d.id;onDoc();$('#reservar').scrollIntoView({behavior:'smooth'});toast(`Elegiste a ${d.n}. Ahora elegí día y horario.`)}});

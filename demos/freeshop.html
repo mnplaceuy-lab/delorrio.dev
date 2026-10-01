@@ -109,7 +109,7 @@ section{scroll-margin-top:110px}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}}
 .card:hover{box-shadow:0 12px 26px rgba(13,20,28,.1);transform:translateY(-2px)}
 .ph{height:118px;display:grid;place-items:center;padding:16px 10px 4px;overflow:hidden;border-radius:8px 8px 0 0}
-.ph img{max-height:100%;width:auto;object-fit:contain}
+.ph img{height:86px;max-height:100%;width:auto;object-fit:contain}
 .ph.cov{padding:0}
 .ph.cov img{width:100%;height:100%;object-fit:cover}
 .dsc{position:absolute;left:8px;top:8px;background:var(--red2);color:#fff;font-size:11.5px;font-weight:700;border-radius:4px;padding:2px 7px;z-index:1}
@@ -273,7 +273,7 @@ footer .copy{grid-column:1/-1;border-top:1px solid var(--line);padding-top:18px;
 <main>
 <section class="hero" id="inicio">
  <div class="hv">
-  <img src="img/freeshop-hero.jpg" alt="Perfumes, whisky, auriculares y cosméticos frente al paso de frontera Rivera–Livramento">
+  <img src="img/freeshop-hero.jpg?v=2" alt="Perfumes, whisky, auriculares y cosméticos frente al paso de frontera Rivera–Livramento">
   <div class="crown"><svg viewBox="0 0 32 32" fill="#e8bf6a"><path d="M4 10l6 5 6-8 6 8 6-5-3 14H7z"/><rect x="7" y="25" width="18" height="2.5" rx="1"/></svg><span>GRANDES MARCAS<br>SIN IMPUESTOS<br>EN LA FRONTERA</span></div>
  </div>
  <div class="in">
@@ -319,7 +319,7 @@ footer .copy{grid-column:1/-1;border-top:1px solid var(--line);padding-top:18px;
     </ul>
    </div>
    <div class="store">
-    <img src="img/freeshop-tienda.jpg" alt="Fachada de la tienda Frontera Free Shop de noche" loading="lazy">
+    <img src="img/freeshop-tienda.jpg?v=2" alt="Fachada de la tienda Frontera Free Shop de noche" loading="lazy">
     <div class="box"><b>Nos encontrás en Rivera</b><p>Av. Sarandí 620, a metros del paso fronterizo con Santana do Livramento</p><button class="btn btn-gold" id="route">Cómo llegar</button></div>
    </div>
    <p class="cupo-info"><b>Cupo de compra:</b> los viajeros pueden ingresar a Brasil hasta <b>US$ 300</b> por persona en compras por vía terrestre. Te mostramos cuánto usás en el carrito.</p>
@@ -398,7 +398,7 @@ function render(){
  const qq=norm(q);
  let it=P.filter(p=>(cat=='all'||p.c==cat)&&(!only||p.o)&&(!favMode||favs.has(p.id))&&(!qq||norm(p.b+' '+p.n+' '+cName(p.c)).includes(qq)));
  if(sort=='asc')it.sort((a,b)=>a.p-b.p);if(sort=='desc')it.sort((a,b)=>b.p-a.p);if(sort=='dsc')it.sort((a,b)=>dsc(b)-dsc(a));
- $('#grid').innerHTML=it.length?it.map(p=>`<article class="card">${p.o?`<span class="dsc">-${dsc(p)}%</span>`:''}<button class="heart" data-fav="${p.id}" aria-pressed="${favs.has(p.id)}" aria-label="Favorito: ${p.b} ${p.n}">${heart}</button><div class="ph${p.cov?' cov':''}"><img src="img/freeshop-${p.img}.jpg" alt="${p.b} ${p.n}" loading="lazy"></div><div class="b"><span class="brand">${p.b}</span><span class="nm">${p.n}</span><div class="pr"><b>${usd(p.p)}</b>${p.o?`<s>${usd(p.o)}</s>`:''}</div><button class="add" data-add="${p.id}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Agregar</button></div></article>`).join(''):`<p class="none">${favMode?'Todavía no tenés favoritos. Tocá el ♥ en un producto.':'No encontramos resultados'+(q?` para “${q}”`:'')+'. Probá con otra marca o categoría.'}</p>`;
+ $('#grid').innerHTML=it.length?it.map(p=>`<article class="card">${p.o?`<span class="dsc">-${dsc(p)}%</span>`:''}<button class="heart" data-fav="${p.id}" aria-pressed="${favs.has(p.id)}" aria-label="Favorito: ${p.b} ${p.n}">${heart}</button><div class="ph${p.cov?' cov':''}"><img src="img/freeshop-${p.img}.jpg?v=2" alt="${p.b} ${p.n}" loading="lazy"></div><div class="b"><span class="brand">${p.b}</span><span class="nm">${p.n}</span><div class="pr"><b>${usd(p.p)}</b>${p.o?`<s>${usd(p.o)}</s>`:''}</div><button class="add" data-add="${p.id}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Agregar</button></div></article>`).join(''):`<p class="none">${favMode?'Todavía no tenés favoritos. Tocá el ♥ en un producto.':'No encontramos resultados'+(q?` para “${q}”`:'')+'. Probá con otra marca o categoría.'}</p>`;
  const parts=[];if(cat!='all')parts.push(cat=='ofertas'?'Ofertas':cName(cat));if(q)parts.push(`“${q}”`);if(favMode)parts.push('Favoritos');
  $('#status').innerHTML=`<b>${it.length}</b> producto${it.length==1?'':'s'}${parts.length?' · '+parts.join(' · ')+'<button id="clr">Limpiar filtros</button>':''}`;
  $('#cTitle').textContent=favMode?'Tus favoritos':q?'Resultados de búsqueda':cat=='all'?(only?'Ofertas destacadas':'Todo el catálogo'):cat=='ofertas'?'Ofertas destacadas':cName(cat);
@@ -431,7 +431,7 @@ function renderCart(){
  $('#track').classList.toggle('over',over);$('#track i').style.width=pct+'%';
  const m=$('#cupoMsg');m.classList.toggle('warn',over);
  m.innerHTML=over?`Superás el cupo de ${usd(cupo)} por <b>${usd(tot-cupo)}</b>. Sumá un viajero o revisá el carrito.`:`Usaste <b>${usd(tot)}</b> de ${usd(cupo)} · te quedan <b>${usd(cupo-tot)}</b>`;
- $('#dList').innerHTML=n?[...cart].map(([id,q])=>{const p=byId(id);return `<div class="li"><div class="im${p.cov?' cov':''}"><img src="img/freeshop-${p.img}.jpg" alt=""></div><div class="t"><b>${p.b}</b><span>${p.n}</span><em>${usd(p.p*q)}${p.o?` <s style="color:#8a939b;font-weight:400">${usd(p.o*q)}</s>`:''}</em></div><div class="qty"><button data-q="${id}" data-d="-1" aria-label="Restar uno">−</button><output>${q}</output><button data-q="${id}" data-d="1" aria-label="Sumar uno">+</button></div></div>`}).join(''):'<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 4h2.5l2.2 11h10.8L21 7.5H6.4"/><circle cx="9.5" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg>Tu carrito está vacío.<br>Mirá las ofertas destacadas.</div>';
+ $('#dList').innerHTML=n?[...cart].map(([id,q])=>{const p=byId(id);return `<div class="li"><div class="im${p.cov?' cov':''}"><img src="img/freeshop-${p.img}.jpg?v=2" alt=""></div><div class="t"><b>${p.b}</b><span>${p.n}</span><em>${usd(p.p*q)}${p.o?` <s style="color:#8a939b;font-weight:400">${usd(p.o*q)}</s>`:''}</em></div><div class="qty"><button data-q="${id}" data-d="-1" aria-label="Restar uno">−</button><output>${q}</output><button data-q="${id}" data-d="1" aria-label="Sumar uno">+</button></div></div>`}).join(''):'<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 4h2.5l2.2 11h10.8L21 7.5H6.4"/><circle cx="9.5" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg>Tu carrito está vacío.<br>Mirá las ofertas destacadas.</div>';
  $('#dList0').textContent=usd(list);$('#dSave').textContent='− '+usd(list-tot);$('#dTot').textContent=usd(tot);
  $('#dGo').disabled=!n;
 }
