@@ -101,7 +101,8 @@ section{scroll-margin-top:72px}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}}
 .card:hover{transform:translateY(-3px);box-shadow:0 14px 28px rgba(16,24,32,.1)}
 .card .ph{background:#efeeec;aspect-ratio:1.25/1;overflow:hidden}
-.card .ph img{width:100%;height:100%;object-fit:cover}
+.card .ph{display:grid;place-items:center;background:#e5e3de}
+.card .ph img{width:100%;height:100%;object-fit:contain;-webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 70%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 70%,transparent 100%)}
 .badge{position:absolute;left:10px;top:10px;background:var(--cyan2);color:#fff;font-size:11px;font-weight:600;border-radius:999px;padding:2px 9px}
 .heart{position:absolute;right:8px;top:8px;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.85);color:#3a444d;transition:transform .2s}
 .heart svg{width:18px;height:18px}
@@ -254,7 +255,7 @@ footer .copy{grid-column:1/-1;border-top:1px solid var(--line);padding-top:18px;
 
 <main>
 <section class="hero" id="inicio">
- <img class="hero-img" src="img/hogar-hero.jpg?v=2" alt="Living cálido con florero de cerámica y vela sobre mesa de madera">
+ <img class="hero-img" src="img/hogar-hero.jpg?v=3" alt="Living cálido con florero de cerámica y vela sobre mesa de madera">
  <div class="wrap">
   <p class="kick">Hogar y estilo de vida</p>
   <h1>Espacios que<br><em>hacen bien</em></h1>
@@ -361,7 +362,7 @@ const P=[
 ];
 const byId=id=>P.find(x=>x.id==id);
 let filt='Todos',q='';const favs=new Set([3]);const cart=new Map();
-$('#rooms').innerHTML=R.map(([n,i])=>`<button class="room" data-room="${n}" aria-pressed="false"><img src="img/hogar-${i}.jpg?v=2" alt="" loading="lazy"><div><b>${n}</b><span>Ver productos →</span></div></button>`).join('');
+$('#rooms').innerHTML=R.map(([n,i])=>`<button class="room" data-room="${n}" aria-pressed="false"><img src="img/hogar-${i}.jpg?v=3" alt="" loading="lazy"><div><b>${n}</b><span>Ver productos →</span></div></button>`).join('');
 const chips=['Todos',...R.map(r=>r[0]),'ofertas','favs'];
 function chipLabel(c){return c=='ofertas'?'Ofertas':c=='favs'?`♥ Favoritos (${favs.size})`:c}
 function renderBar(){$('#bar').innerHTML=chips.map(c=>`<button class="chip${c=='favs'?' fav':''}" data-f="${c}" aria-pressed="${filt==c}">${chipLabel(c)}</button>`).join('')+`<span class="count" id="cnt"></span>`}
@@ -369,7 +370,7 @@ const heart='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-w
 function renderGrid(){
  const qq=q.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
  const it=P.filter(p=>(filt=='Todos'||p.a==filt||(filt=='ofertas'&&p.old)||(filt=='favs'&&favs.has(p.id)))&&(!qq||(p.n+' '+p.a).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').includes(qq)));
- $('#grid').innerHTML=it.length?it.map(p=>`<article class="card"><div class="ph"><img src="img/hogar-${p.img}.jpg?v=2" alt="${p.n}" loading="lazy"></div>${p.tag?`<span class="badge">${p.tag}</span>`:''}<button class="heart" data-fav="${p.id}" aria-pressed="${favs.has(p.id)}" aria-label="${favs.has(p.id)?'Quitar de':'Agregar a'} favoritos: ${p.n}">${heart}</button><div class="b"><h3>${p.n}</h3><span class="amb">${p.a}</span><div class="pr"><b>${fmt(p.p)}</b><span><i>★</i> ${p.r} (${p.c})</span></div><button class="addb" data-add="${p.id}">Agregar al carrito</button></div></article>`).join(''):`<p class="none">${filt=='favs'?'Todavía no marcaste favoritos. Tocá el ♥ de un producto.':'No encontramos productos para “'+q+'”.'}</p>`;
+ $('#grid').innerHTML=it.length?it.map(p=>`<article class="card"><div class="ph"><img src="img/hogar-${p.img}.jpg?v=3" alt="${p.n}" loading="lazy"></div>${p.tag?`<span class="badge">${p.tag}</span>`:''}<button class="heart" data-fav="${p.id}" aria-pressed="${favs.has(p.id)}" aria-label="${favs.has(p.id)?'Quitar de':'Agregar a'} favoritos: ${p.n}">${heart}</button><div class="b"><h3>${p.n}</h3><span class="amb">${p.a}</span><div class="pr"><b>${fmt(p.p)}</b><span><i>★</i> ${p.r} (${p.c})</span></div><button class="addb" data-add="${p.id}">Agregar al carrito</button></div></article>`).join(''):`<p class="none">${filt=='favs'?'Todavía no marcaste favoritos. Tocá el ♥ de un producto.':'No encontramos productos para “'+q+'”.'}</p>`;
  $('#cnt').textContent=`${it.length} producto${it.length==1?'':'s'}`;
  $$('.room').forEach(r=>r.setAttribute('aria-pressed',r.dataset.room==filt));
 }
@@ -401,7 +402,7 @@ function renderCart(){
  const sub=[...cart].reduce((a,[id,q])=>a+byId(id).p*q,0);
  const ship=!n?0:sub>=FREE?0:250;
  $('#ship').innerHTML=(sub>=FREE?'¡Tenés <b>envío gratis</b>!':`Te faltan <b>${fmt(FREE-sub)}</b> para el envío gratis`)+`<div class="track"><i style="width:${Math.min(100,sub/FREE*100)}%"></i></div>`;
- $('#dList').innerHTML=n?[...cart].map(([id,q])=>{const p=byId(id);return `<div class="li"><img src="img/hogar-${p.img}.jpg?v=2" alt=""><div class="t"><b>${p.n}</b><span>${fmt(p.p*q)}</span><button class="rm" data-rm="${id}">Quitar</button></div><div class="qty"><button data-q="${id}" data-d="-1" aria-label="Restar uno">−</button><output>${q}</output><button data-q="${id}" data-d="1" aria-label="Sumar uno">+</button></div></div>`}).join(''):'<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 4h2.5l2.2 11h10.8L21 7.5H6.4"/><circle cx="9.5" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg>Tu carrito está vacío.<br>Explorá los ambientes y sumá lo que te guste.</div>';
+ $('#dList').innerHTML=n?[...cart].map(([id,q])=>{const p=byId(id);return `<div class="li"><img src="img/hogar-${p.img}.jpg?v=3" alt=""><div class="t"><b>${p.n}</b><span>${fmt(p.p*q)}</span><button class="rm" data-rm="${id}">Quitar</button></div><div class="qty"><button data-q="${id}" data-d="-1" aria-label="Restar uno">−</button><output>${q}</output><button data-q="${id}" data-d="1" aria-label="Sumar uno">+</button></div></div>`}).join(''):'<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 4h2.5l2.2 11h10.8L21 7.5H6.4"/><circle cx="9.5" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg>Tu carrito está vacío.<br>Explorá los ambientes y sumá lo que te guste.</div>';
  $('#dSub').textContent=fmt(sub);$('#dShip').textContent=!n?'—':ship?fmt(ship):'Gratis';$('#dTot').textContent=fmt(sub+ship);
  $('#dCu').textContent=n?`o 6 cuotas sin interés de ${fmt(Math.ceil((sub+ship)/6))}`:'';
  $('#dGo').disabled=!n;
