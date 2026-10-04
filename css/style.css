@@ -1464,3 +1464,11 @@ html.dm-lock{overflow:hidden;}
 @media (prefers-reduced-motion:reduce){.pj-dcard,.pj-dcard__bg{transition:none;}}
 .pj-dcard__bg{background-position:right center;}
 .pj-dcard__shade{background:linear-gradient(to top,hsl(var(--theme)) 0%,hsl(var(--theme) / .97) 38%,hsl(var(--theme) / .55) 60%,transparent 82%);}
+/* imágenes más visibles: degradé sutil solo detrás del texto */
+.pj-dcard__bg{background-position:center top;}
+.pj-dcard__shade{background:linear-gradient(to top,rgba(5,11,22,.82) 0%,rgba(5,11,22,.55) 26%,hsl(var(--theme) / .12) 50%,transparent 68%);}
+.pj-dcard__btn{background:rgba(5,11,22,.35);border-color:rgba(255,255,255,.22);}
+.pj-dcard:hover .pj-dcard__btn{background:hsl(var(--theme) / .6);}
+.pj-dcard__badge{background:rgba(5,11,22,.5);}
+.pj-dcard h3,.pj-dcard__stats{text-shadow:0 2px 12px rgba(0,0,0,.6);}
+.pj-dcard__shade{background:linear-gradient(to top,rgba(5,11,22,.9) 0%,rgba(5,11,22,.78) 34%,rgba(5,11,22,.3) 50%,transparent 62%);}
