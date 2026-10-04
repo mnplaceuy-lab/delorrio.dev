@@ -1487,3 +1487,4 @@ html.dm-lock{overflow:hidden;}
 @media (max-width:900px){.pj-dcard{height:auto;}}
 .pj-dcard__img{aspect-ratio:auto;}
 .pj-dcard__img img{height:auto;object-fit:fill;}
+.pj-dcard__logo--fg{width:clamp(200px,19vw,280px);margin:14px 0 6px;}
