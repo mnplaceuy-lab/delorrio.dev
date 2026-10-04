@@ -1440,3 +1440,27 @@ html.dm-lock{overflow:hidden;}
 }
 .pj-monitor__screen{aspect-ratio:auto;}
 .pj-monitor__screen img{transform:none!important;height:auto!important;aspect-ratio:2.15/1;object-position:center top!important;}
+/* Proyectos destacados: tarjetas tipo "destino" (MNPLACE y FleteGo) */
+.pj-dest{display:grid;grid-template-columns:1fr 1fr;gap:28px;}
+.pj-dcard{position:relative;display:block;height:clamp(420px,36vw,540px);border-radius:22px;overflow:hidden;text-decoration:none;color:#fff;
+  box-shadow:0 0 40px -15px hsl(var(--theme) / .55);transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s;}
+.pj-dcard:hover{transform:scale(1.025);box-shadow:0 0 70px -15px hsl(var(--theme) / .75);}
+.pj-dcard__bg{position:absolute;inset:0;background-size:cover;background-position:left top;transition:transform .6s cubic-bezier(.2,.8,.2,1);}
+.pj-dcard:hover .pj-dcard__bg{transform:scale(1.08);}
+.pj-dcard__shade{position:absolute;inset:0;background:linear-gradient(to top,hsl(var(--theme) / .96),hsl(var(--theme) / .7) 34%,transparent 66%);}
+.pj-dcard__body{position:relative;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;padding:clamp(22px,2.4vw,32px);}
+.pj-dcard__badge{display:inline-block;margin-bottom:14px;padding:6px 14px;border-radius:999px;font-size:13px;font-weight:600;background:hsl(var(--theme) / .45);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
+.pj-dcard h3{font-size:clamp(30px,3vw,44px);font-weight:800;letter-spacing:-.02em;line-height:1;margin:0;}
+.pj-dcard__logo{width:clamp(190px,18vw,270px);height:auto;filter:drop-shadow(0 4px 14px rgba(0,0,0,.45));}
+.pj-dcard__stats{margin:10px 0 0;color:rgba(255,255,255,.82);font-size:15px;font-weight:500;line-height:1.45;max-width:44ch;}
+.pj-dcard__btn{margin-top:24px;width:100%;display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-radius:12px;
+  background:hsl(var(--theme) / .25);border:1px solid hsl(var(--theme) / .5);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  font-size:15px;font-weight:600;letter-spacing:.01em;transition:background .3s,border-color .3s;}
+.pj-dcard__btn svg{width:18px;height:18px;transition:transform .3s;}
+.pj-dcard:hover .pj-dcard__btn{background:hsl(var(--theme) / .5);border-color:rgba(255,255,255,.35);}
+.pj-dcard:hover .pj-dcard__btn svg{transform:translateX(4px);}
+.pj-dest + .pj-row{margin-top:28px;}
+@media (max-width:900px){.pj-dest{grid-template-columns:1fr;gap:20px;}.pj-dcard{height:440px;}}
+@media (prefers-reduced-motion:reduce){.pj-dcard,.pj-dcard__bg{transition:none;}}
+.pj-dcard__bg{background-position:right center;}
+.pj-dcard__shade{background:linear-gradient(to top,hsl(var(--theme)) 0%,hsl(var(--theme) / .97) 38%,hsl(var(--theme) / .55) 60%,transparent 82%);}

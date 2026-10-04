@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=202610041620">
+<link rel="stylesheet" href="css/style.css?v=202610041625">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 </head>
@@ -137,36 +137,28 @@
         <p>Una selección de proyectos en los que trabajé y que generan impacto real.</p>
       </div>
 
-      <a class="pj-card pj-main pj-in" style="--d:.15s" href="https://www.mn-place.com/" target="_blank" rel="noopener" aria-label="MNPLACE — Explorar proyecto">
-        <div class="pj-main__bg" aria-hidden="true"></div>
-        <div class="pj-main__media" aria-hidden="true"><div class="pj-monitor"><div class="pj-monitor__screen"><img src="img/proj-mnplace.jpg?v=2" alt="" loading="lazy"></div><div class="pj-monitor__neck"></div><div class="pj-monitor__base"></div></div></div>
-        <div class="pj-main__body">
-          <span class="pj-badge">Producto propio</span>
-          <img class="pj-main__logo" src="img/proj-mnplace-logo.png?v=2" alt="MNPLACE — Mercado Nacional" loading="lazy">
-          <h3>MNPLACE</h3>
-          <span class="pj-main__sub">Mercado Nacional</span>
-          <p>Plataforma digital para descubrir productos, servicios y emprendimientos uruguayos en un solo lugar.</p>
-          <ul class="pj-feats">
-            <li><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0114 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>Cobertura nacional</li>
-            <li><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 016 0v2"/></svg></span>Productos y servicios</li>
-            <li><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10l8-6 8 6v10"/><path d="M9 20v-6h6v6"/></svg></span>Emprendimientos uruguayos</li>
-            <li><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 20V13M11 20V8M17 20V4"/></svg></span>Experiencia clara y moderna</li>
-          </ul>
-          <div class="pj-tags"><span>Web</span><span>Plataforma</span><span>UX/UI</span><span>Python</span><span>Railway</span></div>
-          <span class="pj-cta">Explorar proyecto</span>
-        </div>
-      </a>
-
-      <a class="pj-card pj-sec pj-wide pj-in" style="--d:.25s" href="https://fletego.com/" target="_blank" rel="noopener" aria-label="FleteGo — Visitar sitio">
-        <div class="pj-sec__body">
-          <span class="pj-badge">Proyecto en colaboración</span>
-          <h3>FleteGo</h3>
-          <p>Plataforma para pedir fletes en minutos: publicás lo que necesitás mover, fleteros verificados cotizan y seguís cada viaje en tiempo real.</p>
-          <div class="pj-tags"><span>Web</span><span>Plataforma</span><span>UX/UI</span><span>Seguimiento</span></div>
-          <span class="pj-cta">Visitar sitio</span>
-        </div>
-        <div class="pj-sec__media pj-sec__media--monitor" aria-hidden="true"><div class="pj-monitor"><div class="pj-monitor__screen"><img src="img/proj-fletego.jpg" alt="" loading="lazy"></div><div class="pj-monitor__neck"></div><div class="pj-monitor__base"></div></div></div>
-      </a>
+      <div class="pj-dest">
+        <a class="pj-dcard pj-in" style="--d:.15s;--theme:199 78% 30%" href="https://www.mn-place.com/" target="_blank" rel="noopener" aria-label="MNPLACE — Explorar proyecto">
+          <div class="pj-dcard__bg" style="background-image:url('img/proj-mnplace-card.jpg')"></div>
+          <div class="pj-dcard__shade"></div>
+          <div class="pj-dcard__body">
+            <span class="pj-dcard__badge">Producto propio</span>
+            <img class="pj-dcard__logo" src="img/proj-mnplace-logo.png?v=2" alt="MNPLACE — Mercado Nacional" loading="lazy">
+            <p class="pj-dcard__stats">Productos, servicios y emprendimientos uruguayos en un solo lugar · Cobertura nacional</p>
+            <span class="pj-dcard__btn"><span>Explorar proyecto</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
+        </a>
+        <a class="pj-dcard pj-in" style="--d:.27s;--theme:22 85% 24%" href="https://fletego.com/" target="_blank" rel="noopener" aria-label="FleteGo — Visitar sitio">
+          <div class="pj-dcard__bg" style="background-image:url('img/proj-fletego-card.jpg')"></div>
+          <div class="pj-dcard__shade"></div>
+          <div class="pj-dcard__body">
+            <span class="pj-dcard__badge">Proyecto en colaboración</span>
+            <h3>FleteGo</h3>
+            <p class="pj-dcard__stats">Fletes en minutos · Fleteros verificados · Seguimiento de cada viaje</p>
+            <span class="pj-dcard__btn"><span>Visitar sitio</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
+        </a>
+      </div>
 
       <div class="pj-row">
         <a class="pj-card pj-sec pj-in" style="--d:.3s" href="#contacto" aria-label="Negocio local — Explorar proyecto">
