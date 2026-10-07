@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=202610071300">
+<link rel="stylesheet" href="css/style.css?v=202610071330">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 </head>
@@ -418,17 +418,41 @@
   </section>
 
   <!-- CTA / CONTACTO -->
-  <!-- PREGUNTAS FRECUENTES (se muestra cuando tenga preguntas) -->
-  <section class="faq" id="preguntas" hidden>
+  <!-- PREGUNTAS FRECUENTES -->
+  <section class="faq" id="preguntas">
     <div class="wrap">
-      <div class="bn-head">
-        <span class="bn-pill">Preguntas frecuentes</span>
-        <h2>¿Tenés <span class="bn-grad">dudas?</span></h2>
-        <p>Las respuestas a lo que más me consultan.</p>
+      <div class="bn-head bn-in">
+        <span class="bn-pill">✦ Preguntas frecuentes</span>
+        <h2>Todo lo que querés saber <span class="bn-grad">antes de empezar</span></h2>
+        <p>Respondo las dudas más comunes sobre planes, tiempos y forma de trabajo.</p>
       </div>
       <div class="faq-list" data-faq>
-        <!-- <details class="faq-item"><summary>Pregunta</summary><div class="faq-a"><p>Respuesta</p></div></details> -->
+        <details class="faq-item bn-in" style="--d:0.00s" open>
+          <summary><span class="faq-n">01</span><span class="faq-q">¿Qué incluye cada plan?</span><span class="faq-plus" aria-hidden="true"></span></summary>
+          <div class="faq-a"><p>Cada plan está diseñado según la complejidad del proyecto:</p><ul class="faq-plans"><li><b>WEB START</b> — Para negocios que necesitan una Landing Page (página única con el objetivo de convertir visitantes en clientes). Incluye diseño personalizado, integración con redes sociales y hosting por 1 año.</li><li><b>WEB PRO</b> — Para quienes necesitan una web con funciones administrativas (registro, inicio de sesión, estadísticas, contactos) y promover productos o servicios a través de catálogos.</li><li><b>E-COMMERCE</b> — El plan perfecto para quienes necesitan una tienda online 100% funcional y pronta para vender.</li></ul><p class="faq-sub">Todos los planes incluyen:</p><ul class="faq-check"><li>Diseño 100% a medida</li><li>Hosting, dominio y SSL incluidos por 1 año</li><li>Mantenimiento y soporte del sitio incluidos</li></ul></div>
+        </details>
+        <details class="faq-item bn-in" style="--d:0.06s">
+          <summary><span class="faq-n">02</span><span class="faq-q">¿Cuánto tiempo tarda en estar lista mi web?</span><span class="faq-plus" aria-hidden="true"></span></summary>
+          <div class="faq-a"><p>Los tiempos de entrega dependen del plan que elijas y de la rapidez con la que envíes el contenido (textos, imágenes, logo, etc.).</p><div class="faq-times"><div><b>WEB START</b><span>1 a 2 días hábiles</span></div><div><b>WEB PRO</b><span>7 a 10 días hábiles</span></div><div><b>E-COMMERCE</b><span>7 a 10 días hábiles</span></div></div><p>Una vez que confirmás el pago y entregás los materiales, arrancamos de inmediato.</p></div>
+        </details>
+        <details class="faq-item bn-in" style="--d:0.12s">
+          <summary><span class="faq-n">03</span><span class="faq-q">¿Puedo pedir cambios durante el desarrollo?</span><span class="faq-plus" aria-hidden="true"></span></summary>
+          <div class="faq-a"><p>Sí, podés solicitar cambios durante los primeros 30 días. Una vez finalizado el proyecto, los cambios adicionales tienen un costo de <b>25 USD por hora</b> de trabajo.</p></div>
+        </details>
+        <details class="faq-item bn-in" style="--d:0.18s">
+          <summary><span class="faq-n">04</span><span class="faq-q">¿Qué pasa con el hosting y el dominio después del primer año?</span><span class="faq-plus" aria-hidden="true"></span></summary>
+          <div class="faq-a"><p>El hosting y el dominio están incluidos el primer año sin costo adicional. A partir del segundo año, la renovación cuesta <b>200 USD anuales</b> e incluye alojamiento, dominio y soporte por un año más.</p></div>
+        </details>
+        <details class="faq-item bn-in" style="--d:0.24s">
+          <summary><span class="faq-n">05</span><span class="faq-q">¿Cómo es el proceso de pago?</span><span class="faq-plus" aria-hidden="true"></span></summary>
+          <div class="faq-a"><p>Trabajamos con un esquema simple y transparente:</p><ul class="faq-check"><li><b>50% al inicio</b>, para reservar tu lugar y arrancar el proyecto.</li><li><b>50% restante</b> al aprobar la versión final, antes de publicar.</li></ul><p>Aceptamos transferencia bancaria, Mercado Pago y otros medios según tu ubicación.</p></div>
+        </details>
+        <details class="faq-item bn-in" style="--d:0.30s">
+          <summary><span class="faq-n">06</span><span class="faq-q">¿Podré editarla yo mismo una vez entregada?</span><span class="faq-plus" aria-hidden="true"></span></summary>
+          <div class="faq-a"><p>Sí. Si bien hago toda la programación con Python y Claude Code, te entrego el proyecto funcionando para que lo puedas cargar en distintas plataformas que te permiten editarlo de forma sencilla e intuitiva.</p></div>
+        </details>
       </div>
+      <p class="faq-more">¿Te quedó alguna duda? <a href="https://wa.me/59892555045?text=Hola%20Santiago%2C%20tengo%20una%20consulta." target="_blank" rel="noopener">Escribime por WhatsApp</a></p>
     </div>
   </section>
 
@@ -562,7 +586,7 @@
   <span id="toast-text">Mensaje enviado. ¡Gracias por escribir!</span>
 </div>
 
-<script src="js/main.js?v=202610071300"></script>
+<script src="js/main.js?v=202610071330"></script>
 <a class="wa-float" href="https://wa.me/59892555045?text=Hola%20Santiago%2C%20quiero%20hablar%20sobre%20un%20proyecto." target="_blank" rel="noopener" aria-label="Escribime por WhatsApp">
   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.48 1.34 5L2 22l5.2-1.36a9.94 9.94 0 004.84 1.24h.01c5.5 0 9.96-4.46 9.96-9.96S17.54 2 12.04 2zm5.8 14.24c-.24.68-1.4 1.3-1.93 1.36-.5.06-1.02.1-1.65-.1-.38-.12-.87-.28-1.5-.55-2.63-1.14-4.35-3.8-4.48-3.98-.13-.18-1.07-1.42-1.07-2.71 0-1.29.68-1.92.92-2.18.24-.26.52-.32.7-.32l.5.01c.16 0 .38-.06.6.46.24.56.8 1.94.87 2.08.07.14.11.3.02.48-.09.18-.14.3-.27.46-.13.16-.28.35-.4.47-.13.13-.27.27-.12.53.16.26.7 1.15 1.5 1.86 1.03.92 1.9 1.2 2.16 1.34.26.13.42.11.57-.07.16-.18.68-.8.86-1.07.18-.27.36-.22.6-.13.25.09 1.58.75 1.85.88.27.13.45.2.52.31.07.12.07.68-.17 1.36z"/></svg>
   <span class="wa-float__tip">¿Hablamos?</span>

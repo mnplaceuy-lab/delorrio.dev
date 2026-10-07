@@ -753,6 +753,10 @@
   var faq = document.querySelector('.faq');
   if(faq && faq.querySelector('.faq-item')){
     faq.hidden = false;
+    if('IntersectionObserver' in window){
+      var io2 = new IntersectionObserver(function(es){ if(es[0].isIntersecting){ io2.disconnect(); faq.classList.add('is-in'); } }, { threshold: 0.1 });
+      io2.observe(faq);
+    } else faq.classList.add('is-in');
     var items = faq.querySelectorAll('.faq-item');
     items.forEach(function(d){
       d.addEventListener('toggle', function(){ if(d.open) items.forEach(function(o){ if(o !== d) o.open = false; }); });

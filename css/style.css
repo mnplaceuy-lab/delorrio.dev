@@ -1549,3 +1549,39 @@ html.dm-lock{overflow:hidden;}
 .wa-float:hover .wa-float__tip{opacity:1;transform:none;}
 @media (max-width:600px){.wa-float{width:54px;height:54px;}.wa-float svg{width:28px;height:28px;}}
 @media (prefers-reduced-motion:reduce){.wa-float::before{animation:none;display:none;}}
+/* FAQ: estilo lista numerada */
+.faq{position:relative;overflow:hidden;}
+.faq::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(600px 380px at 15% 0%,rgba(55,182,255,.1),transparent 70%);}
+.faq .wrap{position:relative;max-width:1000px;}
+.faq.is-in .bn-in{opacity:1;transform:none;}
+.faq-list{gap:0;border-top:1px solid var(--border);}
+.faq-item{border:0;border-bottom:1px solid var(--border);border-radius:0;background:transparent;}
+.faq-item[open]{border-color:var(--border);}
+.faq-item summary{padding:26px 4px;gap:22px;font-size:clamp(17px,1.5vw,20px);font-weight:600;}
+.faq-item summary::after{display:none;}
+.faq-n{flex:none;font:600 13px/1 'JetBrains Mono',ui-monospace,monospace;color:var(--accent);opacity:.8;min-width:26px;}
+.faq-q{flex:1;transition:color .2s;}
+.faq-item summary:hover .faq-q,.faq-item[open] .faq-q{color:#7dd3fc;}
+.faq-plus{position:relative;flex:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--border);transition:background .3s,border-color .3s,transform .35s;}
+.faq-plus::before,.faq-plus::after{content:"";position:absolute;left:50%;top:50%;width:14px;height:1.6px;margin:-.8px 0 0 -7px;background:var(--text);border-radius:2px;}
+.faq-plus::after{transform:rotate(90deg);transition:transform .35s;}
+.faq-item[open] .faq-plus{background:var(--accent);border-color:var(--accent);transform:rotate(180deg);}
+.faq-item[open] .faq-plus::before,.faq-item[open] .faq-plus::after{background:#031521;}
+.faq-item[open] .faq-plus::after{transform:rotate(0);}
+.faq-a{padding:0 66px 28px 52px;font-size:16px;line-height:1.7;}
+.faq-a p{margin:0 0 12px;} .faq-a p:last-child{margin:0;}
+.faq-a b{color:var(--text);}
+.faq-plans{list-style:none;padding:0;margin:0 0 16px;display:grid;gap:12px;}
+.faq-plans li{padding:14px 16px;border-radius:12px;background:var(--surface);border:1px solid var(--border);}
+.faq-plans b{color:var(--accent);letter-spacing:.04em;}
+.faq-sub{color:var(--text);font-weight:600;}
+.faq-check{list-style:none;padding:0;margin:0 0 12px;display:grid;gap:8px;}
+.faq-check li{position:relative;padding-left:28px;}
+.faq-check li::before{content:"";position:absolute;left:0;top:.35em;width:18px;height:18px;border-radius:50%;background:var(--accent-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2337b6ff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E") center/11px no-repeat;}
+.faq-times{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 14px;}
+.faq-times div{padding:14px 16px;border-radius:12px;background:var(--surface);border:1px solid var(--border);display:flex;flex-direction:column;gap:4px;}
+.faq-times b{color:var(--accent);font-size:13px;letter-spacing:.06em;}
+.faq-times span{color:var(--text);font-weight:600;}
+.faq-more{text-align:center;margin:36px 0 0;color:var(--text-muted);}
+.faq-more a{color:var(--accent);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(55,182,255,.4);}
+@media (max-width:640px){.faq-a{padding:0 4px 24px 4px;}.faq-times{grid-template-columns:1fr;}.faq-item summary{gap:14px;padding:22px 2px;}.faq-plus{width:34px;height:34px;}}
