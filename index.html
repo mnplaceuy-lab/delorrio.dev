@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=202610041630c">
+<link rel="stylesheet" href="css/style.css?v=202610071300">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 </head>
@@ -375,41 +375,63 @@
   </section>
 
   <!-- OPORTUNIDADES -->
-  <section class="opp" id="parallax-scroll">
-    <div class="opp-rings" aria-hidden="true"><span></span><span></span></div>
-    <svg class="opp-lines" viewBox="0 0 1600 760" preserveAspectRatio="none" aria-hidden="true">
-      <path class="opp-path" data-i="0" d="M 330 240 C 430 180, 480 260, 540 300" pathLength="1"/>
-      <path class="opp-path" data-i="1" d="M 410 480 C 480 520, 530 470, 570 440" pathLength="1"/>
-      <path class="opp-path" data-i="2" d="M 1230 290 C 1160 250, 1110 300, 1060 330" pathLength="1"/>
-      <path class="opp-path" data-i="3" d="M 1200 510 C 1140 540, 1090 480, 1050 450" pathLength="1"/>
-    </svg>
-    <div class="opp-dots" aria-hidden="true"></div>
-    <div class="opp-stage">
-      <div class="opp-item opp-item--code" data-i="0" data-depth="1.0" style="--i:0;--ox:16%;--oy:32%;--cx:24%;--cy:14%" tabindex="0" role="button" aria-label="código limpio">
-        <div class="opp-obj"><div class="opp-obj__in"><img src="img/opp-1.png" alt="" loading="lazy"><span class="opp-fx opp-fx--code"><i></i><i></i><i></i></span></div></div>
-        <span class="opp-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/></svg>código limpio<b></b></span>
+  <section class="bn" id="beneficios">
+    <div class="wrap">
+      <div class="bn-head bn-in">
+        <span class="bn-pill">Beneficios</span>
+        <h2>Todo lo que tu web <span class="bn-grad">incluye</span></h2>
+        <p>Sin letra chica: una web profesional, rápida y lista para vender, con soporte de verdad.</p>
       </div>
-      <div class="opp-item opp-item--ia" data-i="1" data-depth="0.7" style="--i:1;--ox:23%;--oy:63%;--cx:21%;--cy:80%" tabindex="0" role="button" aria-label="IA aplicada">
-        <div class="opp-obj"><div class="opp-obj__in"><img src="img/opp-2.png" alt="" loading="lazy"></div></div>
-        <span class="opp-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></svg>IA aplicada<b></b></span>
-      </div>
-      <div class="opp-item opp-item--ui" data-i="2" data-depth="0.85" style="--i:2;--ox:84%;--oy:38%;--cx:80%;--cy:21%" tabindex="0" role="button" aria-label="diseño moderno">
-        <div class="opp-obj"><div class="opp-obj__in"><img src="img/opp-3.png" alt="" loading="lazy"><span class="opp-fx opp-fx--ui"><i></i><i></i></span></div></div>
-        <span class="opp-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>diseño moderno<b></b></span>
-      </div>
-      <div class="opp-item opp-item--chart" data-i="3" data-depth="1.15" style="--i:3;--ox:81%;--oy:68%;--cx:79%;--cy:85%" tabindex="0" role="button" aria-label="resultados reales">
-        <div class="opp-obj"><div class="opp-obj__in"><img src="img/opp-4.png" alt="" loading="lazy"></div></div>
-        <span class="opp-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M6 20V11M11 20V6M16 20v-8"/></svg>resultados reales<b></b></span>
-      </div>
-      <div class="opp-center">
-        <span class="opp-pill">Construyamos algo grande</span>
-        <h2>Ideas que se convierten<br>en <span class="opp-word">oportunidades.</span></h2>
-        <p>Cada proyecto es una oportunidad de construir algo que realmente funcione, para vos y para quienes lo usan.</p>
+      <div class="bn-grid">
+        <article class="bn-card bn-in" style="--d:0.00s">
+          <span class="bn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg></span>
+          <h3>Sin comisiones por venta</h3>
+          <p>Todo lo que ganás es tuyo. No pagás un porcentaje por cada venta.</p>
+        </article>
+        <article class="bn-card bn-in" style="--d:0.08s">
+          <span class="bn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M9.5 7.5h5M9.5 11h5M9.5 14.5h3"/><path d="M11 18.5h2"/></svg></span>
+          <h3>Sin costos mensuales</h3>
+          <p>Mantenimiento y optimización del sitio incluidos.</p>
+        </article>
+        <article class="bn-card bn-in" style="--d:0.16s">
+          <span class="bn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="2.5"/><path d="M8 16.5V11M12 16.5V7.5M16 16.5v-3.5"/></svg></span>
+          <h3>Soporte técnico</h3>
+          <p>Para tener tu web online y siempre funcionando.</p>
+        </article>
+        <article class="bn-card bn-in" style="--d:0.24s">
+          <span class="bn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0112 7.6a4.4 4.4 0 017.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"/><path d="M12 11.5v4"/></svg></span>
+          <h3>Diseños profesionales</h3>
+          <p>100% adaptables a celulares, tablets y computadoras.</p>
+        </article>
+        <article class="bn-card bn-in" style="--d:0.32s">
+          <span class="bn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z"/><path d="M3 12l9 4.5 9-4.5"/><path d="M3 16.5L12 21l9-4.5"/></svg></span>
+          <h3>Facilidades de pago</h3>
+          <p>Integración simple con Mercado Pago y otras plataformas de pago.</p>
+        </article>
+        <article class="bn-card bn-in" style="--d:0.40s">
+          <span class="bn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/><path d="M13 11l6.5-6.5M17 4.5h2.5V7"/></svg></span>
+          <h3>Web rápida y segura</h3>
+          <p>Incluye certificado de seguridad (https) en tu sitio.</p>
+        </article>
       </div>
     </div>
   </section>
 
   <!-- CTA / CONTACTO -->
+  <!-- PREGUNTAS FRECUENTES (se muestra cuando tenga preguntas) -->
+  <section class="faq" id="preguntas" hidden>
+    <div class="wrap">
+      <div class="bn-head">
+        <span class="bn-pill">Preguntas frecuentes</span>
+        <h2>¿Tenés <span class="bn-grad">dudas?</span></h2>
+        <p>Las respuestas a lo que más me consultan.</p>
+      </div>
+      <div class="faq-list" data-faq>
+        <!-- <details class="faq-item"><summary>Pregunta</summary><div class="faq-a"><p>Respuesta</p></div></details> -->
+      </div>
+    </div>
+  </section>
+
   <section class="ct" id="contacto">
     <div class="wrap">
       <div class="ct-head">
@@ -425,9 +447,9 @@
             <p>Elegí el canal que te quede más cómodo. Te respondo a la brevedad.</p>
           </div>
           <div class="ct-links">
-            <a class="ct-link ct-in" style="--d:.3s" href="https://wa.me/59899408032?text=Hola%20Santiago%2C%20quiero%20hablar%20sobre%20un%20proyecto." target="_blank" rel="noopener">
+            <a class="ct-link ct-in" style="--d:.3s" href="https://wa.me/59892555045?text=Hola%20Santiago%2C%20quiero%20hablar%20sobre%20un%20proyecto." target="_blank" rel="noopener">
               <span class="ct-ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.48 1.34 5L2 22l5.2-1.36a9.94 9.94 0 004.84 1.24h.01c5.5 0 9.96-4.46 9.96-9.96S17.54 2 12.04 2zm5.8 14.24c-.24.68-1.4 1.3-1.93 1.36-.5.06-1.02.1-1.65-.1-.38-.12-.87-.28-1.5-.55-2.63-1.14-4.35-3.8-4.48-3.98-.13-.18-1.07-1.42-1.07-2.71 0-1.29.68-1.92.92-2.18.24-.26.52-.32.7-.32l.5.01c.16 0 .38-.06.6.46.24.56.8 1.94.87 2.08.07.14.11.3.02.48-.09.18-.14.3-.27.46-.13.16-.28.35-.4.47-.13.13-.27.27-.12.53.16.26.7 1.15 1.5 1.86 1.03.92 1.9 1.2 2.16 1.34.26.13.42.11.57-.07.16-.18.68-.8.86-1.07.18-.27.36-.22.6-.13.25.09 1.58.75 1.85.88.27.13.45.2.52.31.07.12.07.68-.17 1.36z"/></svg></span>
-              <span><b>WhatsApp</b>099 408 032</span>
+              <span><b>WhatsApp</b>092 555 045</span>
             </a>
             <a class="ct-link ct-in" style="--d:.4s" href="https://instagram.com/delorrio.dev" target="_blank" rel="noopener">
               <span class="ct-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></span>
@@ -496,9 +518,9 @@
       <p>Escribime por donde te quede más cómodo.</p>
     </div>
     <div class="ct-quick">
-      <a class="ct-quick__btn ct-quick__btn--wa" href="https://wa.me/59899408032?text=Hola%20Santiago%2C%20quiero%20hablar%20sobre%20un%20proyecto." target="_blank" rel="noopener">
+      <a class="ct-quick__btn ct-quick__btn--wa" href="https://wa.me/59892555045?text=Hola%20Santiago%2C%20quiero%20hablar%20sobre%20un%20proyecto." target="_blank" rel="noopener">
         <span class="ct-ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.48 1.34 5L2 22l5.2-1.36a9.94 9.94 0 004.84 1.24h.01c5.5 0 9.96-4.46 9.96-9.96S17.54 2 12.04 2zm5.8 14.24c-.24.68-1.4 1.3-1.93 1.36-.5.06-1.02.1-1.65-.1-.38-.12-.87-.28-1.5-.55-2.63-1.14-4.35-3.8-4.48-3.98-.13-.18-1.07-1.42-1.07-2.71 0-1.29.68-1.92.92-2.18.24-.26.52-.32.7-.32l.5.01c.16 0 .38-.06.6.46.24.56.8 1.94.87 2.08.07.14.11.3.02.48-.09.18-.14.3-.27.46-.13.16-.28.35-.4.47-.13.13-.27.27-.12.53.16.26.7 1.15 1.5 1.86 1.03.92 1.9 1.2 2.16 1.34.26.13.42.11.57-.07.16-.18.68-.8.86-1.07.18-.27.36-.22.6-.13.25.09 1.58.75 1.85.88.27.13.45.2.52.31.07.12.07.68-.17 1.36z"/></svg></span>
-        <span><b>WhatsApp</b>099 408 032</span>
+        <span><b>WhatsApp</b>092 555 045</span>
       </a>
       <a class="ct-quick__btn" href="https://instagram.com/delorrio.dev" target="_blank" rel="noopener">
         <span class="ct-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></span>
@@ -540,6 +562,10 @@
   <span id="toast-text">Mensaje enviado. ¡Gracias por escribir!</span>
 </div>
 
-<script src="js/main.js?v=202610011915"></script>
+<script src="js/main.js?v=202610071300"></script>
+<a class="wa-float" href="https://wa.me/59892555045?text=Hola%20Santiago%2C%20quiero%20hablar%20sobre%20un%20proyecto." target="_blank" rel="noopener" aria-label="Escribime por WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.48 1.34 5L2 22l5.2-1.36a9.94 9.94 0 004.84 1.24h.01c5.5 0 9.96-4.46 9.96-9.96S17.54 2 12.04 2zm5.8 14.24c-.24.68-1.4 1.3-1.93 1.36-.5.06-1.02.1-1.65-.1-.38-.12-.87-.28-1.5-.55-2.63-1.14-4.35-3.8-4.48-3.98-.13-.18-1.07-1.42-1.07-2.71 0-1.29.68-1.92.92-2.18.24-.26.52-.32.7-.32l.5.01c.16 0 .38-.06.6.46.24.56.8 1.94.87 2.08.07.14.11.3.02.48-.09.18-.14.3-.27.46-.13.16-.28.35-.4.47-.13.13-.27.27-.12.53.16.26.7 1.15 1.5 1.86 1.03.92 1.9 1.2 2.16 1.34.26.13.42.11.57-.07.16-.18.68-.8.86-1.07.18-.27.36-.22.6-.13.25.09 1.58.75 1.85.88.27.13.45.2.52.31.07.12.07.68-.17 1.36z"/></svg>
+  <span class="wa-float__tip">¿Hablamos?</span>
+</a>
 </body>
 </html>

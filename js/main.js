@@ -731,3 +731,31 @@
     });
     main.addEventListener('mouseleave', function(){ img.style.setProperty('--mx', '0px'); img.style.setProperty('--my', '0px'); });
   })();
+
+// ===== BENEFICIOS y FAQ =====
+(function(){
+  var bn = document.querySelector('.bn');
+  if(bn){
+    if('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(es){ if(es[0].isIntersecting){ io.disconnect(); bn.classList.add('is-in'); } }, { threshold: 0.12 });
+      io.observe(bn);
+    } else bn.classList.add('is-in');
+    if(window.matchMedia('(hover: hover) and (pointer: fine)').matches){
+      bn.querySelectorAll('.bn-card').forEach(function(c){
+        c.addEventListener('mousemove', function(e){
+          var r = c.getBoundingClientRect();
+          c.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+          c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+        });
+      });
+    }
+  }
+  var faq = document.querySelector('.faq');
+  if(faq && faq.querySelector('.faq-item')){
+    faq.hidden = false;
+    var items = faq.querySelectorAll('.faq-item');
+    items.forEach(function(d){
+      d.addEventListener('toggle', function(){ if(d.open) items.forEach(function(o){ if(o !== d) o.open = false; }); });
+    });
+  }
+})();
