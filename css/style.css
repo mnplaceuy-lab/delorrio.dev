@@ -1692,3 +1692,12 @@ html.dm-lock{overflow:hidden;}
 .sx-media img,.sx-shade{border-radius:inherit}
 .sx-cap{display:none}
 .sx-end{bottom:clamp(16px,4vh,40px)}
+/* mosaico interactivo de la portada */
+.hero.hr{position:relative;isolation:isolate}
+.hr-mosaic{position:absolute;inset:0;z-index:0;pointer-events:none;display:block;
+  -webkit-mask-image:radial-gradient(ellipse 85% 75% at 50% 35%,#000 35%,rgba(0,0,0,.55) 70%,transparent 100%);mask-image:radial-gradient(ellipse 85% 75% at 50% 35%,#000 35%,rgba(0,0,0,.55) 70%,transparent 100%)}
+.hr-copy,.hr-stage,.hr-pills{position:relative;z-index:1}
+.hr-copy{text-shadow:0 2px 18px rgba(5,11,22,.85)}
+.hr-mosaic{-webkit-mask-image:radial-gradient(ellipse 30% 26% at 50% 34%,rgba(0,0,0,.25),#000 100%),linear-gradient(#000 60%,transparent);-webkit-mask-composite:source-in;
+  mask-image:radial-gradient(ellipse 30% 26% at 50% 34%,rgba(0,0,0,.25),#000 100%),linear-gradient(#000 60%,transparent);mask-composite:intersect}
+.hr-accent{text-shadow:none;filter:drop-shadow(0 2px 14px rgba(5,11,22,.8))}
