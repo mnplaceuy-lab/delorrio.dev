@@ -1687,7 +1687,7 @@ html.dm-lock{overflow:hidden;}
   padding:20px 24px;border-radius:18px;background:rgba(5,11,22,.72);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(55,182,255,.3);opacity:0;pointer-events:none;transition:opacity .6s,transform .6s}
 .sx-end p{margin:0;color:#dbe6f5;line-height:1.6;font-size:16px}
 .sx.is-done .sx-end{opacity:1;transform:translate(-50%,0);pointer-events:auto}
-@media (prefers-reduced-motion:reduce){.sx{height:auto}.sx-pin{position:relative;height:auto;padding-block:80px}}
+/* (el efecto de la foto se mantiene aunque el sistema tenga "reducir movimiento") */
 .sx-media{max-width:none;max-height:none;overflow:hidden}
 .sx-media img,.sx-shade{border-radius:inherit}
 .sx-cap{display:none}
@@ -1720,3 +1720,11 @@ html.dm-lock{overflow:hidden;}
 .sx-end p{font-size:clamp(17px,1.6vw,21px);line-height:1.6;color:var(--text-muted)}
 .sx-end p b{color:var(--text);font-weight:600}
 .sx-end .hr-btn{font-size:16px;padding:16px 28px}
+/* texto chico de la portada: que resalte sobre el mosaico */
+.hr-copy{position:relative;isolation:isolate}
+.hr-copy::before{content:"";position:absolute;z-index:-1;left:50%;top:50%;width:min(980px,110%);height:125%;transform:translate(-50%,-50%);
+  background:radial-gradient(closest-side,rgba(5,11,22,.92),rgba(5,11,22,.7) 60%,transparent);pointer-events:none}
+.hr-lead{color:#d6e2f2}
+.hr-lead b{color:#fff}
+.hr-rubros{color:#c7d3e6;padding:6px 14px;border-radius:999px;background:rgba(5,11,22,.7);border:1px solid rgba(55,182,255,.25)}
+.hr-eyebrow{background:rgba(5,11,22,.85)}

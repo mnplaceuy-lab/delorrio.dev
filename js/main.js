@@ -815,7 +815,7 @@
   function upd(){
     tick=false;
     var r=sec.getBoundingClientRect(), span=sec.offsetHeight-window.innerHeight;
-    var p=still?1:Math.min(1,Math.max(0,-r.top/(span*0.8)));
+    var p=Math.min(1,Math.max(0,-r.top/(span*0.8)));
     var vw=window.innerWidth, vh=window.innerHeight, mob=vw<768;
     var R=1219/1157, h0=mob?260:320, w0=h0*R;
     var hf=vh*0.9, wf=hf*R; if(wf>vw*0.96){ wf=vw*0.96; hf=wf/R; }  // final: foto grande y centrada
@@ -866,7 +866,7 @@ document.querySelectorAll('.px-mosaic').forEach(function(cv){
       rect(x+G/2,y+G/2+lift,S-G,S-G,5); ctx.fill();
       if(tw>.6){ ctx.fillStyle='rgba(55,182,255,'+(tw*.85).toFixed(2)+')'; ctx.shadowColor='rgba(55,182,255,.8)'; ctx.shadowBlur=16*tw; rect(x+G/2,y+G/2+lift,S-G,S-G,5); ctx.fill(); ctx.shadowBlur=0; }
     }
-    if(!still && visible) raf=requestAnimationFrame(frame);
+    if(visible) raf=requestAnimationFrame(frame);
   }
   function start(){ if(!raf){ last=0; raf=requestAnimationFrame(frame); } }
   hero.addEventListener('pointermove',function(e){var r=hero.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;mouse.on=true;start();});
