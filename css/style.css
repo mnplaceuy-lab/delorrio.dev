@@ -1688,3 +1688,7 @@ html.dm-lock{overflow:hidden;}
 .sx-end p{margin:0;color:#dbe6f5;line-height:1.6;font-size:16px}
 .sx.is-done .sx-end{opacity:1;transform:translate(-50%,0);pointer-events:auto}
 @media (prefers-reduced-motion:reduce){.sx{height:auto}.sx-pin{position:relative;height:auto;padding-block:80px}}
+.sx-media{max-width:none;max-height:none;overflow:hidden}
+.sx-media img,.sx-shade{border-radius:inherit}
+.sx-cap{display:none}
+.sx-end{bottom:clamp(16px,4vh,40px)}
