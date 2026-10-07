@@ -793,3 +793,39 @@
     });
   }
 })();
+
+// ===== PORTADA: sonido del reel =====
+(function(){
+  var v=document.getElementById('hrReel'),b=document.getElementById('hrSound');
+  if(!v||!b) return;
+  var t=b.querySelector('span'),svg=b.querySelector('svg'),off=svg.innerHTML,
+      on='<path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 010 7M19 5a10 10 0 010 14"/>';
+  b.addEventListener('click',function(){
+    v.muted=!v.muted; if(!v.muted) v.play().catch(function(){});
+    b.setAttribute('aria-pressed',!v.muted); t.textContent=v.muted?'Activar sonido':'Silenciar'; svg.innerHTML=v.muted?off:on;
+  });
+})();
+
+// ===== EXPANSIÓN CON SCROLL (sin bloquear el scroll: sección "pegada") =====
+(function(){
+  var sec=document.getElementById('sx'); if(!sec) return;
+  var media=sec.querySelector('.sx-media'),w1=sec.querySelector('.sx-w1'),w2=sec.querySelector('.sx-w2'),
+      bg=sec.querySelector('.sx-bg'),shade=sec.querySelector('.sx-shade'),caps=sec.querySelectorAll('.sx-cap'),end=sec.querySelector('.sx-end');
+  var still=window.matchMedia('(prefers-reduced-motion: reduce)').matches, tick=false;
+  function upd(){
+    tick=false;
+    var r=sec.getBoundingClientRect(), span=sec.offsetHeight-window.innerHeight;
+    var p=still?1:Math.min(1,Math.max(0,-r.top/(span*0.8)));
+    var vw=window.innerWidth, vh=window.innerHeight, mob=vw<768;
+    var w0=mob?260:320, h0=mob?340:400;
+    var wf=Math.min(vw*0.94,mob?vw*0.94:1400), hf=Math.min(vh*0.82,wf*0.5625);
+    media.style.width=(w0+(wf-w0)*p)+'px'; media.style.height=(h0+(hf-h0)*p)+'px';
+    var tx=p*(mob?120:85);
+    w1.style.transform='translateX(-'+tx+'vw)'; w2.style.transform='translateX('+tx+'vw)';
+    caps[0].style.transform='translateX(-'+tx+'vw)'; caps[1].style.transform='translateX('+tx+'vw)';
+    bg.style.opacity=1-p; shade.style.opacity=.55-.45*p;
+    sec.classList.toggle('is-done',p>=.98);
+  }
+  function on(){ if(!tick){ tick=true; requestAnimationFrame(upd); } }
+  window.addEventListener('scroll',on,{passive:true}); window.addEventListener('resize',on); upd();
+})();

@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=202610071340">
+<link rel="stylesheet" href="css/style.css?v=202610071800">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 </head>
@@ -48,52 +48,49 @@
 <main id="top">
 
   <!-- HERO -->
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div class="hero-in-1">
-        <span class="eyebrow">Diseño web · Desarrollo</span>
-        <h1>Ideas digitales<br>que <span class="accent grad-text">funcionan.</span></h1>
-        <p class="lead">Diseño y desarrollo páginas web profesionales para negocios que quieren crecer, destacar y conectar con más clientes.</p>
-        <div class="hero-ctas">
-          <a class="btn btn-primary" href="#proyectos">
-            Ver mis proyectos
-          </a>
-          <button class="btn btn-ghost" onclick="openModal()">Hablemos de tu proyecto</button>
-        </div>
-        <a class="hero-rubros" href="#tipos-web">
-          <span class="hero-rubros__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
-          <span><b>¿Cómo se vería la web de tu negocio?</b>Mirá ejemplos para gastronomía, salud, inmobiliarias y 9 rubros más</span>
-          <svg class="hero-rubros__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
-        <div class="feature-row">
-          <div class="feature">
-            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
-            <span>Webs<br>profesionales</span>
-          </div>
-          <div class="feature">
-            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3M13 6l-2 12"/></svg></span>
-            <span>Diseño<br>a medida</span>
-          </div>
-          <div class="feature">
-            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg></span>
-            <span>Diseño<br>responsivo</span>
-          </div>
-          <div class="feature">
-            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20h18M6 20V10M12 20V4M18 20v-7"/></svg></span>
-            <span>Experiencia<br>digital</span>
-          </div>
-        </div>
+  <section class="hero hr">
+    <div class="hr-copy">
+      <span class="hr-eyebrow">✦ Diseño web · Desarrollo</span>
+      <h1>Ideas digitales<br>que <span class="hr-accent">funcionan.</span></h1>
+      <p class="hr-lead">Diseño y desarrollo <b>páginas web a medida</b> para negocios que quieren <b>crecer, destacar</b> y conectar con más clientes, sin comisiones ni mensualidades.</p>
+      <div class="hr-btns">
+        <button class="hr-btn hr-btn--a" type="button" onclick="openModal()">Hablemos de tu proyecto</button>
+        <a class="hr-btn hr-btn--b" href="#planes">Ver planes</a>
       </div>
+      <a class="hr-rubros" href="#tipos-web">o mirá ejemplos para <b>12 rubros</b></a>
+    </div>
+    <div class="hr-stage">
+      <div class="hr-chip c1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span><div><b>Web a tu medida</b>Diseño 100% propio</div></div>
+      <div class="hr-chip c2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></svg></span><div><b>Lista en días</b>Web Start: 1 a 2 días</div></div>
+      <div class="hr-chip c3"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></span><div><b>Sin comisiones</b>Lo que vendés es tuyo</div></div>
+      <div class="hr-reel">
+        <video id="hrReel" src="img/reel.mp4" poster="img/reel-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Reel de Delorrio.dev"></video>
+        <button class="hr-sound" id="hrSound" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M23 9l-6 6M17 9l6 6"/></svg><span>Activar sonido</span></button>
+      </div>
+    </div>
+  </section>
+  <section class="hr-after">
+    <div class="hr-row">
+      <div><b>Sin comisiones</b><span>por cada venta</span></div>
+      <div><b>1 año incluido</b><span>hosting, dominio y SSL</span></div>
+      <div><b>Desde $8.900</b><span>pago único · UYU</span></div>
+    </div>
+  </section>
 
-      <div class="hero-visual">
-       <div class="hero-spotlight" id="heroSpotlight"></div>
-       <div class="scroll-card" id="scrollCard">
-        <div class="hv-glow"></div>
-        <div class="hv-glow hv-glow-2"></div>
-        <figure class="hv-shot">
-          <img id="hero-photo" src="img/hero-santiago.jpg" width="1672" height="941" alt="Santiago Delorrio junto a webs que diseñó, vistas en computadora, laptop y celular" fetchpriority="high">
-        </figure>
-       </div>
+  <!-- EXPANSIÓN CON SCROLL -->
+  <section class="sx" id="sx" aria-label="Webs a medida">
+    <div class="sx-pin">
+      <div class="sx-bg" aria-hidden="true"></div>
+      <div class="sx-media">
+        <img src="img/hero-santiago.jpg" alt="Santiago Delorrio junto a webs que diseñó, en computadora, laptop y celular" width="1672" height="941" loading="lazy">
+        <div class="sx-shade"></div>
+        <p class="sx-cap sx-cap--l">Delorrio.dev</p>
+        <p class="sx-cap sx-cap--r">Bajá para ver ↓</p>
+      </div>
+      <h2 class="sx-title"><span class="sx-w1">Webs que</span><span class="sx-w2">se ven y venden.</span></h2>
+      <div class="sx-end">
+        <p>Cada sitio se diseña a medida para tu negocio: rápido, adaptable a cualquier pantalla y pensado para convertir visitas en clientes.</p>
+        <a class="hr-btn hr-btn--a" href="#proyectos">Ver proyectos</a>
       </div>
     </div>
   </section>
@@ -144,7 +141,7 @@
             <span class="pj-dcard__badge">Producto propio</span>
             <img class="pj-dcard__logo" src="img/proj-mnplace-logo.png?v=2" alt="MNPLACE — Mercado Nacional" loading="lazy">
             <p class="pj-dcard__stats">Productos, servicios y emprendimientos uruguayos en un solo lugar · Cobertura nacional</p>
-            <span class="pj-dcard__btn"><span>Visitar sitio</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            <span class="pj-dcard__btn"><span>Visitar sitio</span></span>
           </div>
         </a>
         <a class="pj-dcard pj-in" style="--d:.27s;--theme:22 85% 24%" href="https://fletego.com/" target="_blank" rel="noopener" aria-label="FleteGo — Visitar sitio">
@@ -153,7 +150,7 @@
             <span class="pj-dcard__badge">Proyecto en colaboración</span>
             <img class="pj-dcard__logo pj-dcard__logo--fg" src="img/proj-fletego-logo.png" alt="FleteGo" loading="lazy">
             <p class="pj-dcard__stats">Fletes en minutos · Fleteros verificados · Seguimiento de cada viaje</p>
-            <span class="pj-dcard__btn"><span>Visitar sitio</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            <span class="pj-dcard__btn"><span>Visitar sitio</span></span>
           </div>
         </a>
       </div>
@@ -438,7 +435,7 @@
           <div class="pr-price"><span class="pr-cur" data-uyu="$" data-usd="US$">$</span><b data-uyu="8.900" data-usd="220">8.900</b><small data-uyu="UYU" data-usd="USD">UYU</small></div>
           <span class="pr-once">Pago único · Entrega en 1 a 2 días hábiles</span>
           <ul class="pr-feats"><li><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>Landing Page (página única pensada para convertir)</li><li><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>Diseño 100% a medida</li><li><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>Integración con redes sociales y WhatsApp</li><li><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>100% adaptable a celulares</li><li><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>Hosting, dominio y SSL por 1 año</li><li><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>Mantenimiento y soporte incluidos</li></ul>
-          <a class="pr-btn" href="https://wa.me/59892555045?text=Hola%20Santiago%2C%20me%20interesa%20el%20plan%20Web%20Start." target="_blank" rel="noopener">Quiero este plan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="pr-btn" href="https://wa.me/59892555045?text=Hola%20Santiago%2C%20me%20interesa%20el%20plan%20Web%20Start." target="_blank" rel="noopener">Quiero este plan</a>
         </article>
         <article class="pr-card bn-in is-featured" style="--d:0.1s">
           <span class="pr-tag">★ Más elegido</span>
@@ -447,7 +444,7 @@
           <div class="pr-price"><span class="pr-cur" data-uyu="$" data-usd="US$">$</span><b data-uyu="18.900" data-usd="470">18.900</b><small data-uyu="UYU" data-usd="USD">UYU</small></div>
           <span class="pr-once">Pago único · Entrega en 7 a 10 días hábiles</span>
           <ul class="pr-feats"><li><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>Todo lo de Web Start</li><li><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>Registro e inicio de sesión de usuarios</li><li><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>Panel con estadísticas y contactos</li><li><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>Catálogo de productos o servicios</li><li><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>Hosting, dominio y SSL por 1 año</li><li><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>Mantenimiento y soporte incluidos</li></ul>
-          <a class="pr-btn" href="https://wa.me/59892555045?text=Hola%20Santiago%2C%20me%20interesa%20el%20plan%20Web%20Pro." target="_blank" rel="noopener">Quiero este plan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="pr-btn" href="https://wa.me/59892555045?text=Hola%20Santiago%2C%20me%20interesa%20el%20plan%20Web%20Pro." target="_blank" rel="noopener">Quiero este plan</a>
         </article>
         <article class="pr-card bn-in" style="--d:0.2s">
           
@@ -456,7 +453,7 @@
           <div class="pr-price"><span class="pr-cur" data-uyu="$" data-usd="US$">$</span><b data-uyu="27.900" data-usd="695">27.900</b><small data-uyu="UYU" data-usd="USD">UYU</small></div>
           <span class="pr-once">Pago único · Entrega en 7 a 10 días hábiles</span>
           <ul class="pr-feats"><li><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>Todo lo de Web Pro</li><li><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>Tienda online con carrito de compras</li><li><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>Pagos con Mercado Pago y otros medios</li><li><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>Gestión de productos y pedidos</li><li><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>Hosting, dominio y SSL por 1 año</li><li><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>Mantenimiento y soporte incluidos</li></ul>
-          <a class="pr-btn" href="https://wa.me/59892555045?text=Hola%20Santiago%2C%20me%20interesa%20el%20plan%20E-commerce." target="_blank" rel="noopener">Quiero este plan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="pr-btn" href="https://wa.me/59892555045?text=Hola%20Santiago%2C%20me%20interesa%20el%20plan%20E-commerce." target="_blank" rel="noopener">Quiero este plan</a>
         </article>
       </div>
       <p class="pr-note">50% al inicio y 50% al aprobar la versión final · Desde el segundo año, renovación de hosting, dominio y soporte: 200 USD anuales.</p>
@@ -547,7 +544,7 @@
           </div>
           <label class="ct-field"><span>Email</span><input type="email" name="email" placeholder="tu@email.com" autocomplete="off" required></label>
           <label class="ct-field"><span>Mensaje</span><textarea name="mensaje" rows="5" placeholder="Contame sobre tu proyecto..." required autocomplete="off"></textarea></label>
-          <button type="submit" class="ct-submit">Enviar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <button type="submit" class="ct-submit">Enviar</button>
         </form>
       </div>
     </div>
@@ -604,7 +601,7 @@
     </div>
     <label class="ct-field"><span>Email</span><input type="email" name="email" placeholder="tu@email.com" autocomplete="off" required></label>
     <label class="ct-field"><span>Mensaje</span><textarea name="mensaje" rows="5" placeholder="Contame sobre tu proyecto..." required autocomplete="off"></textarea></label>
-    <button type="submit" class="ct-submit">Enviar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    <button type="submit" class="ct-submit">Enviar</button>
   </form>
 </div>
 
@@ -631,7 +628,7 @@
   <span id="toast-text">Mensaje enviado. ¡Gracias por escribir!</span>
 </div>
 
-<script src="js/main.js?v=202610071340"></script>
+<script src="js/main.js?v=202610071800"></script>
 <a class="wa-float" href="https://wa.me/59892555045?text=Hola%20Santiago%2C%20quiero%20hablar%20sobre%20un%20proyecto." target="_blank" rel="noopener" aria-label="Escribime por WhatsApp">
   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.48 1.34 5L2 22l5.2-1.36a9.94 9.94 0 004.84 1.24h.01c5.5 0 9.96-4.46 9.96-9.96S17.54 2 12.04 2zm5.8 14.24c-.24.68-1.4 1.3-1.93 1.36-.5.06-1.02.1-1.65-.1-.38-.12-.87-.28-1.5-.55-2.63-1.14-4.35-3.8-4.48-3.98-.13-.18-1.07-1.42-1.07-2.71 0-1.29.68-1.92.92-2.18.24-.26.52-.32.7-.32l.5.01c.16 0 .38-.06.6.46.24.56.8 1.94.87 2.08.07.14.11.3.02.48-.09.18-.14.3-.27.46-.13.16-.28.35-.4.47-.13.13-.27.27-.12.53.16.26.7 1.15 1.5 1.86 1.03.92 1.9 1.2 2.16 1.34.26.13.42.11.57-.07.16-.18.68-.8.86-1.07.18-.27.36-.22.6-.13.25.09 1.58.75 1.85.88.27.13.45.2.52.31.07.12.07.68-.17 1.36z"/></svg>
   <span class="wa-float__tip">¿Hablamos?</span>
