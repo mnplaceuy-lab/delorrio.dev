@@ -817,14 +817,13 @@
     var r=sec.getBoundingClientRect(), span=sec.offsetHeight-window.innerHeight;
     var p=still?1:Math.min(1,Math.max(0,-r.top/(span*0.8)));
     var vw=window.innerWidth, vh=window.innerHeight, mob=vw<768;
-    var w0=mob?260:320, h0=mob?340:400;
-    var R=1672/941, wf=vw, hf=vw/R; if(hf>vh){ hf=vh; wf=vh*R; }  // final: toda la pantalla, sin recortar la imagen
+    var R=1219/1157, h0=mob?260:320, w0=h0*R;
+    var hf=vh*0.9, wf=hf*R; if(wf>vw*0.96){ wf=vw*0.96; hf=wf/R; }  // final: foto grande y centrada
     media.style.width=(w0+(wf-w0)*p)+'px'; media.style.height=(h0+(hf-h0)*p)+'px';
     var tx=p*(mob?120:85);
     w1.style.transform='translateX(-'+tx+'vw)'; w2.style.transform='translateX('+tx+'vw)';
     caps[0].style.transform='translateX(-'+tx+'vw)'; caps[1].style.transform='translateX('+tx+'vw)';
     bg.style.opacity=1-p; shade.style.opacity=.55-.45*p;
-    media.style.borderRadius=(20*(1-p))+'px';
     sec.classList.toggle('is-done',p>=.98);
   }
   function on(){ if(!tick){ tick=true; requestAnimationFrame(upd); } }
