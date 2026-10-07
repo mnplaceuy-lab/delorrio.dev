@@ -1716,3 +1716,7 @@ html.dm-lock{overflow:hidden;}
 .sx-shade{display:none}
 .sx-title{z-index:2}
 .sx-media img{filter:none}
+.sx-end{width:min(820px,92vw);padding:26px 32px;gap:20px}
+.sx-end p{font-size:clamp(17px,1.6vw,21px);line-height:1.6;color:var(--text-muted)}
+.sx-end p b{color:var(--text);font-weight:600}
+.sx-end .hr-btn{font-size:16px;padding:16px 28px}
