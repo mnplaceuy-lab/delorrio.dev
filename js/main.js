@@ -833,7 +833,7 @@
 
 // ===== PORTADA: mosaico de píxeles interactivo =====
 (function(){
-  var cv=document.getElementById('hrMosaic'); if(!cv) return;
+document.querySelectorAll('.px-mosaic').forEach(function(cv){
   var hero=cv.parentNode, ctx=cv.getContext('2d');
   var still=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var S=38,G=4,cols=0,rows=0,W=0,H=0,dpr=1,cells=[],mouse={x:-1e4,y:-1e4,on:false},waves=[],visible=true,raf=0,last=0,scanT=0;
@@ -876,4 +876,5 @@
   if('IntersectionObserver' in window){ new IntersectionObserver(function(es){ visible=es[0].isIntersecting; if(visible) start(); }).observe(hero); }
   var rt; window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){build();start();},150);});
   build(); start(); if(still) frame(performance.now());
+});
 })();
