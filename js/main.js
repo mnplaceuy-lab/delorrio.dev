@@ -763,3 +763,33 @@
     });
   }
 })();
+
+// ===== PLANES: aparición, moneda y brillo con el mouse =====
+(function(){
+  var sec = document.querySelector('.pr');
+  if(!sec) return;
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(es){ if(es[0].isIntersecting){ io.disconnect(); sec.classList.add('is-in'); } }, { threshold: 0.1 });
+    io.observe(sec);
+  } else sec.classList.add('is-in');
+  var btns = sec.querySelectorAll('.pr-toggle button');
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){
+      var cur = b.getAttribute('data-cur');
+      btns.forEach(function(x){ var on = x === b; x.classList.toggle('is-on', on); x.setAttribute('aria-pressed', on); });
+      sec.querySelectorAll('[data-' + cur + ']').forEach(function(el){
+        el.classList.remove('pr-flip'); void el.offsetWidth; el.classList.add('pr-flip');
+        el.textContent = el.getAttribute('data-' + cur);
+      });
+    });
+  });
+  if(window.matchMedia('(hover: hover) and (pointer: fine)').matches){
+    sec.querySelectorAll('.pr-card').forEach(function(c){
+      c.addEventListener('mousemove', function(e){
+        var r = c.getBoundingClientRect();
+        c.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      });
+    });
+  }
+})();
