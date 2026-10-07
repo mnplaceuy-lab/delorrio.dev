@@ -172,7 +172,7 @@
 
   // abrir automáticamente al entrar a la página
   window.addEventListener('load', function(){
-    setTimeout(openModal, 1200);
+    // (ventana automática al entrar: desactivada)
   });
 
 
