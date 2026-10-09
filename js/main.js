@@ -326,8 +326,6 @@
     var stage = root.querySelector('[data-c3-stage]');
     var ring = root.querySelector('[data-c3-ring]');
     var cards = Array.prototype.slice.call(ring.querySelectorAll('.c3-card'));
-    var view = document.querySelector('[data-c3-view]');
-    document.body.appendChild(view);
     var n = cards.length, step = 360 / n;
     var lastFocus = null, current = null, viewCard = null;
 
@@ -356,7 +354,7 @@
     var rot = 0, vel = 0, dragging = false, moved = 0, lastX = 0, lastT = 0, idle = 0, paused = false;
     function layout(){
       var sm = window.matchMedia('(max-width:640px)').matches;
-      var cw = sm ? 1100 : 2400;
+      var cw = sm ? 2200 : 3000;
       var fw = cw / n, radius = cw / (2 * Math.PI);
       ring.style.width = cw + 'px';
       cards.forEach(function(c, i){
@@ -381,7 +379,7 @@
       }
     }
     function tick(t){
-      if(!dragging && !paused){
+      if(!dragging && modal.hidden){
         if(Math.abs(vel) > 0.01){ rot += vel; vel *= 0.94; idle = 0; }
         else { vel = 0; idle++; if(idle > 120) rot -= 0.06; }
       }
@@ -413,48 +411,26 @@
       if(moved < 6){
         var el = document.elementFromPoint(e.clientX, e.clientY);
         var c = el && el.closest && el.closest('.c3-card');
-        if(c) openView(c);
+        if(c) openDemo(c);
       }
     }
     stage.addEventListener('pointerup', end);
     stage.addEventListener('pointercancel', function(){ dragging = false; stage.classList.remove('is-drag'); });
     // teclado
     cards.forEach(function(c){
-      c.addEventListener('click', function(e){ if(e.detail === 0) openView(c); });
+      c.addEventListener('click', function(e){ if(e.detail === 0) openDemo(c); });
     });
     root.addEventListener('keydown', function(e){
       if(e.key === 'ArrowRight'){ e.preventDefault(); vel = 0; rot -= step; }
       else if(e.key === 'ArrowLeft'){ e.preventDefault(); vel = 0; rot += step; }
     });
 
-    // ---- vista ampliada
-    var vImg = view.querySelector('[data-c3-img]');
-    function openView(c){
-      var d = info(c); viewCard = c; paused = true; vel = 0;
-      var img = c.querySelector('img');
-      vImg.src = img.getAttribute('src'); vImg.alt = img.alt;
-      view.querySelector('[data-c3-name]').textContent = d.name;
-      view.querySelector('[data-c3-url]').textContent = d.url;
-      view.querySelector('[data-c3-desc]').textContent = d.desc;
-      view.hidden = false;
-      document.documentElement.classList.add('dm-lock');
-      requestAnimationFrame(function(){ view.classList.add('is-open'); });
-      setTimeout(function(){ view.querySelector('[data-c3-try]').focus(); }, 60);
-    }
-    function closeView(keepLock){
-      view.classList.remove('is-open'); paused = false; idle = 0;
-      if(!keepLock) document.documentElement.classList.remove('dm-lock');
-      setTimeout(function(){ if(!view.classList.contains('is-open')) view.hidden = true; }, 380);
-    }
-    view.addEventListener('click', function(e){ if(e.target === view || e.target.closest('[data-c3-close]')) closeView(); });
-    view.querySelector('[data-c3-try]').addEventListener('click', function(){ var c = viewCard; closeView(true); openDemo(c); });
-
     document.querySelectorAll('[data-demo-open]').forEach(function(b){ b.addEventListener('click', function(){ openDemo(cards[frontIndex()]); }); });
     document.getElementById('dm-close').addEventListener('click', closeDemo);
     modal.addEventListener('click', function(e){ if(e.target === modal) closeDemo(); });
     document.addEventListener('keydown', function(e){
       if(e.key !== 'Escape') return;
-      if(!modal.hidden) closeDemo(); else if(!view.hidden) closeView();
+      if(!modal.hidden) closeDemo();
     });
     document.getElementById('dm-want').addEventListener('click', function(){
       var name = current ? current.name : '';
