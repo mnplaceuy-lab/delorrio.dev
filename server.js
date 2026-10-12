@@ -19,7 +19,7 @@ const FROM = process.env.CONTACT_FROM || 'Delorrio.dev <onboarding@resend.dev>';
 const TYPES = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
   '.json': 'application/json', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
-  '.svg': 'image/svg+xml', '.webp': 'image/webp', '.ico': 'image/x-icon', '.txt': 'text/plain; charset=utf-8',
+  '.svg': 'image/svg+xml', '.webp': 'image/webp', '.ico': 'image/x-icon', '.txt': 'text/plain; charset=utf-8', '.xml': 'application/xml; charset=utf-8',
 };
 // carpetas/archivos que nunca se sirven
 const PRIVATE = /^\/(node_modules|scene|\.git)(\/|$)|^\/(server\.js|package(-lock)?\.json|\.gitignore|\.env)$/;
