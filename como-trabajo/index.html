@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cómo trabajamos juntos · Delorrio.dev</title>
+<meta name="description" content="Paso a paso de cómo es hacer tu web con Delorrio.dev: charla inicial, contrato digital, diseño, desarrollo y publicación. Seguís todo en vivo desde tu panel de cliente.">
+<link rel="canonical" href="https://delorrio.dev/como-trabajo/">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="es_UY">
+<meta property="og:site_name" content="Delorrio.dev">
+<meta property="og:url" content="https://delorrio.dev/como-trabajo/">
+<meta property="og:title" content="Cómo trabajamos juntos · Delorrio.dev">
+<meta property="og:description" content="Del primer mensaje a tu web publicada: así es el proceso, paso a paso.">
+<meta property="og:image" content="https://delorrio.dev/img/og-como-trabajo.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#050b16">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050b16;--surface:#0b1526;--surface2:#0f1c31;--border:#1b2a42;--text:#f4f7fb;--muted:#93a5c2;--dim:#64779a;--accent:#37b6ff;--accent2:#7ef0ff;--ok:#34d399;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.65 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(900px 520px at 90% -10%,rgba(55,182,255,.14),transparent 60%),linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px) 0 0/44px 44px,linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px) 0 0/44px 44px}
+a{color:var(--accent)}
+h1,h2,h3{font-family:Sora,Inter,sans-serif;margin:0;letter-spacing:-.015em;text-wrap:balance}
+.wrap{max-width:880px;margin:0 auto;padding-inline:20px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:22px}
+.logo{display:inline-flex;align-items:center;gap:8px;font:700 19px/1 Sora,sans-serif;color:var(--text);text-decoration:none}
+.logo i{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:12px 20px;border-radius:12px;font-weight:700;font-size:15px;text-decoration:none;border:1px solid #24385a;background:var(--surface2);color:var(--text);transition:transform .15s,background .15s;cursor:pointer;font-family:inherit}
+.btn:hover{transform:translateY(-1px);background:#13233c}
+.btn svg{width:18px;height:18px;flex:none}
+.btn-p{background:linear-gradient(135deg,var(--accent),var(--accent2));border-color:transparent;color:#031521;box-shadow:0 12px 30px -12px rgba(55,182,255,.8)}
+.btn-p:hover{background:linear-gradient(135deg,#55c2ff,#9af4ff)}
+.btn-wa{background:#25d366;border-color:transparent;color:#04220f}
+.btn-wa:hover{background:#3ee07a}
+.btn-sm{padding:9px 14px;font-size:13.5px}
+
+.hero{padding-block:40px 34px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;border:1px solid rgba(55,182,255,.35);background:rgba(55,182,255,.08);color:var(--accent2);font:600 12.5px/1 Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase}
+.hero h1{font-size:clamp(32px,6vw,52px);line-height:1.08;margin:18px 0 16px}
+.grad{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{font-size:clamp(16px,2.2vw,18.5px);color:var(--muted);max-width:60ch;margin:0}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--border);font-size:14px;color:#c7d3e6}
+.pill svg{width:16px;height:16px;color:var(--ok)}
+
+section{padding-block:30px}
+.sec-h{margin-bottom:22px}
+.sec-h .k{font:500 12px/1 "JetBrains Mono",monospace;color:var(--accent);letter-spacing:.12em;text-transform:uppercase}
+.sec-h h2{font-size:clamp(24px,4vw,32px);margin-top:10px}
+.sec-h p{color:var(--muted);margin:8px 0 0}
+
+/* pasos */
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:0;counter-reset:s}
+.step{position:relative;display:grid;grid-template-columns:52px 1fr;gap:18px;padding-bottom:26px}
+.step::before{content:"";position:absolute;left:25px;top:52px;bottom:0;width:2px;background:linear-gradient(var(--accent),rgba(55,182,255,.08))}
+.step:last-child{padding-bottom:0}.step:last-child::before{display:none}
+.num{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(55,182,255,.22),rgba(126,240,255,.08));border:1px solid rgba(55,182,255,.4);font:800 19px/1 Sora,sans-serif;color:var(--accent2)}
+.step-c{padding:14px 18px 16px;border-radius:16px;background:linear-gradient(180deg,rgba(15,28,49,.9),rgba(11,21,38,.9));border:1px solid var(--border);min-width:0}
+.step-c h3{font-size:18px;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.tag{display:inline-flex;padding:3px 9px;border-radius:999px;font:700 11.5px/1.3 Inter,sans-serif;letter-spacing:.02em;background:rgba(52,211,153,.12);color:var(--ok);border:1px solid rgba(52,211,153,.3)}
+.tag.b{background:rgba(55,182,255,.1);color:var(--accent);border-color:rgba(55,182,255,.3)}
+.step-c p{margin:6px 0 0;color:#c7d3e6;font-size:15.5px}
+.step-c ul{margin:8px 0 0;padding-left:18px;color:#c7d3e6;font-size:15px}
+.step-c li{margin:3px 0}
+.who{margin-top:10px;font-size:13px;color:var(--dim)}
+.who b{color:var(--muted);font-weight:600}
+
+/* panel */
+.panel{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.feat{display:flex;gap:14px;padding:16px;border-radius:16px;background:var(--surface);border:1px solid var(--border);min-width:0}
+.feat .ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(55,182,255,.1);color:var(--accent);flex:none}
+.feat .ic svg{width:20px;height:20px}
+.feat h3{font-size:15.5px}
+.feat p{margin:3px 0 0;color:var(--muted);font-size:14px;line-height:1.5}
+
+/* planes */
+.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.plan{padding:20px;border-radius:18px;background:linear-gradient(180deg,#0f1c31,#0a1424);border:1px solid var(--border);display:flex;flex-direction:column;gap:6px;min-width:0}
+.plan.hot{border-color:rgba(55,182,255,.55);box-shadow:0 0 0 1px rgba(55,182,255,.25),0 20px 50px -30px rgba(55,182,255,.6)}
+.plan h3{font-size:17px}
+.plan .pr{font:800 28px/1.1 Sora,sans-serif;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin-top:6px}
+.plan .pr small{font:600 13px Inter,sans-serif;color:var(--accent)}
+.plan .usd{font-size:13.5px;color:var(--muted)}
+.plan .t{margin-top:auto;padding-top:12px;border-top:1px solid var(--border);font-size:13.5px;color:#c7d3e6;display:flex;align-items:center;gap:8px}
+.plan .t svg{width:16px;height:16px;color:var(--accent)}
+.plan p{margin:0;font-size:14px;color:var(--muted)}
+.note{margin-top:14px;font-size:14px;color:var(--muted)}
+
+/* listas incluye / necesito */
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.box{padding:20px;border-radius:18px;background:var(--surface);border:1px solid var(--border);min-width:0}
+.box h3{font-size:16.5px;margin-bottom:10px}
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.checks li{display:flex;gap:10px;font-size:15px;color:#c7d3e6}
+.checks svg{width:18px;height:18px;flex:none;margin-top:3px;color:var(--ok)}
+.box.need .checks svg{color:var(--accent)}
+
+/* faq */
+.faq{display:grid;gap:10px}
+.faq details{border-radius:14px;background:var(--surface);border:1px solid var(--border);padding:0 18px}
+.faq summary{cursor:pointer;list-style:none;padding:16px 0;font-weight:600;font-size:15.5px;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--accent);font:600 20px/1 Sora,sans-serif;transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq p{margin:0 0 16px;color:var(--muted);font-size:15px}
+
+/* cta */
+.cta{margin-block:20px 50px;padding:clamp(24px,5vw,40px);border-radius:24px;background:radial-gradient(600px 300px at 100% 0,rgba(55,182,255,.22),transparent 70%),linear-gradient(180deg,#0f1c31,#0a1424);border:1px solid rgba(55,182,255,.35);text-align:center}
+.cta h2{font-size:clamp(24px,4vw,32px)}
+.cta p{color:var(--muted);margin:10px auto 22px;max-width:52ch}
+.cta-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.contact{display:flex;justify-content:center;gap:8px 22px;flex-wrap:wrap;margin-top:20px;font-size:14px;color:var(--muted)}
+.contact a{color:var(--muted);text-decoration:none}
+.contact a:hover{color:var(--text)}
+footer{padding-block:0 40px;text-align:center;color:var(--dim);font-size:13px}
+
+@media (max-width:720px){
+  .panel,.two{grid-template-columns:1fr}
+  .plans{grid-template-columns:1fr}
+  .step{grid-template-columns:42px 1fr;gap:12px}
+  .num{width:42px;height:42px;border-radius:13px;font-size:16px}
+  .step::before{left:20px;top:42px}
+  .top .btn span{display:none}
+}
+
+/* impresión / PDF */
+@media print{
+  @page{size:A4;margin:14mm 14mm 16mm}
+  :root{--bg:#fff;--surface:#f8fafc;--surface2:#f1f5f9;--border:#e2e8f0;--text:#0f172a;--muted:#475569;--dim:#64748b;--accent:#0284c7;--accent2:#0369a1;color-scheme:light}
+  body{background:#fff;color:#0f172a;font-size:12px;line-height:1.5}
+  .step-c{padding:10px 14px}.step-c p,.step-c ul,.checks li,.faq p,.feat p{font-size:12.5px}.checks{gap:6px}.sec-h{margin-bottom:12px}.sec-h h2{font-size:20px}
+  body::before,.no-print,.top .btn,.cta-btns,.faq summary::after{display:none!important}
+  .wrap{max-width:none;padding:0}
+  .hero{padding-block:8px 14px}.hero h1{font-size:30px;margin:10px 0}
+  .hero p,.step-c p,.step-c ul,.checks li,.faq p,.feat p,.plan p{color:#334155}
+  .grad{-webkit-text-fill-color:#0369a1;color:#0369a1;background:none}
+  .eyebrow,.pill,.tag{border-color:#cbd5e1;background:#f1f5f9;color:#0369a1}
+  section{padding-block:12px}
+  .step-c,.feat,.plan,.box,.faq details,.cta{background:#fff!important;box-shadow:none!important;break-inside:avoid}
+  .step::before{background:#bae6fd}
+  .num{background:#e0f2fe;border-color:#7dd3fc;color:#0369a1}
+  .faq details{padding:0 12px}.faq summary{padding:10px 0 4px}.faq p{margin-bottom:10px}
+  .faq details:not([open]) > *:not(summary){display:block}
+  .cta{margin:10px 0 0;padding:16px;border-color:#cbd5e1}
+  .plan .pr small,.plan .t svg,.feat .ic{color:#0284c7}
+  .feat .ic{background:#e0f2fe}
+  a{color:#0369a1}
+  h2{break-after:avoid}
+  .sec-h{break-inside:avoid;break-after:avoid}
+  .plans{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  .panel,.two{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .step{grid-template-columns:42px 1fr!important;gap:12px!important;padding-bottom:14px}
+  .num{width:42px;height:42px;font-size:16px}.step::before{left:20px;top:42px}
+  .plan .t{color:#334155}
+  .feat{padding:12px}.box{padding:14px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="/">Delorrio.dev<i></i></a>
+    <a class="btn btn-sm no-print" href="https://wa.me/59892555045?text=Hola%20Santiago%2C%20le%C3%AD%20c%C3%B3mo%20trabaj%C3%A1s%20y%20quiero%20arrancar%20mi%20web." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.66 15l-1.3 4.75 4.87-1.28A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.18-1.14l-.3-.18-2.89.76.77-2.82-.2-.3A8.2 8.2 0 1112 20.2zm4.5-6.14c-.25-.12-1.46-.72-1.69-.8s-.39-.12-.55.12-.63.8-.78.97-.29.18-.53.06a6.7 6.7 0 01-3.33-2.91c-.25-.43.25-.4.72-1.34a.45.45 0 00-.02-.43c-.06-.12-.55-1.33-.76-1.82s-.4-.41-.55-.42h-.47a.9.9 0 00-.65.3 2.74 2.74 0 00-.86 2.04 4.77 4.77 0 001 2.53 10.9 10.9 0 004.18 3.7c1.56.67 2.17.73 2.95.62a2.52 2.52 0 001.65-1.17 2.05 2.05 0 00.14-1.16c-.06-.1-.22-.16-.47-.28z"/></svg><span>Escribime</span></a>
+  </header>
+
+  <div class="hero">
+    <span class="eyebrow">Guía para clientes</span>
+    <h1>Cómo trabajamos <span class="grad">juntos.</span></h1>
+    <p>Hola, soy Santiago. Diseño y desarrollo páginas web a medida para negocios. Te cuento paso a paso cómo es el proceso, del primer mensaje hasta tu web publicada, para que sepas qué esperar en cada momento.</p>
+    <div class="hero-meta">
+      <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Precio cerrado</span>
+      <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Sin comisiones ni mensualidades</span>
+      <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Avance en vivo desde tu panel</span>
+    </div>
+  </div>
+
+  <section id="proceso">
+    <div class="sec-h"><span class="k">El proceso</span><h2>8 pasos, de la idea a tu web online</h2></div>
+    <ol class="steps">
+      <li class="step"><span class="num">1</span><div class="step-c">
+        <h3>Charla inicial <span class="tag">Sin costo</span></h3>
+        <p>Por WhatsApp o videollamada me contás de tu negocio: qué vendés, a quién, qué querés lograr con la web y qué páginas te gustan como referencia.</p>
+        <div class="who"><b>Vos:</b> me contás tu idea · <b>Yo:</b> te asesoro</div>
+      </div></li>
+      <li class="step"><span class="num">2</span><div class="step-c">
+        <h3>Propuesta a medida</h3>
+        <p>Te recomiendo el plan que mejor se ajusta a lo que necesitás, con <b>precio cerrado</b>, plazo de entrega y todo lo que incluye. Sin letra chica.</p>
+      </div></li>
+      <li class="step"><span class="num">3</span><div class="step-c">
+        <h3>Contrato digital y seña <span class="tag b">50%</span></h3>
+        <p>Te llega un email para crear tu acceso al <b>panel de cliente</b>. Ahí leés y firmás el contrato desde el celular, en un par de minutos, y te llega una copia en PDF. Con la firma y la seña del 50% reservamos tu lugar y arrancamos.</p>
+      </div></li>
+      <li class="step"><span class="num">4</span><div class="step-c">
+        <h3>Me enviás los materiales</h3>
+        <p>En tu panel tenés una lista con todo lo que necesito y podés subir los archivos ahí mismo:</p>
+        <ul><li>Logo en buena calidad</li><li>Textos (quiénes son, servicios o productos)</li><li>Fotos de tu negocio, productos o servicios</li><li>Datos de contacto y redes sociales</li></ul>
+        <div class="who">El plazo de entrega empieza a contar cuando tengo todo.</div>
+      </div></li>
+      <li class="step"><span class="num">5</span><div class="step-c">
+        <h3>Diseño</h3>
+        <p>Armo la propuesta visual de tu web: colores, tipografías y estructura. La ves en una vista previa real y, desde tu panel, la <b>aprobás</b> o me <b>pedís cambios</b> con un clic.</p>
+      </div></li>
+      <li class="step"><span class="num">6</span><div class="step-c">
+        <h3>Desarrollo</h3>
+        <p>Construyo tu web completa y funcionando. Mientras tanto, en tu panel ves el <b>avance en vivo</b>: el porcentaje, las etapas y las novedades con capturas a medida que avanzo.</p>
+      </div></li>
+      <li class="step"><span class="num">7</span><div class="step-c">
+        <h3>Revisión final y saldo <span class="tag b">50%</span></h3>
+        <p>Recorrés la web terminada en computadora y celular, y la aprobás. Con el pago del 50% restante pasamos a publicarla.</p>
+      </div></li>
+      <li class="step"><span class="num">8</span><div class="step-c">
+        <h3>¡Publicación! <span class="tag">Web online</span></h3>
+        <p>Tu web queda online con tu dominio, hosting y certificado de seguridad (SSL). Tenés <b>30 días de ajustes incluidos</b> y soporte durante todo el primer año.</p>
+      </div></li>
+    </ol>
+  </section>
+
+  <section id="panel">
+    <div class="sec-h"><span class="k">Tu panel de cliente</span><h2>Seguís todo en vivo, sin tener que preguntar</h2><p>Desde que firmás, tenés tu propio panel en delorrio.dev/panel con todo el proyecto en un solo lugar.</p></div>
+    <div class="panel">
+      <div class="feat"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 6-6"/></svg></span><div><h3>Avance y etapas</h3><p>El porcentaje de avance y en qué etapa estamos, actualizado al instante.</p></div></div>
+      <div class="feat"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></span><div><h3>Aprobaciones</h3><p>Aprobás cada etapa o me pedís cambios con un clic.</p></div></div>
+      <div class="feat"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 002-2V4a2 2 0 00-2-2H8a2 2 0 00-2 2v16a2 2 0 01-2 2zm0 0a2 2 0 01-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></svg></span><div><h3>Novedades</h3><p>Cada avance que hago, con capturas y links a la vista previa.</p></div></div>
+      <div class="feat"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span><div><h3>Mensajes</h3><p>Chat directo conmigo, y todo queda guardado en un solo lugar.</p></div></div>
+      <div class="feat"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg></span><div><h3>Archivos</h3><p>Subís tus materiales y descargás lo que te comparto.</p></div></div>
+      <div class="feat"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg></span><div><h3>Pagos y contrato</h3><p>El estado de tus pagos y tu contrato firmado, siempre a mano.</p></div></div>
+    </div>
+    <p class="note">Además te aviso por email cada vez que hay una novedad o algo para revisar.</p>
+  </section>
+
+  <section id="planes">
+    <div class="sec-h"><span class="k">Planes y plazos</span><h2>Precio cerrado, pago único</h2></div>
+    <div class="plans">
+      <div class="plan"><h3>Web Start</h3><p>Landing page para tener presencia online y captar clientes.</p><div class="pr">$ 8.900 <small>UYU</small></div><div class="usd">o US$ 220</div><div class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>1 a 2 días hábiles</div></div>
+      <div class="plan hot"><h3>Web Pro</h3><p>Web con panel, usuarios y catálogo de productos o servicios.</p><div class="pr">$ 27.900 <small>UYU</small></div><div class="usd">o US$ 690</div><div class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>7 a 10 días hábiles</div></div>
+      <div class="plan"><h3>E-commerce</h3><p>Tienda online completa con carrito y pagos con Mercado Pago.</p><div class="pr">$ 44.900 <small>UYU</small></div><div class="usd">o US$ 1.110</div><div class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>10 a 15 días hábiles</div></div>
+    </div>
+    <p class="note">Pagás 50% al inicio y 50% al aprobar la versión final, por transferencia bancaria, Mercado Pago u otros medios según tu ubicación. Los plazos corren desde que recibo la seña y todos los materiales.</p>
+  </section>
+
+  <section id="incluye">
+    <div class="two">
+      <div class="box"><h3>Todos los planes incluyen</h3><ul class="checks">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Diseño 100% a medida, nada de plantillas genéricas</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Adaptada a celulares y tablets</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Hosting, dominio y SSL por 1 año</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Integración con WhatsApp y redes sociales</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>30 días de ajustes y soporte por 1 año</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Sin comisiones por venta ni mensualidades</li>
+      </ul></div>
+      <div class="box need"><h3>Lo que necesito de vos</h3><ul class="checks">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>Tu logo en buena calidad (PNG o SVG)</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>Los textos de tu negocio y servicios</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>Fotos de tus productos, servicios o local</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>Datos de contacto y redes sociales</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>Para tiendas: lista de productos con precios y cuenta de Mercado Pago</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>Responder las revisiones dentro de lo posible en 48 h</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section id="preguntas">
+    <div class="sec-h"><span class="k">Preguntas frecuentes</span><h2>Lo que más me preguntan</h2></div>
+    <div class="faq">
+      <details><summary>¿Puedo pedir cambios?</summary><p>Sí. Durante el proyecto aprobás o pedís cambios en cada etapa, y después de la entrega tenés 30 días de ajustes incluidos. Los cambios posteriores o fuera de lo acordado cuestan US$ 25 por hora, y siempre te los presupuesto antes.</p></details>
+      <details><summary>¿La web queda a mi nombre?</summary><p>Sí. Una vez abonado el total, el diseño y los contenidos de tu sitio son tuyos.</p></details>
+      <details><summary>¿Qué pasa después del primer año?</summary><p>La renovación de hosting, dominio y soporte cuesta US$ 200 al año. Si preferís no renovar, te entrego los archivos para que la alojes donde quieras.</p></details>
+      <details><summary>¿Y si me demoro en mandar los materiales?</summary><p>No pasa nada, el proyecto queda en pausa y el plazo se corre en la misma medida. En tu panel siempre ves qué falta.</p></details>
+      <details><summary>¿Tengo que saber algo de tecnología?</summary><p>No. Yo me encargo de todo lo técnico. Vos solo revisás desde el celular y me decís qué te parece.</p></details>
+    </div>
+  </section>
+
+  <div class="cta">
+    <h2>¿Arrancamos con tu web?</h2>
+    <p>Escribime y coordinamos la charla inicial, sin costo y sin compromiso.</p>
+    <div class="cta-btns">
+      <a class="btn btn-wa" href="https://wa.me/59892555045?text=Hola%20Santiago%2C%20le%C3%AD%20c%C3%B3mo%20trabaj%C3%A1s%20y%20quiero%20arrancar%20mi%20web." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.66 15l-1.3 4.75 4.87-1.28A10 10 0 1012 2zm4.5 12.06c-.25-.12-1.46-.72-1.69-.8s-.39-.12-.55.12-.63.8-.78.97-.29.18-.53.06a6.7 6.7 0 01-3.33-2.91c-.25-.43.25-.4.72-1.34a.45.45 0 00-.02-.43c-.06-.12-.55-1.33-.76-1.82s-.4-.41-.55-.42h-.47a.9.9 0 00-.65.3 2.74 2.74 0 00-.86 2.04 4.77 4.77 0 001 2.53 10.9 10.9 0 004.18 3.7c1.56.67 2.17.73 2.95.62a2.52 2.52 0 001.65-1.17 2.05 2.05 0 00.14-1.16c-.06-.1-.22-.16-.47-.28z"/></svg>Escribime por WhatsApp</a>
+      <a class="btn btn-p" href="/#planes">Ver la web</a>
+    </div>
+    <div class="contact"><span>WhatsApp: <a href="https://wa.me/59892555045">092 555 045</a></span><span>Web: <a href="https://delorrio.dev">delorrio.dev</a></span><span>Instagram: <a href="https://instagram.com/delorrio.dev">@delorrio.dev</a></span></div>
+  </div>
+  <footer>Delorrio.dev · Diseño y desarrollo web</footer>
+</div>
+<script>window.addEventListener('beforeprint',function(){document.querySelectorAll('details').forEach(function(d){d.open=true;});});</script>
+</body>
+</html>

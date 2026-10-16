@@ -9,4 +9,10 @@
     <image:image><image:loc>https://delorrio.dev/img/og-image.jpg</image:loc></image:image>
     <image:image><image:loc>https://delorrio.dev/img/santiago.png</image:loc></image:image>
   </url>
+  <url>
+    <loc>https://delorrio.dev/como-trabajo/</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
