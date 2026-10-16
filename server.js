@@ -6,6 +6,8 @@
 //   RESEND_API_KEY   clave de https://resend.com (obligatoria para el formulario)
 //   CONTACT_TO       correo que recibe los mensajes (por defecto santiagodelorrio2013@gmail.com)
 //   CONTACT_FROM     remitente (por defecto "Delorrio.dev <onboarding@resend.dev>")
+//   ADMIN_EMAIL      email para entrar a delorrio.dev/admin
+//   ADMIN_PASSWORD   contraseña de delorrio.dev/admin (mínimo 10 caracteres)
 
 const http = require('http');
 const fs = require('fs');
@@ -15,6 +17,7 @@ const PORT = process.env.PORT || 3000;
 const ROOT = __dirname;
 const TO = process.env.CONTACT_TO || 'santiagodelorrio2013@gmail.com';
 const FROM = process.env.CONTACT_FROM || 'Delorrio.dev <onboarding@resend.dev>';
+const portal = require('./lib/portal')({ ROOT });
 
 const TYPES = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
@@ -22,7 +25,7 @@ const TYPES = {
   '.svg': 'image/svg+xml', '.webp': 'image/webp', '.ico': 'image/x-icon', '.txt': 'text/plain; charset=utf-8', '.xml': 'application/xml; charset=utf-8',
 };
 // carpetas/archivos que nunca se sirven
-const PRIVATE = /^\/(node_modules|scene|\.git)(\/|$)|^\/(server\.js|package(-lock)?\.json|\.gitignore|\.env)$/;
+const PRIVATE = /^\/(node_modules|scene|lib|data|\.git)(\/|$)|^\/(server\.js|package(-lock)?\.json|\.gitignore|\.env)$/;
 
 function send(res, status, body, type) {
   res.writeHead(status, { 'Content-Type': type || 'application/json; charset=utf-8' });
@@ -107,10 +110,11 @@ function handleContact(req, res) {
 }
 
 http.createServer((req, res) => {
+  if (portal.handle(req, res)) return;
   if (req.url.split('?')[0] === '/api/contact') {
     if (req.method !== 'POST') return send(res, 405, { ok: false, error: 'Método no permitido' });
     return handleContact(req, res);
   }
   if (req.method !== 'GET' && req.method !== 'HEAD') return send(res, 405, 'Method not allowed', 'text/plain');
   serveStatic(req, res);
-}).listen(PORT, () => console.log(`Delorrio.dev en puerto ${PORT}`));
+}).listen(PORT, () => console.log(`Delorrio.dev en puerto ${PORT} · datos del portal en ${portal.dataDir}`));

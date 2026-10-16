@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /panel/
+Disallow: /admin/
+Disallow: /api/
 
 Sitemap: https://delorrio.dev/sitemap.xml
