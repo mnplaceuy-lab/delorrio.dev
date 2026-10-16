@@ -150,6 +150,16 @@
       app.innerHTML = html; bindTop(); return;
     }
 
+    if (p.contract && p.contract.status === 'pending') {
+      var sigKey = p.id + '|' + p.contract.sentAt;
+      if (D.$('#sf') && S.signShown === sigKey) return; // no borrar la firma que está dibujando
+      S.signShown = sigKey;
+      var keepSign = S.signDraft && S.signDraft.pid === p.id ? S.signDraft : null;
+      app.innerHTML = html + signView(p) + '</main>';
+      bindTop(); bindSign(p, keepSign);
+      return;
+    }
+
     var rev = p.stages.filter(function (s) { return s.status === 'en_revision'; });
     if (rev.length) {
       html += '<div class="alert-rev"><p>' + ic('bell').replace('<svg', '<svg style="width:18px;height:18px;vertical-align:-3px;margin-right:8px;color:var(--warn)"') +
@@ -158,7 +168,7 @@
     }
 
     html += hero(p) + '<div class="cl-grid"><div class="cl-col">' + stagesCard(p) + updatesCard(p) + '</div>' +
-      '<div class="cl-col">' + chatCard(p) + tasksCard(p) + paysCard(p) + filesCard(p) + activityCard(p) + '</div></div></main>';
+      '<div class="cl-col">' + chatCard(p) + contractCard(p) + tasksCard(p) + paysCard(p) + filesCard(p) + activityCard(p) + '</div></div></main>';
 
     app.innerHTML = html;
     bindTop(); bind(p);
@@ -210,6 +220,87 @@
         '</div></div>';
     });
     return out + '</div></section>';
+  }
+
+  // ---------------- contrato ----------------
+  function docHtml(body) {
+    var out = '', list = false;
+    String(body || '').replace(/\r/g, '').split('\n').forEach(function (line) {
+      var t = line.trim();
+      if (/^- /.test(t)) { if (!list) { out += '<ul>'; list = true; } out += '<li>' + esc(t.slice(2)) + '</li>'; return; }
+      if (list) { out += '</ul>'; list = false; }
+      if (!t) return;
+      if (t.indexOf('## ') === 0) out += '<h3>' + esc(t.slice(3)) + '</h3>';
+      else out += '<p>' + esc(t) + '</p>';
+    });
+    return out + (list ? '</ul>' : '');
+  }
+  function signView(p) {
+    return '<section class="card sign-intro"><div class="sign-ic">' + ic('edit') + '</div><div><h2>Antes de arrancar, firmemos el contrato</h2><p class="muted">Leelo con calma. Cuando lo firmes, se habilita tu panel con el avance del proyecto y te llega una copia en PDF por email.</p></div>' +
+      '<a class="btn" href="/api/portal/contract/' + p.id + '.pdf" target="_blank" rel="noopener">' + ic('download') + 'Ver en PDF</a></section>' +
+      '<section class="card doc"><div class="doc-h"><span class="mono dim">CONTRATO</span><h2>Contrato de servicios de diseño y desarrollo web</h2><p class="muted">' + esc(p.name) + ' · Plan ' + esc(p.plan) + ' · Enviado el ' + D.date(p.contract.sentAt) + '</p></div><div class="doc-b">' + docHtml(p.contract.body) + '</div></section>' +
+      '<section class="card sign-card" id="sign"><div class="card-h"><h3>' + ic('edit') + 'Firma</h3><span class="dim" style="font-size:12.5px">Firma electrónica · Ley N.º 18.600</span></div>' +
+      '<form id="sf" novalidate><div class="grid2"><label class="field"><span>Nombre y apellido</span><input class="input" name="name" autocomplete="name" value="' + esc(S.client.name) + '"></label>' +
+      '<label class="field"><span>Documento (CI o RUT)</span><input class="input" name="doc" inputmode="numeric" placeholder="Ej.: 4.567.890-1"></label></div>' +
+      '<div class="field"><span>Tu firma</span><div class="sigpad"><canvas id="sigc" aria-label="Recuadro para firmar"></canvas><span class="sig-ph" id="sigph">Firmá acá con el dedo o el mouse</span><button type="button" class="btn btn-ghost btn-sm" id="sigclr">' + ic('refresh') + 'Borrar</button></div></div>' +
+      '<label class="check" style="cursor:pointer"><input type="checkbox" name="accept"><span class="box">' + ic('check') + '</span><span class="t">Leí el contrato completo y acepto sus términos y condiciones.</span></label>' +
+      '<div class="form-err" id="serr" role="alert"></div>' +
+      '<button class="btn btn-primary btn-block" type="submit">' + ic('check') + 'Firmar contrato</button>' +
+      '<p class="dim" style="font-size:12px;margin:0;text-align:center">Al firmar se registran tu nombre, documento, firma, fecha, hora e IP.</p></form></section>';
+  }
+  function bindSign(p, keep) {
+    var f = D.$('#sf'), cv = D.$('#sigc'), ph = D.$('#sigph'), er = D.$('#serr');
+    var ctx = cv.getContext('2d'), drawn = 0, last = null, dpr = Math.max(1, window.devicePixelRatio || 1);
+    function size() {
+      var r = cv.getBoundingClientRect(), old = drawn ? cv.toDataURL() : null;
+      cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = '#0f172a'; ctx.lineWidth = 2.4;
+      if (old) { var im = new Image(); im.onload = function () { ctx.drawImage(im, 0, 0, r.width, r.height); }; im.src = old; }
+    }
+    size(); window.addEventListener('resize', size);
+    function pt(e) { var r = cv.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
+    cv.addEventListener('pointerdown', function (e) { e.preventDefault(); cv.setPointerCapture(e.pointerId); last = pt(e); ph.hidden = true; ctx.beginPath(); ctx.arc(last.x, last.y, 1.1, 0, Math.PI * 2); ctx.fillStyle = '#0f172a'; ctx.fill(); });
+    cv.addEventListener('pointermove', function (e) {
+      if (!last) return; var q = pt(e);
+      ctx.beginPath(); ctx.moveTo(last.x, last.y); ctx.lineTo(q.x, q.y); ctx.stroke();
+      drawn += Math.hypot(q.x - last.x, q.y - last.y); last = q;
+    });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (ev) { cv.addEventListener(ev, function () { last = null; }); });
+    D.$('#sigclr').addEventListener('click', function () { ctx.clearRect(0, 0, cv.width, cv.height); drawn = 0; ph.hidden = false; });
+    if (keep) { f.name.value = keep.name; f.doc.value = keep.doc; f.accept.checked = keep.accept; }
+    f.addEventListener('input', function () { S.signDraft = { pid: p.id, name: f.name.value, doc: f.doc.value, accept: f.accept.checked }; });
+    f.addEventListener('submit', function (e) {
+      e.preventDefault(); er.textContent = '';
+      if (f.name.value.trim().split(/\s+/).length < 2) { er.textContent = 'Escribí tu nombre y apellido completos'; return; }
+      if (f.doc.value.replace(/\D/g, '').length < 5) { er.textContent = 'Escribí tu número de documento'; return; }
+      if (drawn < 60) { er.textContent = 'Dibujá tu firma en el recuadro'; return; }
+      if (!f.accept.checked) { er.textContent = 'Tenés que aceptar los términos para firmar'; return; }
+      // firma sobre fondo blanco → JPEG
+      var out = document.createElement('canvas'); out.width = cv.width; out.height = cv.height;
+      var o = out.getContext('2d'); o.fillStyle = '#fff'; o.fillRect(0, 0, out.width, out.height); o.drawImage(cv, 0, 0);
+      var sig = out.toDataURL('image/jpeg', 0.85);
+      var b = f.querySelector('[type=submit]'); b.disabled = true; b.textContent = 'Firmando…';
+      sha256(p.contract.body).then(function (hash) {
+        return D.api('p/' + p.id + '/sign', { method: 'POST', body: { name: f.name.value.trim(), doc: f.doc.value.trim(), accept: true, signature: sig, hash: hash } });
+      }).then(function () {
+        S.signDraft = null; window.scrollTo(0, 0);
+        D.toast('¡Contrato firmado! Te enviamos una copia por email', 'ok');
+        load();
+      }).catch(function (x) { er.textContent = x.message; b.disabled = false; b.innerHTML = ic('check') + 'Firmar contrato'; });
+    });
+  }
+  function sha256(text) {
+    return crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)).then(function (buf) {
+      return Array.prototype.map.call(new Uint8Array(buf), function (x) { return ('0' + x.toString(16)).slice(-2); }).join('');
+    });
+  }
+  function contractCard(p) {
+    var k = p.contract;
+    if (!k || k.status !== 'signed') return '';
+    return '<section class="card"><div class="card-h"><h3>' + ic('edit') + 'Contrato</h3><span class="chip ok">Firmado</span></div>' +
+      '<p class="muted" style="margin:0 0 14px;font-size:14px">Firmado por ' + esc(k.signer ? k.signer.name : '') + ' el ' + D.date(k.signedAt) + '.</p>' +
+      '<div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn btn-sm" href="/api/portal/contract/' + p.id + '.pdf" target="_blank" rel="noopener">' + ic('eye') + 'Ver PDF</a><a class="btn btn-sm" href="/api/portal/contract/' + p.id + '.pdf?dl=1">' + ic('download') + 'Descargar</a></div></section>';
   }
 
   function fileUrl(id) { return '/api/portal/file/' + encodeURIComponent(id); }

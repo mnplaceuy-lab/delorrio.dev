@@ -77,7 +77,7 @@
     if (loading) { again = true; return Promise.resolve(); }
     loading = true;
     return D.api('admin/state').then(function (d) {
-      S.clients = d.clients; S.projects = d.projects; S.plans = d.plans;
+      S.clients = d.clients; S.projects = d.projects; S.plans = d.plans; S.settings = d.settings || {}; S.mail = !!d.mail;
       if (S.view === 'project' && !proj(S.pid)) { S.view = 'projects'; S.edit = null; }
       if (S.view === 'project' && S.edit && !S.edit.dirty) S.edit = mkEdit(proj(S.pid));
       if (typing()) pendingRender = true; else render();
@@ -124,19 +124,19 @@
   function render() {
     // guardar borrador del chat y foco
     var ta = D.$('#chatTxt'); if (ta && S.pid) S.drafts[S.pid] = ta.value;
-    var focusId = document.activeElement && document.activeElement.id;
+    var focusId = document.activeElement && app.contains(document.activeElement) && document.activeElement.id;
     var m = D.$('#msgs'), atBottom = !m || m.scrollHeight - m.scrollTop - m.clientHeight < 40;
 
     var totUnread = S.projects.reduce(function (a, p) { return a + unread(p); }, 0);
     document.title = (totUnread ? '(' + totUnread + ') ' : '') + 'Admin · Delorrio.dev';
-    var nav = [['dash', 'grid', 'Dashboard', 0], ['projects', 'steps', 'Proyectos', totUnread], ['clients', 'users', 'Clientes', 0]];
+    var nav = [['dash', 'grid', 'Dashboard', 0], ['projects', 'steps', 'Proyectos', totUnread], ['clients', 'users', 'Clientes', 0], ['settings', 'key', 'Ajustes', 0]];
     var side = '<aside class="ad-side' + (S.navOpen ? ' open' : '') + '"><a class="logo" href="/">Delorrio.dev<i></i><small>Admin</small></a><nav class="ad-nav">' +
       nav.map(function (n) { var on = S.view === n[0] || (n[0] === 'projects' && S.view === 'project'); return '<button data-nav="' + n[0] + '" class="' + (on ? 'on' : '') + '">' + ic(n[1]) + n[2] + (n[3] ? '<span class="count">' + n[3] + '</span>' : '') + '</button>'; }).join('') +
       '</nav><div class="ad-side-f"><span class="live js-live' + (S.live ? '' : ' off') + '"><i></i>En vivo</span><small>' + esc(S.me.email || '') + '</small>' +
       '<div style="display:flex;gap:6px"><a class="btn btn-sm" href="/panel/" target="_blank" rel="noopener" style="flex:1">' + ic('eye') + 'Vista cliente</a><button class="btn btn-sm btn-ghost" data-logout aria-label="Cerrar sesión">' + ic('logout') + '</button></div></div></aside>';
     var mtop = '<div class="ad-mtop"><button class="btn btn-ghost btn-icon" data-menu aria-label="Menú">' + ic('menu') + '</button><span class="logo">Delorrio.dev<i></i></span><span class="live js-live' + (S.live ? '' : ' off') + '"><i></i></span></div>';
 
-    var main = S.view === 'dash' ? vDash() : S.view === 'projects' ? vProjects() : S.view === 'clients' ? vClients() : vProject();
+    var main = S.view === 'dash' ? vDash() : S.view === 'projects' ? vProjects() : S.view === 'clients' ? vClients() : S.view === 'settings' ? vSettings() : vProject();
     app.innerHTML = '<div class="ad">' + side + (S.navOpen ? '<div class="ad-scrim" data-menu></div>' : '') + '<div style="min-width:0">' + mtop + '<main class="ad-main">' + main + '</main></div></div>';
     bindShell(); bindView();
 
@@ -249,7 +249,7 @@
   }
 
   // ---------------- PROYECTO ----------------
-  var TABS = [['resumen', 'Resumen'], ['etapas', 'Etapas'], ['novedades', 'Novedades'], ['mensajes', 'Mensajes'], ['pendientes', 'Pendientes'], ['pagos', 'Pagos'], ['archivos', 'Archivos']];
+  var TABS = [['resumen', 'Resumen'], ['contrato', 'Contrato'], ['etapas', 'Etapas'], ['novedades', 'Novedades'], ['mensajes', 'Mensajes'], ['pendientes', 'Pendientes'], ['pagos', 'Pagos'], ['archivos', 'Archivos']];
   function vProject() {
     var p = proj(S.pid), c = client(p.clientId), E = S.edit.f;
     var u = unread(p);
@@ -260,10 +260,11 @@
       (c.phone ? '<a class="btn" href="' + esc(waLink(c.phone, 'Hola ' + c.name.split(' ')[0] + '! Hay novedades en tu proyecto. Miralas en tu panel: ' + PANEL_URL)) + '" target="_blank" rel="noopener">' + ic('wa') + 'Avisar al cliente</a>' : '') +
       '</div></section>';
     h += '<div class="tabs" role="tablist">' + TABS.map(function (t) {
-      var badge = t[0] === 'mensajes' && u ? '<span class="count">' + u + '</span>' : t[0] === 'pendientes' ? '<span class="dim">' + p.tasks.filter(function (x) { return !x.done; }).length + '</span>' : t[0] === 'archivos' && p.files.length ? '<span class="dim">' + p.files.length + '</span>' : '';
+      var cs = (p.contract || {}).status;
+      var badge = t[0] === 'contrato' ? (cs === 'signed' ? '<span class="chip ok" style="padding:2px 8px">Firmado</span>' : cs === 'pending' ? '<span class="chip warn" style="padding:2px 8px">Esperando</span>' : '') : t[0] === 'mensajes' && u ? '<span class="count">' + u + '</span>' : t[0] === 'pendientes' ? '<span class="dim">' + p.tasks.filter(function (x) { return !x.done; }).length + '</span>' : t[0] === 'archivos' && p.files.length ? '<span class="dim">' + p.files.length + '</span>' : '';
       return '<button role="tab" data-tab="' + t[0] + '" class="' + (S.tab === t[0] ? 'on' : '') + '" aria-selected="' + (S.tab === t[0]) + '">' + t[1] + badge + '</button>';
     }).join('') + '</div>';
-    h += ({ resumen: tResumen, etapas: tEtapas, novedades: tNovedades, mensajes: tMensajes, pendientes: tPendientes, pagos: tPagos, archivos: tArchivos })[S.tab](p, E, c);
+    h += ({ resumen: tResumen, contrato: tContrato, etapas: tEtapas, novedades: tNovedades, mensajes: tMensajes, pendientes: tPendientes, pagos: tPagos, archivos: tArchivos })[S.tab](p, E, c);
     return h;
   }
 
@@ -362,6 +363,67 @@
     return h + '</section>';
   }
 
+  function tContrato(p, E, c) {
+    var k = p.contract || { status: 'none' }, st = k.status;
+    if (!S.cdraft || S.cdraft.pid !== p.id || S.cdraft.v !== (k.updatedAt || '')) S.cdraft = { pid: p.id, v: k.updatedAt || '', body: k.body || '', dirty: false };
+    var step = st === 'signed' ? 3 : st === 'pending' ? 2 : 1;
+    var h = '<div class="c-steps">' + [['1', 'Redactar'], ['2', 'Enviar al cliente'], ['3', 'Firmado']].map(function (x, i) { return '<span class="' + (i + 1 < step || st === 'signed' ? 'ok' : i + 1 === step ? 'on' : '') + '"><b>' + x[0] + '</b>' + x[1] + '</span>'; }).join('') + '</div>';
+    var prov = (S.settings.provider || {});
+    if (!prov.name || !prov.doc) h += '<div class="note" style="margin-bottom:16px">Completá tu nombre y documento en <button class="btn btn-sm" data-nav="settings" style="margin-left:6px">Ajustes</button> para que aparezcan en el contrato.</div>';
+    if (st === 'signed') {
+      var sg = k.signer || {};
+      h += '<div class="ad-grid"><section class="card doc" style="max-height:640px;overflow:auto"><div class="doc-b">' + docHtml(k.body) + '</div></section>' +
+        '<section class="card"><div class="card-h"><h3>' + ic('check') + 'Contrato firmado</h3><span class="chip ok">Firmado</span></div>' +
+        '<div class="cred"><div><span>Firmó</span><b style="font-family:inherit">' + esc(sg.name) + '</b></div><div><span>Documento</span><b>' + esc(sg.doc) + '</b></div><div><span>Fecha</span><b style="font-family:inherit">' + esc(new Date(k.signedAt).toLocaleString('es-UY')) + '</b></div><div><span>IP</span><b>' + esc(sg.ip) + '</b></div><div><span>Email</span><b>' + esc(sg.email || c.email) + '</b></div></div>' +
+        '<p class="dim" style="font-size:12px;word-break:break-all;margin:12px 0">Huella SHA-256: <span class="mono">' + esc(k.hash) + '</span></p>' +
+        '<div style="display:grid;gap:8px"><a class="btn btn-primary" href="/api/portal/contract/' + p.id + '.pdf" target="_blank" rel="noopener">' + ic('eye') + 'Ver PDF firmado</a><a class="btn" href="/api/portal/contract/' + p.id + '.pdf?dl=1">' + ic('download') + 'Descargar PDF</a></div></section></div>';
+      return h;
+    }
+    if (st === 'pending') {
+      h += '<div class="ad-grid"><section class="card doc" style="max-height:640px;overflow:auto"><div class="doc-b">' + docHtml(k.body) + '</div></section>' +
+        '<section class="card"><div class="card-h"><h3>' + ic('clock') + 'Esperando la firma</h3><span class="chip warn">Enviado</span></div>' +
+        '<p class="muted" style="margin:0 0 14px;font-size:14px">Enviado el ' + D.date(k.sentAt) + '. Cuando ' + esc(c.name.split(' ')[0]) + ' entre a su panel, lo primero que ve es el contrato para firmar.</p>' +
+        '<div style="display:grid;gap:8px">' + (S.mail ? '<button class="btn" data-ck="remind">' + ic('send') + 'Recordar por email</button>' : '') +
+        (c.phone ? '<a class="btn" href="' + esc(waLink(c.phone, 'Hola ' + c.name.split(' ')[0] + '! Te dejé el contrato listo para firmar en tu panel: ' + PANEL_URL)) + '" target="_blank" rel="noopener">' + ic('wa') + 'Avisar por WhatsApp</a>' : '') +
+        '<a class="btn" href="/api/portal/contract/' + p.id + '.pdf" target="_blank" rel="noopener">' + ic('eye') + 'Ver PDF</a>' +
+        '<button class="btn btn-ghost" data-ck="unsend">' + ic('edit') + 'Retirar y editar</button></div></section></div>';
+      return h;
+    }
+    if (!k.body && !S.cdraft.body) {
+      return h + '<section class="card"><div class="empty" style="padding:40px 22px"><p style="margin:0 0 14px;color:var(--muted)">Generá el contrato con los datos de este proyecto: cliente, plan, precio, pagos y plazos. Después lo podés editar.</p><button class="btn btn-primary" data-ck="generate">' + ic('edit') + 'Generar contrato</button></div></section>';
+    }
+    h += '<section class="card"><div class="card-h"><h3>' + ic('edit') + 'Borrador del contrato</h3><div style="display:flex;gap:8px;flex-wrap:wrap">' +
+      '<button class="btn btn-sm btn-ghost" data-ck="generate" title="Volver a generar con los datos actuales del proyecto">' + ic('refresh') + 'Regenerar</button>' +
+      '<a class="btn btn-sm" href="/api/portal/contract/' + p.id + '.pdf" target="_blank" rel="noopener" id="cprev">' + ic('eye') + 'Vista previa PDF</a></div></div>' +
+      '<p class="dim" style="font-size:12.5px;margin:0 0 10px">Formato: <span class="mono">## Título</span> para cada cláusula, <span class="mono">- </span> para listas, línea en blanco entre párrafos.</p>' +
+      '<textarea class="textarea doc-edit" id="cbody" spellcheck="true">' + esc(S.cdraft.body) + '</textarea>' +
+      '<div style="display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;margin-top:14px"><button class="btn" data-ck="save">' + ic('check') + 'Guardar borrador</button><button class="btn btn-primary" data-ck="send">' + ic('send') + 'Enviar para firmar</button></div></section>';
+    return h;
+  }
+  function docHtml(body) {
+    var out = '', list = false;
+    String(body || '').replace(/\r/g, '').split('\n').forEach(function (line) {
+      var t = line.trim();
+      if (/^- /.test(t)) { if (!list) { out += '<ul>'; list = true; } out += '<li>' + esc(t.slice(2)) + '</li>'; return; }
+      if (list) { out += '</ul>'; list = false; }
+      if (!t) return;
+      out += t.indexOf('## ') === 0 ? '<h3>' + esc(t.slice(3)) + '</h3>' : '<p>' + esc(t) + '</p>';
+    });
+    return out + (list ? '</ul>' : '');
+  }
+
+  function vSettings() {
+    var pv = (S.settings && S.settings.provider) || {};
+    return '<div class="ad-head"><div><h1>Ajustes</h1><p>Datos que aparecen en los contratos</p></div></div>' +
+      '<div class="ad-grid"><section class="card"><div class="card-h"><h3>' + ic('user') + 'Tus datos (Prestador)</h3></div><div style="display:grid;gap:14px">' +
+      '<label class="field"><span>Nombre completo</span><input class="input" id="s-name" value="' + esc(pv.name || 'Santiago Delorrio') + '"></label>' +
+      '<div class="grid2"><label class="field"><span>Documento (CI o RUT)</span><input class="input" id="s-doc" value="' + esc(pv.doc || '') + '" placeholder="Ej.: 1.234.567-8"></label>' +
+      '<label class="field"><span>Ciudad (para la jurisdicción)</span><input class="input" id="s-city" value="' + esc(pv.city || '') + '" placeholder="Ej.: Rivera"></label></div>' +
+      '<div style="display:flex;justify-content:flex-end"><button class="btn btn-primary" id="s-save">' + ic('check') + 'Guardar</button></div></div></section>' +
+      '<section class="card"><div class="card-h"><h3>' + ic('send') + 'Emails</h3>' + (S.mail ? '<span class="chip ok">Activos</span>' : '<span class="chip bad">Desactivados</span>') + '</div>' +
+      '<p class="muted" style="margin:0;font-size:14px">' + (S.mail ? 'Las invitaciones, avisos y copias de contratos se envían desde tu dominio con Resend.' : 'Configurá RESEND_API_KEY y MAIL_FROM en Railway para enviar invitaciones, avisos y copias de contratos.') + '</p></section></div>';
+  }
+
   function tArchivos(p) {
     var h = '<section class="card"><div class="card-h"><h3>' + ic('folder') + 'Archivos del proyecto</h3></div><div class="drop" id="adrop" tabindex="0" role="button">' + ic('upload') + '<span><b>Subí archivos</b> o arrastralos acá</span><small>El cliente los ve al instante · hasta 15 MB cada uno</small></div>';
     if (p.files.length) h += '<div class="files" style="margin-top:14px">' + p.files.map(function (f) {
@@ -412,8 +474,41 @@
     D.$$('[data-cedit]').forEach(function (b) { b.addEventListener('click', function () { clientModal(S.clients.find(function (c) { return c.id === b.dataset.cedit; })); }); });
     D.$$('[data-creset]').forEach(function (b) { b.addEventListener('click', function () { resetAccess(S.clients.find(function (c) { return c.id === b.dataset.creset; })); }); });
 
+    var ss = D.$('#s-save');
+    if (ss) ss.addEventListener('click', function () {
+      ss.disabled = true;
+      D.api('admin/settings', { method: 'PATCH', body: { provider: { name: D.$('#s-name').value, doc: D.$('#s-doc').value, city: D.$('#s-city').value } } })
+        .then(function (r) { S.settings = r.settings; D.toast('Ajustes guardados', 'ok'); ss.disabled = false; }).catch(function (e) { D.toast(e.message, 'bad'); ss.disabled = false; });
+    });
+
     if (S.view !== 'project') return;
     var p = proj(S.pid), E = S.edit.f;
+
+    var cb = D.$('#cbody');
+    if (cb) cb.addEventListener('input', function () { S.cdraft.body = cb.value; S.cdraft.dirty = true; });
+    D.$$('[data-ck]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var act = b.dataset.ck;
+        var go2 = function () {
+          b.disabled = true;
+          var body = { action: act };
+          if ((act === 'save' || act === 'send') && S.cdraft) body.body = S.cdraft.body;
+          D.api('admin/projects/' + p.id + '/contract', { method: 'POST', body: body }).then(function () {
+            S.cdraft = null;
+            D.toast({ generate: 'Contrato generado', save: 'Borrador guardado', send: 'Contrato enviado · el cliente ya puede firmarlo', remind: 'Recordatorio enviado', unsend: 'Contrato retirado: podés editarlo' }[act], 'ok');
+            return load();
+          }).catch(function (e) { b.disabled = false; D.toast(e.message, 'bad'); });
+        };
+        if (act === 'generate' && S.cdraft && S.cdraft.body) D.confirm('Regenerar contrato', 'Se reemplaza el texto actual por la plantilla con los datos del proyecto. Perdés los cambios que hiciste a mano.', 'Regenerar', true).then(function (ok) { if (ok) go2(); });
+        else if (act === 'send') D.confirm('Enviar contrato a ' + client(p.clientId).name, 'El cliente lo va a ver en su panel para firmarlo' + (S.mail ? ' y le llega un email avisándole' : '') + '. Mientras esté enviado no se puede editar.', 'Enviar').then(function (ok) { if (ok) go2(); });
+        else if (act === 'unsend') D.confirm('Retirar contrato', 'El cliente deja de ver el contrato hasta que lo vuelvas a enviar.', 'Retirar', true).then(function (ok) { if (ok) go2(); });
+        else go2();
+      });
+    });
+    var cp = D.$('#cprev');
+    if (cp) cp.addEventListener('click', function (e) {
+      if (S.cdraft && S.cdraft.dirty) { e.preventDefault(); D.api('admin/projects/' + p.id + '/contract', { method: 'POST', body: { action: 'save', body: S.cdraft.body } }).then(function () { S.cdraft = null; load(); window.open(cp.href, '_blank'); }); }
+    });
 
     D.$$('[data-tab]').forEach(function (b) {
       b.addEventListener('click', function () {
