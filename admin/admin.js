@@ -45,15 +45,15 @@
   // ---------------- arranque ----------------
   D.api('me').then(function (me) {
     if (me.role === 'admin') { S.me = me; return load(true); }
-    renderLogin(me.adminConfigured);
+    renderLogin(me.adminConfigured, me.adminIssue);
   }).catch(function () { renderLogin(true); });
 
-  function renderLogin(configured) {
+  function renderLogin(configured, issue) {
     document.title = 'Ingresar · Admin Delorrio.dev';
     app.innerHTML = '<main class="auth"><div class="auth-box"><div class="auth-card">' +
       '<a class="logo" href="/">Delorrio.dev<i></i><small>Admin</small></a>' +
       '<h1>Panel de administración</h1><p>Gestioná clientes, proyectos y avances en tiempo real.</p>' +
-      (configured === false ? '<div class="note" style="margin-bottom:16px">Falta configurar <b>ADMIN_EMAIL</b> y <b>ADMIN_PASSWORD</b> en las variables de Railway.</div>' : '') +
+      (configured === false ? '<div class="note" style="margin-bottom:16px">' + esc(issue || 'Falta configurar ADMIN_EMAIL y ADMIN_PASSWORD en Railway.') + '</div>' : '') +
       '<form id="lf" novalidate>' +
       '<label class="field"><span>Email</span><input class="input" type="email" name="email" autocomplete="username" required></label>' +
       '<label class="field"><span>Contraseña</span><div class="pw"><input class="input" type="password" name="password" autocomplete="current-password" required><button type="button" aria-label="Mostrar contraseña"></button></div></label>' +
