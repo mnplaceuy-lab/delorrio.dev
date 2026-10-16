@@ -9,10 +9,72 @@
   function cur() { return S.projects.find(function (p) { return p.id === S.cur; }) || S.projects[0]; }
 
   // ---------------- arranque ----------------
-  D.api('me').then(function (me) {
+  var TOKEN = new URLSearchParams(location.search).get('t');
+  if (TOKEN) renderToken(TOKEN);
+  else D.api('me').then(function (me) {
+    S.mail = !!me.mail;
     if (me.role === 'client') return load(true);
     renderLogin(me.role === 'admin');
   }).catch(function () { renderLogin(); });
+
+  function authShell(inner, foot) {
+    return '<main class="auth"><div class="auth-box"><div class="auth-card"><a class="logo" href="/">Delorrio.dev<i></i><small>Clientes</small></a>' + inner + '</div>' + (foot || '') + '</div></main>';
+  }
+  var WA_HELP = '<p class="auth-foot">¿Problemas para entrar? <a href="https://wa.me/' + WA + '?text=' + encodeURIComponent('Hola Santiago, tengo problemas para entrar al panel de cliente.') + '" target="_blank" rel="noopener">Escribime por WhatsApp</a></p>';
+
+  // ---------------- link del email (crear / cambiar contraseña) ----------------
+  function renderToken(t) {
+    app.innerHTML = '<div class="loading"><div class="spin"></div></div>';
+    D.api('token/check?t=' + encodeURIComponent(t)).then(function (d) {
+      var invite = d.type === 'invite';
+      document.title = (invite ? 'Creá tu contraseña' : 'Nueva contraseña') + ' · Panel de cliente';
+      app.innerHTML = authShell(
+        '<h1>' + (invite ? '¡Hola ' + esc(String(d.name).split(' ')[0]) + '!' : 'Nueva contraseña') + '</h1>' +
+        '<p>' + (invite ? 'Creá tu contraseña para entrar a tu panel y seguir tu proyecto en vivo.' : 'Elegí una contraseña nueva para tu panel.') + '</p>' +
+        '<form id="tf" novalidate><label class="field"><span>Email</span><input class="input" type="email" value="' + esc(d.email) + '" autocomplete="username" readonly></label>' +
+        '<label class="field"><span>Contraseña</span><div class="pw"><input class="input" type="password" name="p1" autocomplete="new-password" placeholder="Mínimo 8 caracteres"><button type="button" aria-label="Mostrar contraseña"></button></div></label>' +
+        '<label class="field"><span>Repetila</span><div class="pw"><input class="input" type="password" name="p2" autocomplete="new-password"><button type="button" aria-label="Mostrar contraseña"></button></div></label>' +
+        '<div class="form-err" id="terr" role="alert"></div><button class="btn btn-primary btn-block" type="submit">' + (invite ? 'Crear contraseña y entrar' : 'Guardar y entrar') + '</button></form>', WA_HELP);
+      D.pwToggles(app);
+      var f = D.$('#tf'), er = D.$('#terr');
+      f.addEventListener('submit', function (e) {
+        e.preventDefault(); er.textContent = '';
+        if (f.p1.value.length < 8) { er.textContent = 'La contraseña debe tener al menos 8 caracteres'; return; }
+        if (f.p1.value !== f.p2.value) { er.textContent = 'Las contraseñas no coinciden'; return; }
+        var b = f.querySelector('[type=submit]'); b.disabled = true;
+        D.api('token/set', { method: 'POST', body: { t: t, password: f.p1.value } }).then(function () {
+          history.replaceState(null, '', '/panel/');
+          D.toast(invite ? '¡Listo! Ya tenés acceso a tu panel' : 'Contraseña actualizada', 'ok');
+          return D.api('me').then(function (me) { S.mail = !!me.mail; return load(true); });
+        }).catch(function (x) { er.textContent = x.message; b.disabled = false; });
+      });
+      setTimeout(function () { f.p1.focus(); }, 50);
+    }).catch(function (e) {
+      history.replaceState(null, '', '/panel/');
+      app.innerHTML = authShell('<h1>Link vencido</h1><p>' + esc(e.message) + '</p><div style="display:grid;gap:10px"><button class="btn btn-primary btn-block" id="tf-forgot">Pedir un link nuevo</button><a class="btn btn-block" href="/panel/">Ir al ingreso</a></div>', WA_HELP);
+      D.$('#tf-forgot').addEventListener('click', function () { renderForgot(); });
+    });
+  }
+
+  function renderForgot(email) {
+    document.title = 'Recuperar contraseña · Panel de cliente';
+    app.innerHTML = authShell('<h1>Recuperar contraseña</h1><p>Escribí tu email y te mando un link para crear una contraseña nueva.</p>' +
+      '<form id="ff" novalidate><label class="field"><span>Email</span><input class="input" type="email" name="email" autocomplete="username" value="' + esc(email || '') + '" placeholder="tu@email.com"></label>' +
+      '<div class="form-err" id="ferr" role="alert"></div><button class="btn btn-primary btn-block" type="submit">Enviarme el link</button>' +
+      '<button class="btn btn-ghost btn-block" type="button" id="fback">Volver al ingreso</button></form>', WA_HELP);
+    var f = D.$('#ff'), er = D.$('#ferr');
+    D.$('#fback').addEventListener('click', function () { renderLogin(); });
+    f.addEventListener('submit', function (e) {
+      e.preventDefault(); er.textContent = '';
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.value.trim())) { er.textContent = 'Escribí un email válido'; return; }
+      var b = f.querySelector('[type=submit]'); b.disabled = true;
+      D.api('forgot', { method: 'POST', body: { email: f.email.value.trim() } }).then(function () {
+        app.innerHTML = authShell('<h1>Revisá tu email</h1><p>Si <b style="color:var(--text)">' + esc(f.email.value.trim()) + '</b> tiene una cuenta, te llega un link en unos minutos. Mirá también en Spam o Promociones.</p><button class="btn btn-block" id="fback2">Volver al ingreso</button>', WA_HELP);
+        D.$('#fback2').addEventListener('click', function () { renderLogin(); });
+      }).catch(function (x) { er.textContent = x.message; b.disabled = false; });
+    });
+    setTimeout(function () { f.email.focus(); }, 50);
+  }
 
   // ---------------- login ----------------
   function renderLogin(isAdmin) {
@@ -28,11 +90,11 @@
       '<label class="field"><span>Contraseña</span><div class="pw"><input class="input" type="password" name="password" autocomplete="current-password" required placeholder="••••••••"><button type="button" aria-label="Mostrar contraseña"></button></div></label>' +
       '<div class="form-err" id="lerr" role="alert"></div>' +
       '<button class="btn btn-primary btn-block" type="submit">Ingresar al panel</button>' +
-      '</form></div>' +
-      '<p class="auth-foot">¿Olvidaste tu contraseña? <a href="https://wa.me/' + WA + '?text=' + encodeURIComponent('Hola Santiago, olvidé mi contraseña del panel de cliente.') + '" target="_blank" rel="noopener">Escribime por WhatsApp</a></p>' +
-      '</div></main>';
+      '<button class="btn btn-ghost btn-block" type="button" id="lforgot">Olvidé mi contraseña</button>' +
+      '</form></div>' + WA_HELP + '</div></main>';
     D.pwToggles(app);
     var f = D.$('#lf'), errEl = D.$('#lerr');
+    D.$('#lforgot').addEventListener('click', function () { renderForgot(f.email.value.trim()); });
     f.addEventListener('submit', function (e) {
       e.preventDefault();
       errEl.textContent = '';
@@ -52,12 +114,13 @@
     if (loading) { again = true; return Promise.resolve(); }
     loading = true;
     return D.api('projects').then(function (d) {
-      S.client = d.client; S.projects = d.projects;
+      S.client = d.client; S.projects = d.projects; S.mail = !!d.mail;
       if (!S.cur || !S.projects.some(function (p) { return p.id === S.cur; })) {
         var act = S.projects.find(function (p) { return p.status === 'activo'; });
         S.cur = (act || S.projects[0] || {}).id || null;
       }
       render();
+      if (first && location.hash) { var target = document.getElementById(location.hash.slice(1)); if (target) setTimeout(function () { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 300); }
       if (first && !S.streaming) {
         S.streaming = true;
         var t;
@@ -113,6 +176,7 @@
       '<div style="position:relative"><button class="user-btn" id="ubtn" aria-haspopup="true" aria-expanded="false"><span class="avatar">' + esc(D.initials(S.client.name)) + '</span><span class="n">' + esc(S.client.name) + '</span></button>' +
       '<div class="menu" id="umenu" hidden><div style="padding:10px 12px 8px"><b style="display:block;font-size:14px">' + esc(S.client.name) + '</b><small class="dim">' + esc(S.client.email) + '</small></div><hr>' +
       '<button data-act="pass">' + ic('key') + 'Cambiar contraseña</button>' +
+      (S.mail ? '<button data-act="notify" role="menuitemcheckbox" aria-checked="' + (S.client.notify !== false) + '">' + ic('bell') + 'Avisos por email<span class="chip ' + (S.client.notify !== false ? 'ok' : '') + '" style="margin-left:auto">' + (S.client.notify !== false ? 'Sí' : 'No') + '</span></button>' : '') +
       '<a href="https://wa.me/' + WA + '" target="_blank" rel="noopener">' + ic('wa') + 'WhatsApp con Santiago</a><hr>' +
       '<button data-act="logout">' + ic('logout') + 'Cerrar sesión</button></div></div></div></div></header>';
   }
@@ -237,6 +301,10 @@
       um.hidden = true;
       if (b.dataset.act === 'logout') D.api('logout', { method: 'POST' }).then(function () { location.reload(); });
       if (b.dataset.act === 'pass') changePass();
+      if (b.dataset.act === 'notify') {
+        var on = S.client.notify === false;
+        D.api('notify', { method: 'POST', body: { on: on } }).then(function () { S.client.notify = on; D.toast(on ? 'Vas a recibir avisos por email' : 'Avisos por email desactivados', 'ok'); render(); });
+      }
     });
   }
 

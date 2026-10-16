@@ -44,7 +44,7 @@
 
   // ---------------- arranque ----------------
   D.api('me').then(function (me) {
-    if (me.role === 'admin') { S.me = me; return load(true); }
+    if (me.role === 'admin') { S.me = me; S.mail = !!me.mail; return load(true); }
     renderLogin(me.adminConfigured, me.adminIssue);
   }).catch(function () { renderLogin(true); });
 
@@ -65,7 +65,7 @@
       e.preventDefault(); er.textContent = '';
       var b = f.querySelector('[type=submit]'); b.disabled = true; b.textContent = 'Ingresando…';
       D.api('login', { method: 'POST', body: { email: f.email.value, password: f.password.value, mode: 'admin' } })
-        .then(function () { return D.api('me'); }).then(function (me) { S.me = me; return load(true); })
+        .then(function () { return D.api('me'); }).then(function (me) { S.me = me; S.mail = !!me.mail; return load(true); })
         .catch(function (x) { er.textContent = x.message; b.disabled = false; b.textContent = 'Ingresar'; });
     });
     setTimeout(function () { f.email.focus(); }, 50);
@@ -174,6 +174,7 @@
     var wt = S.projects.reduce(function (a, p) { return a + (p.status === 'activo' ? waiting(p) : 0); }, 0);
     var h = '<div class="ad-head"><div><h1>Hola, Santiago</h1><p>' + new Date().toLocaleDateString('es-UY', { weekday: 'long', day: 'numeric', month: 'long' }) + '</p></div>' +
       '<div class="ad-head-r"><button class="btn" data-new-client>' + ic('user') + 'Nuevo cliente</button><button class="btn btn-primary" data-new-project>' + ic('plus') + 'Nuevo proyecto</button></div></div>';
+    if (!S.mail) h += '<div class="note" style="margin-bottom:20px">' + ic('alert').replace('<svg', '<svg style="width:16px;height:16px;vertical-align:-3px;margin-right:6px"') + '<b>Emails desactivados.</b> Los clientes no reciben invitaciones ni avisos. Configurá <b>RESEND_API_KEY</b> y <b>MAIL_FROM</b> en Railway.</div>';
     h += '<div class="kpis">' +
       kpi('steps', 'Proyectos activos', act.length, S.projects.length + ' en total') +
       kpi('chat', 'Mensajes sin leer', un, wt ? wt + (wt === 1 ? ' etapa espera' : ' etapas esperan') + ' al cliente' : 'Todo al día') +
@@ -242,8 +243,8 @@
           '<td>' + esc(c.email) + '<span class="sub">' + esc(c.phone || 'sin teléfono') + '</span></td>' +
           '<td>' + (ps.length ? ps.map(function (p) { return '<button class="btn btn-sm btn-ghost" data-open="' + p.id + '" style="padding:4px 8px">' + esc(p.name) + '</button>'; }).join('') : '<span class="dim">—</span>') + '</td>' +
           '<td>' + (c.lastLogin ? D.ago(c.lastLogin) : '<span class="dim">Nunca</span>') + '</td>' +
-          '<td>' + (c.active ? '<span class="chip ok">Activo</span>' : '<span class="chip">Bloqueado</span>') + '</td>' +
-          '<td style="text-align:right;white-space:nowrap"><button class="btn btn-sm" data-cedit="' + c.id + '">' + ic('edit') + 'Editar</button> <button class="btn btn-sm" data-creset="' + c.id + '" title="Generar nueva contraseña">' + ic('key') + 'Acceso</button></td></tr>';
+          '<td>' + (!c.active ? '<span class="chip">Bloqueado</span>' : c.emailVerified ? '<span class="chip ok" title="El cliente confirmó su email">Verificado</span>' : '<span class="chip warn" title="Todavía no confirmó su email">Sin verificar</span>') + '</td>' +
+          '<td style="text-align:right;white-space:nowrap"><button class="btn btn-sm" data-cedit="' + c.id + '">' + ic('edit') + 'Editar</button> <button class="btn btn-sm" data-creset="' + c.id + '" title="Invitación y contraseña">' + ic('key') + 'Acceso</button></td></tr>';
       }).join('') + '</tbody></table></div>' : '<div class="empty">' + (S.clients.length ? 'Sin resultados.' : 'Todavía no hay clientes. Creá el primero para darle acceso a su panel.') + '</div>') + '</section>';
   }
 
@@ -254,7 +255,7 @@
     var u = unread(p);
     var h = '<button class="back" data-nav="projects">' + ic('left') + 'Proyectos</button>';
     h += '<section class="card pj-head"><div class="pj-head-l">' + D.ring(p.progress) + '<div style="min-width:0"><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px">' + D.chip(D.PROJ, p.status) + '<span class="chip plain">' + esc(p.plan) + '</span></div><h2>' + esc(p.name) + '</h2>' +
-      '<div class="meta"><span>' + ic('user').replace('<svg', '<svg style="width:14px;height:14px;vertical-align:-2px"') + ' ' + esc(c.name) + (c.company ? ' · ' + esc(c.company) : '') + '</span><span>Entrega: ' + D.date(p.dueDate) + '</span>' + (c.lastLogin ? '<span>Último ingreso del cliente: ' + D.ago(c.lastLogin) + '</span>' : '<span>El cliente aún no ingresó</span>') + '</div></div></div>' +
+      '<div class="meta"><span>' + ic('user').replace('<svg', '<svg style="width:14px;height:14px;vertical-align:-2px"') + ' ' + esc(c.name) + (c.company ? ' · ' + esc(c.company) : '') + '</span><span>Entrega: ' + D.date(p.dueDate) + '</span>' + (c.lastLogin ? '<span>Último ingreso del cliente: ' + D.ago(c.lastLogin) + '</span>' : '<span>El cliente aún no ingresó</span>') + (c.emailVerified === false ? '<span style="color:var(--warn)">Email sin verificar</span>' : '') + '</div></div></div>' +
       '<div class="ad-head-r">' + (p.previewUrl ? '<a class="btn" href="' + esc(p.previewUrl) + '" target="_blank" rel="noopener">' + ic('ext') + 'Vista previa</a>' : '') +
       (c.phone ? '<a class="btn" href="' + esc(waLink(c.phone, 'Hola ' + c.name.split(' ')[0] + '! Hay novedades en tu proyecto. Miralas en tu panel: ' + PANEL_URL)) + '" target="_blank" rel="noopener">' + ic('wa') + 'Avisar al cliente</a>' : '') +
       '</div></section>';
@@ -549,9 +550,9 @@
   function clientModal(c) {
     var isNew = !c; c = c || { name: '', email: '', company: '', phone: '', active: true };
     var m = D.modal({ title: isNew ? 'Nuevo cliente' : 'Editar cliente',
-      body: '<div class="grid2"><label class="field"><span>Nombre y apellido *</span><input class="input" id="m-name" value="' + esc(c.name) + '"></label><label class="field"><span>Empresa / negocio</span><input class="input" id="m-co" value="' + esc(c.company) + '"></label></div>' +
+      body: (!isNew && !c.emailVerified ? '<div class="note">Este cliente todavía no confirmó su email.</div>' : '') + '<div class="grid2"><label class="field"><span>Nombre y apellido *</span><input class="input" id="m-name" value="' + esc(c.name) + '"></label><label class="field"><span>Empresa / negocio</span><input class="input" id="m-co" value="' + esc(c.company) + '"></label></div>' +
         '<div class="grid2"><label class="field"><span>Email *</span><input class="input" type="email" id="m-email" value="' + esc(c.email) + '"></label><label class="field"><span>WhatsApp</span><input class="input" type="tel" id="m-phone" placeholder="09X XXX XXX" value="' + esc(c.phone) + '"></label></div>' +
-        (isNew ? '<label class="check" style="cursor:pointer"><input type="checkbox" id="m-proj" checked><span class="box">' + ic('check') + '</span><span class="t">Crear su proyecto a continuación</span></label><div class="note info">Se genera una contraseña segura que vas a poder copiar o enviar por WhatsApp.</div>'
+        (isNew ? '<label class="check" style="cursor:pointer"><input type="checkbox" id="m-proj" checked><span class="box">' + ic('check') + '</span><span class="t">Crear su proyecto a continuación</span></label>' + (S.mail ? '<div class="note info">Le llega un email para crear su contraseña. Así confirmás que el email es real: si no existe, no puede entrar.</div>' : '<div class="note">Los emails no están activos: se genera una contraseña para que se la envíes por WhatsApp.</div>')
           : '<label class="check" style="cursor:pointer"><input type="checkbox" id="m-active" ' + (c.active ? 'checked' : '') + '><span class="box">' + ic('check') + '</span><span class="t">Acceso al panel habilitado</span></label>') +
         '<div class="form-err" id="m-err"></div>',
       foot: (isNew ? '' : '<button class="btn btn-danger" id="m-del" style="margin-right:auto">' + ic('trash') + 'Eliminar</button>') + '<button class="btn btn-ghost" data-x>Cancelar</button><button class="btn btn-primary" id="m-ok">' + (isNew ? 'Crear cliente' : 'Guardar') + '</button>' });
@@ -559,15 +560,19 @@
     g('m-ok').addEventListener('click', function () {
       var body = { name: g('m-name').value, company: g('m-co').value, email: g('m-email').value, phone: g('m-phone').value };
       if (!isNew) body.active = g('m-active').checked;
-      this.disabled = true; var btn = this;
+      this.disabled = true; var btn = this; var lbl = btn.textContent; btn.textContent = isNew ? 'Verificando email…' : 'Guardando…';
       D.api(isNew ? 'admin/clients' : 'admin/clients/' + c.id, { method: isNew ? 'POST' : 'PATCH', body: body }).then(function (r) {
         var wantProj = isNew && g('m-proj').checked;
         m.close();
         if (isNew) {
-          return load().then(function () { showAccess(r.client, r.password, wantProj ? function () { projectModal(r.client.id); } : null); });
+          var next = wantProj ? function () { projectModal(r.client.id); } : null;
+          return load().then(function () {
+            if (r.invited) invitedModal(r.client, next);
+            else showAccess(r.client, r.password, next, r.mailError);
+          });
         }
         D.toast('Cliente actualizado', 'ok'); load();
-      }).catch(function (e) { g('m-err').textContent = e.message; btn.disabled = false; });
+      }).catch(function (e) { g('m-err').textContent = e.message; btn.disabled = false; btn.textContent = lbl; });
     });
     if (!isNew) g('m-del').addEventListener('click', function () {
       D.confirm('Eliminar a ' + c.name, 'Se elimina su acceso al panel. Si tiene proyectos, primero eliminalos.', 'Eliminar', true).then(function (ok) {
@@ -577,10 +582,17 @@
     });
   }
 
-  function showAccess(c, password, then) {
+  function invitedModal(c, then) {
+    D.modal({ title: 'Invitación enviada',
+      body: '<div class="note info" style="display:flex;gap:10px;align-items:flex-start">' + ic('send').replace('<svg', '<svg style="width:18px;height:18px;flex:none;margin-top:2px"') + '<span>Le enviamos un email a <b>' + esc(c.email) + '</b> para que cree su contraseña. El link vence en 3 días.</span></div>' +
+        '<p class="muted" style="margin:0;font-size:14px">Cuando lo abra, en Clientes vas a ver su email como <b style="color:var(--ok)">Verificado</b>. Si no le llega, pedile que revise Spam o reenviá la invitación desde <b>Acceso</b>.</p>',
+      foot: '<button class="btn btn-primary" data-x>' + (then ? 'Continuar' : 'Listo') + '</button>', onClose: then || null });
+  }
+
+  function showAccess(c, password, then, mailError) {
     var msg = access(c) + password;
     var m = D.modal({ title: 'Acceso de ' + c.name,
-      body: '<p class="muted" style="margin:0">Enviale estos datos al cliente. <b style="color:var(--text)">La contraseña se muestra una sola vez</b>; si la pierde, generás una nueva.</p>' +
+      body: (mailError ? '<div class="note">No se pudo enviar la invitación por email (' + esc(mailError) + '). Enviale estos datos a mano.</div>' : '') + '<p class="muted" style="margin:0">Enviale estos datos al cliente. <b style="color:var(--text)">La contraseña se muestra una sola vez</b>; si la pierde, generás una nueva.</p>' +
         '<div class="cred"><div><span>Panel</span><b>' + esc(PANEL_URL) + '</b></div><div><span>Email</span><b>' + esc(c.email) + '</b></div><div><span>Contraseña</span><b>' + esc(password) + '</b></div></div>',
       foot: '<button class="btn" id="a-copy">' + ic('copy') + 'Copiar mensaje</button>' + (c.phone ? '<a class="btn" id="a-wa" href="' + esc(waLink(c.phone, msg)) + '" target="_blank" rel="noopener">' + ic('wa') + 'Enviar por WhatsApp</a>' : '') + '<button class="btn btn-primary" data-x>' + (then ? 'Continuar' : 'Listo') + '</button>',
       onClose: then || null });
@@ -588,9 +600,25 @@
   }
 
   function resetAccess(c) {
-    D.confirm('Nueva contraseña para ' + c.name, 'Se genera una contraseña nueva y la anterior deja de funcionar.', 'Generar').then(function (ok) {
-      if (!ok) return;
-      D.api('admin/clients/' + c.id + '/reset', { method: 'POST' }).then(function (r) { showAccess(c, r.password); }).catch(function (e) { D.toast(e.message, 'bad'); });
+    var unver = !c.emailVerified;
+    var m = D.modal({ title: 'Acceso de ' + c.name,
+      body: '<div class="cred"><div><span>Email</span><b>' + esc(c.email) + '</b></div><div><span>Estado</span><b style="font-family:inherit;color:' + (unver ? 'var(--warn)' : 'var(--ok)') + '">' + (unver ? 'Sin verificar' : 'Verificado') + '</b></div><div><span>Último ingreso</span><b style="font-family:inherit">' + (c.lastLogin ? D.ago(c.lastLogin) : 'Nunca') + '</b></div></div>' +
+        '<div style="display:grid;gap:10px">' +
+        (S.mail ? '<button class="btn btn-primary" id="r-mail">' + ic('send') + (unver ? 'Reenviar invitación por email' : 'Enviar link para cambiar contraseña') + '</button>' : '<div class="note">Los emails no están activos, solo podés generar una contraseña manual.</div>') +
+        '<button class="btn" id="r-pass">' + ic('key') + 'Generar contraseña manual</button></div>' +
+        '<p class="dim" style="margin:0;font-size:12.5px">La contraseña manual reemplaza la anterior y cierra sus sesiones abiertas.</p>',
+      foot: '<button class="btn btn-ghost" data-x>Cerrar</button>' });
+    var bm = D.$('#r-mail', m.el);
+    if (bm) bm.addEventListener('click', function () {
+      bm.disabled = true;
+      D.api('admin/clients/' + c.id + '/invite', { method: 'POST' }).then(function (r) { m.close(); D.toast((r.kind === 'invite' ? 'Invitación reenviada a ' : 'Link enviado a ') + c.email, 'ok'); }).catch(function (e) { bm.disabled = false; D.toast(e.message, 'bad'); });
+    });
+    D.$('#r-pass', m.el).addEventListener('click', function () {
+      m.close();
+      D.confirm('Nueva contraseña para ' + c.name, 'Se genera una contraseña nueva y la anterior deja de funcionar.', 'Generar').then(function (ok) {
+        if (!ok) return;
+        D.api('admin/clients/' + c.id + '/reset', { method: 'POST' }).then(function (r) { showAccess(c, r.password); }).catch(function (e) { D.toast(e.message, 'bad'); });
+      });
     });
   }
 
