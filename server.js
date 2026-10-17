@@ -1,6 +1,6 @@
 // Servidor de Delorrio.dev (sin dependencias).
 // - Sirve los archivos estáticos del sitio.
-// - POST /api/contact → envía el mensaje del formulario por email con Resend.
+// - POST /api/contact → envía el formulario por email (Resend) + respuesta automática al que escribe.
 //
 // Variables de entorno (Railway → Variables):
 //   RESEND_API_KEY   clave de https://resend.com (obligatoria para el formulario)
@@ -18,6 +18,7 @@ const ROOT = __dirname;
 const TO = process.env.CONTACT_TO || 'santiagodelorrio2013@gmail.com';
 const FROM = process.env.CONTACT_FROM || 'Delorrio.dev <onboarding@resend.dev>';
 const portal = require('./lib/portal')({ ROOT });
+const mail = require('./lib/mailer');
 
 const TYPES = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
@@ -73,39 +74,25 @@ function handleContact(req, res) {
     try { d = JSON.parse(raw || '{}'); } catch { return send(res, 400, { ok: false, error: 'Datos inválidos' }); }
     if (d.botcheck) return send(res, 200, { ok: true }); // bot: se ignora en silencio
     const name = String(d.nombre || '').trim().slice(0, 120);
-    const email = String(d.email || '').trim().slice(0, 200);
+    const email = String(d.email || '').trim().toLowerCase().slice(0, 200);
     const message = String(d.mensaje || '').trim().slice(0, 5000);
     const business = String(d.negocio || '').trim().slice(0, 160);
-    if (!name || !message || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!name || !message || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
       return send(res, 400, { ok: false, error: 'Completá nombre, email válido y mensaje' });
     }
+    if (!mail.enabled()) return send(res, 503, { ok: false, error: 'Correo no configurado', fallback: true });
     const ip = (req.headers['x-forwarded-for'] || req.socket.remoteAddress || '').split(',')[0].trim();
     if (limited(ip)) return send(res, 429, { ok: false, error: 'Demasiados envíos, probá más tarde' });
-    if (!process.env.RESEND_API_KEY) return send(res, 500, { ok: false, error: 'Falta configurar RESEND_API_KEY' });
+    if (!(await mail.domainReceivesMail(email))) return send(res, 400, { ok: false, error: 'Revisá tu email: ese dominio no recibe correos' });
 
-    try {
-      const r = await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          from: FROM,
-          to: [TO],
-          reply_to: email,
-          subject: `Nuevo mensaje desde Delorrio.dev — ${name}`,
-          text: `Nombre: ${name}\nEmail: ${email}${business ? `\nNegocio: ${business}` : ''}\n\n${message}`,
-          html: `<p><b>Nombre:</b> ${esc(name)}<br><b>Email:</b> ${esc(email)}${business ? `<br><b>Negocio:</b> ${esc(business)}` : ''}</p><p>${esc(message).replace(/\n/g, '<br>')}</p>`,
-        }),
-      });
-      if (!r.ok) {
-        const t = await r.text();
-        console.error('Resend error', r.status, t);
-        return send(res, 502, { ok: false, error: 'El servicio de correo rechazó el envío' });
-      }
-      send(res, 200, { ok: true });
-    } catch (e) {
-      console.error('Resend fetch error', e);
-      send(res, 502, { ok: false, error: 'No se pudo contactar al servicio de correo' });
-    }
+    const lead = { name, email, business, message };
+    const to = (process.env.CONTACT_TO || process.env.ADMIN_EMAIL || 'santiagodelorrio2013@gmail.com').trim();
+    const [s1, o1] = mail.T.lead(lead);
+    const r = await mail.send(to, s1, o1, { reply_to: email });
+    if (!r.ok) return send(res, 502, { ok: false, error: r.error, fallback: true });
+    const [s2, o2] = mail.T.leadReply(lead);
+    mail.send(email, s2, o2); // respuesta automática (no bloquea)
+    send(res, 200, { ok: true });
   });
 }
 

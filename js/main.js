@@ -7,7 +7,15 @@
   document.getElementById('modal').addEventListener('click', function(e){
     if(e.target === this) closeModal();
   });
-  // formularios de contacto → Web3Forms (envía el mail a santiagodelorrio2013@gmail.com)
+  function showToast(msg){
+    var t = document.getElementById('toast'), tx = document.getElementById('toast-text');
+    if(!t) return;
+    if(tx) tx.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(function(){ t.classList.remove('show'); }, 4200);
+  }
+  // formularios de contacto → /api/contact (Resend + respuesta automática); si falla la config, Web3Forms
   (function(){
     var forms = document.querySelectorAll('[data-contact-form]');
     Array.prototype.forEach.call(forms, function(form){
@@ -18,7 +26,28 @@
         var label = btn.innerHTML;
         btn.disabled = true; btn.textContent = 'Enviando…';
         var negocio = form.negocio ? form.negocio.value.trim() : '';
-        fetch('https://api.web3forms.com/submit', {
+        var data = { nombre: form.nombre.value, email: form.email.value, negocio: negocio, mensaje: form.mensaje.value, botcheck: form.botcheck && form.botcheck.checked };
+        // 1) servidor propio (Resend, con respuesta automática) · 2) si no está configurado, Web3Forms
+        fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+          .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(d){ return { status: r.status, d: d }; }); })
+          .then(function(x){
+            if(x.d.ok) return { own: true };
+            if(x.d.fallback || x.status >= 500 || x.status === 404) return web3(form, negocio);
+            throw new Error(x.d.error || 'error');
+          })
+          .then(function(res){
+            if(form.id === 'contact-form') closeModal();
+            form.reset();
+            showToast(res && res.own ? '¡Mensaje enviado! Te llega una confirmación a tu email.' : '¡Mensaje enviado! Gracias por escribir.');
+          })
+          .catch(function(err){
+            showToast((err && err.message) || 'No se pudo enviar. Probá por WhatsApp.');
+          })
+          .then(function(){ btn.disabled = false; btn.innerHTML = label; });
+      });
+    });
+    function web3(form, negocio){
+        return fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify({
@@ -31,19 +60,8 @@
             botcheck: form.botcheck && form.botcheck.checked
           })
         }).then(function(r){ return r.json(); })
-          .then(function(d){
-            if(!(d.ok || d.success)) throw new Error(d.message || d.error || 'error');
-            if(form.id === 'contact-form') closeModal();
-            form.reset();
-            showToast('Mensaje enviado. ¡Gracias por escribir!');
-          })
-          .catch(function(err){
-            console.warn('Formulario:', err && err.message);
-            showToast('No se pudo enviar (' + ((err && err.message) || 'error') + ').');
-          })
-          .then(function(){ btn.disabled = false; btn.innerHTML = label; });
-      });
-    });
+          .then(function(d){ if(!(d.ok || d.success)) throw new Error('No se pudo enviar. Probá por WhatsApp.'); return d; });
+    }
   })();
 
   // contacto: aparición + globo de líneas (canvas, sin librerías)
