@@ -114,12 +114,13 @@
     if (loading) { again = true; return Promise.resolve(); }
     loading = true;
     return D.api('projects').then(function (d) {
-      S.client = d.client; S.projects = d.projects; S.mail = !!d.mail;
+      S.client = d.client; S.projects = d.projects; S.mail = !!d.mail; S.mp = !!d.mp;
       if (!S.cur || !S.projects.some(function (p) { return p.id === S.cur; })) {
         var act = S.projects.find(function (p) { return p.status === 'activo'; });
         S.cur = (act || S.projects[0] || {}).id || null;
       }
       render();
+      if (first) payReturn();
       if (first && location.hash) { var target = document.getElementById(location.hash.slice(1)); if (target) setTimeout(function () { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 300); }
       if (first && !S.streaming) {
         S.streaming = true;
@@ -129,6 +130,24 @@
     }).catch(function (e) {
       if (e.status === 401) renderLogin(); else D.toast(e.message, 'bad');
     }).then(function () { loading = false; if (again) { again = false; load(); } });
+  }
+
+  // vuelta desde Mercado Pago
+  function payReturn() {
+    var q = new URLSearchParams(location.search), st = q.get('pago');
+    if (!st) return;
+    var pid = q.get('payment_id') || q.get('collection_id');
+    var ref = (q.get('external_reference') || '').split(':')[0];
+    history.replaceState(null, '', '/panel/#pays');
+    if (st === 'error') { D.toast('El pago no se completó. Podés intentarlo de nuevo.', 'bad'); return; }
+    if (ref) S.cur = ref;
+    if (!pid || !ref) { D.toast(st === 'ok' ? '¡Gracias! Estamos confirmando tu pago.' : 'Tu pago está en proceso.', 'ok'); return; }
+    D.api('p/' + ref + '/pay-check', { method: 'POST', body: { paymentId: pid } }).then(function (r) {
+      if (r.status === 'paid') D.toast('¡Pago acreditado! Gracias 🙌', 'ok');
+      else if (r.status === 'pending' || r.status === 'in_process') D.toast('Tu pago está en proceso. Te avisamos cuando se acredite.', 'ok');
+      else D.toast('Estamos confirmando tu pago con Mercado Pago.', 'ok');
+      load();
+    }).catch(function () {});
   }
 
   // ---------------- render ----------------
@@ -295,6 +314,8 @@
       return Array.prototype.map.call(new Uint8Array(buf), function (x) { return ('0' + x.toString(16)).slice(-2); }).join('');
     });
   }
+  var MP_LOGO = '<svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="12" rx="11" ry="7.5" fill="#fff"/><path d="M6.2 12.4c1.3-1.4 3-2.6 5.8-2.6s4.5 1.2 5.8 2.6M8.6 12.6l2.1 1.6c.7.5 1.9.5 2.6 0l2.1-1.6" fill="none" stroke="#00a0e3" stroke-width="1.6" stroke-linecap="round"/></svg>';
+
   function contractCard(p) {
     var k = p.contract;
     if (!k || k.status !== 'signed') return '';
@@ -346,10 +367,12 @@
     if (!p.payments.length) return '';
     var byCur = {};
     p.payments.forEach(function (x) { byCur[x.currency] = byCur[x.currency] || { tot: 0, paid: 0 }; byCur[x.currency].tot += x.amount; if (x.status === 'pagado') byCur[x.currency].paid += x.amount; });
-    var out = '<section class="card" id="pays"><div class="card-h"><h3>' + ic('card') + 'Pagos</h3></div><div class="pays">';
+    var out = '<section class="card" id="pays"><div class="card-h"><h3>' + ic('card') + 'Pagos</h3>' + (S.mp && p.payments.some(function (x) { return x.status !== 'pagado'; }) ? '<span class="dim" style="font-size:12px">Tarjeta, débito o saldo MP</span>' : '') + '</div><div class="pays">';
     p.payments.forEach(function (x) {
-      out += '<div class="pay"><div><b>' + D.money(x.amount, x.currency) + '</b><small>' + esc(x.label) + (x.status === 'pagado' && x.paidAt ? ' · pagado el ' + D.date(x.paidAt) : x.dueDate ? ' · vence ' + D.date(x.dueDate) : '') + '</small></div>' +
-        (x.status === 'pagado' ? '<span class="chip ok">Pagado</span>' : '<span class="chip warn">Pendiente</span>') + '</div>';
+      var canPay = S.mp && x.status !== 'pagado' && x.amount > 0;
+      out += '<div class="pay' + (canPay ? ' pay-can' : '') + '"><div><b>' + D.money(x.amount, x.currency) + '</b><small>' + esc(x.label) + (x.status === 'pagado' && x.paidAt ? ' · pagado el ' + D.date(x.paidAt) + (x.method === 'Mercado Pago' ? ' con Mercado Pago' : '') : x.dueDate ? ' · vence ' + D.date(x.dueDate) : '') + '</small></div>' +
+        (x.status === 'pagado' ? '<span class="chip ok">Pagado</span>' : x.mpStatus === 'pending' ? '<span class="chip info" title="Mercado Pago está procesando el pago">En proceso</span>' : '<span class="chip warn">Pendiente</span>') +
+        (canPay && x.mpStatus !== 'pending' ? '<button class="btn btn-mp btn-block" data-pay="' + x.id + '">' + MP_LOGO + 'Pagar con Mercado Pago</button>' : '') + '</div>';
     });
     out += '</div>';
     Object.keys(byCur).forEach(function (k) {
@@ -434,6 +457,13 @@
       });
     });
 
+    D.$$('[data-pay]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        b.disabled = true; b.innerHTML = '<span class="spin" style="width:16px;height:16px;border-width:2px"></span>Abriendo Mercado Pago…';
+        D.api('p/' + p.id + '/pay/' + b.dataset.pay, { method: 'POST' }).then(function (r) { location.href = r.url; })
+          .catch(function (e) { D.toast(e.message, 'bad'); b.disabled = false; b.innerHTML = MP_LOGO + 'Pagar con Mercado Pago'; });
+      });
+    });
     D.$$('[data-task]').forEach(function (i) {
       i.addEventListener('change', function () {
         i.closest('.check').classList.toggle('is-done', i.checked);

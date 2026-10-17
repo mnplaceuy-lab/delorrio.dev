@@ -77,7 +77,7 @@
     if (loading) { again = true; return Promise.resolve(); }
     loading = true;
     return D.api('admin/state').then(function (d) {
-      S.clients = d.clients; S.projects = d.projects; S.plans = d.plans; S.settings = d.settings || {}; S.mail = !!d.mail;
+      S.clients = d.clients; S.projects = d.projects; S.plans = d.plans; S.settings = d.settings || {}; S.mail = !!d.mail; S.mp = !!d.mp;
       if (S.view === 'project' && !proj(S.pid)) { S.view = 'projects'; S.edit = null; }
       if (S.view === 'project' && S.edit && !S.edit.dirty) S.edit = mkEdit(proj(S.pid));
       if (typing()) pendingRender = true; else render();
@@ -93,7 +93,7 @@
       .then(function () { loading = false; if (again) { again = false; load(); } });
   }
 
-  var NOTE = { comment: 'te envió un mensaje', approve: 'aprobó una etapa', changes: 'pidió cambios', file: 'subió un archivo', task: 'actualizó sus pendientes' };
+  var NOTE = { paid: 'pagó con Mercado Pago 💸', signed: 'firmó el contrato ✍️', comment: 'te envió un mensaje', approve: 'aprobó una etapa', changes: 'pidió cambios', file: 'subió un archivo', task: 'actualizó sus pendientes' };
   function notify(ev) {
     if (!NOTE[ev.type]) return;
     var p = proj(ev.projectId);
@@ -354,11 +354,13 @@
         '<select class="select" data-py="' + i + '" data-k="currency" aria-label="Moneda">' + opt('UYU', 'UYU', x.currency) + opt('USD', 'USD', x.currency) + '</select>' +
         '<input class="input" type="date" data-py="' + i + '" data-k="dueDate" value="' + esc(x.dueDate || '') + '" aria-label="Vencimiento">' +
         '<select class="select" data-py="' + i + '" data-k="status" aria-label="Estado">' + opt('pendiente', 'Pendiente', x.status) + opt('pagado', 'Pagado', x.status) + '</select>' +
-        '<button class="btn btn-ghost btn-icon" data-pydel="' + i + '" aria-label="Eliminar">' + ic('trash') + '</button></div>';
+        '<button class="btn btn-ghost btn-icon" data-pydel="' + i + '" aria-label="Eliminar">' + ic('trash') + '</button>' +
+        (x.method === 'Mercado Pago' && x.status === 'pagado' ? '<div style="grid-column:1/-1;font-size:12.5px;color:var(--muted)"><span class="mp-chip">Mercado Pago</span> Pagado online el ' + D.date(x.paidAt) + ' · operación <span class="mono">' + esc(x.mpId || '') + '</span></div>' : x.mpStatus === 'pending' ? '<div style="grid-column:1/-1;font-size:12.5px;color:var(--muted)"><span class="mp-chip">Mercado Pago</span> Pago en proceso (operación ' + esc(x.mpId || '') + ')</div>' : '') + '</div>';
     }).join('') : '<div class="empty">Sin pagos cargados.</div>';
     var t = {};
     E.payments.forEach(function (x) { t[x.currency] = t[x.currency] || { a: 0, p: 0 }; t[x.currency].a += Number(x.amount) || 0; if (x.status === 'pagado') t[x.currency].p += Number(x.amount) || 0; });
     h += '<button class="btn btn-sm" data-pyadd style="margin-top:14px">' + ic('plus') + 'Agregar pago</button>';
+    h += '<p class="dim" style="font-size:12.5px;margin:12px 0 0">' + (S.mp ? 'El cliente puede pagar cada pago pendiente con <b style="color:var(--text)">Mercado Pago</b> desde su panel; se marca solo como pagado.' : 'Mercado Pago no está conectado: el cliente ve los pagos pero no puede pagar online.') + '</p>';
     h += Object.keys(t).map(function (k) { return '<div class="sum-row"><span>Total ' + k + ': <b>' + D.money(t[k].a, k) + '</b></span><span>Cobrado: <b style="color:var(--ok)">' + D.money(t[k].p, k) + '</b></span><span>Pendiente: <b style="color:var(--warn)">' + D.money(t[k].a - t[k].p, k) + '</b></span></div>'; }).join('');
     return h + '</section>';
   }
@@ -420,8 +422,10 @@
       '<div class="grid2"><label class="field"><span>Documento (CI o RUT)</span><input class="input" id="s-doc" value="' + esc(pv.doc || '') + '" placeholder="Ej.: 1.234.567-8"></label>' +
       '<label class="field"><span>Ciudad (para la jurisdicción)</span><input class="input" id="s-city" value="' + esc(pv.city || '') + '" placeholder="Ej.: Rivera"></label></div>' +
       '<div style="display:flex;justify-content:flex-end"><button class="btn btn-primary" id="s-save">' + ic('check') + 'Guardar</button></div></div></section>' +
+      '<div style="display:grid;gap:20px;min-width:0"><section class="card"><div class="card-h"><h3>' + ic('card') + 'Mercado Pago</h3>' + (S.mp ? '<span class="chip ok">Conectado</span>' : '<span class="chip bad">Sin conectar</span>') + '</div>' +
+      '<p class="muted" style="margin:0;font-size:14px">' + (S.mp ? 'Tus clientes pueden pagar la seña y el saldo online desde su panel. Cada pago aprobado se marca solo y te llega un email.' : 'Agregá MP_ACCESS_TOKEN en Railway para que tus clientes paguen online desde su panel.') + '</p></section>' +
       '<section class="card"><div class="card-h"><h3>' + ic('send') + 'Emails</h3>' + (S.mail ? '<span class="chip ok">Activos</span>' : '<span class="chip bad">Desactivados</span>') + '</div>' +
-      '<p class="muted" style="margin:0;font-size:14px">' + (S.mail ? 'Las invitaciones, avisos y copias de contratos se envían desde tu dominio con Resend.' : 'Configurá RESEND_API_KEY y MAIL_FROM en Railway para enviar invitaciones, avisos y copias de contratos.') + '</p></section></div>';
+      '<p class="muted" style="margin:0;font-size:14px">' + (S.mail ? 'Las invitaciones, avisos y copias de contratos se envían desde tu dominio con Resend.' : 'Configurá RESEND_API_KEY y MAIL_FROM en Railway para enviar invitaciones, avisos y copias de contratos.') + '</p></section></div></div>';
   }
 
   function tArchivos(p) {

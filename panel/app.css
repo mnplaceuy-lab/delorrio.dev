@@ -395,3 +395,11 @@ button,input,select,textarea{font:inherit;color:inherit}
 .c-steps b{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.08);color:inherit;font-size:11px}
 .c-steps span.on b{background:var(--accent);color:var(--accent-ink)}
 .c-steps span.ok b{background:var(--ok);color:#032015}
+
+/* ---------- Mercado Pago ---------- */
+.pay.pay-can{flex-wrap:wrap}
+.pay.pay-can>.btn{flex:1 1 100%;margin-top:4px}
+.btn-mp{background:#009ee3;border-color:transparent;color:#fff}
+.btn-mp:hover{background:#0b8fd0;border-color:transparent}
+.btn-mp svg{width:22px;height:22px}
+.mp-chip{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:999px;background:rgba(0,158,227,.14);color:#4cc3ff;font-size:11.5px;font-weight:700;border:1px solid rgba(0,158,227,.35)}
